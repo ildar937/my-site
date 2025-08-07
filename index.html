@@ -2,64 +2,64 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Портфолио Ильдара: AI-дизайн и тексты, примеры До/После">
   <title>Ильдар | AI-дизайн и тексты</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      background-color: #f8f5f2;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 28px;
-      margin-top: 10px;
-    }
-    h2 {
-      margin-top: 40px;
-    }
-    .block {
-      margin: 30px 0;
-    }
-    img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 8px;
-      margin: 10px 0;
-    }
-    b {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico">
 </head>
 <body>
-  <img src="avatar.png" alt="Аватар" width="120">
-  <h1>Ильдар | AI-дизайн и тексты</h1>
 
-  <h2>Портфолио: До / После</h2>
+  <header class="site-header">
+    <h1 class="logo">Ильдар</h1>
+    <nav class="nav">
+      <a href="#portfolio">Портфолио</a>
+      <a href="#contact">Связаться</a>
+    </nav>
+  </header>
 
-  <div class="block">
-    <img src="before-1.png" alt="До 1">
-    <b>До</b>
-    <img src="after-1.png" alt="После 1">
-    <b>После</b>
-  </div>
+  <main>
+    <section id="portfolio" class="portfolio">
+      <h2>Портфолио: До / После</h2>
+      <div class="gallery">
+        <div class="item">
+          <img src="before1.jpg" alt="До 1">
+          <img src="after1.jpg" alt="После 1">
+        </div>
+        <div class="item">
+          <img src="before2.jpg" alt="До 2">
+          <img src="after2.jpg" alt="После 2">
+        </div>
+        <div class="item">
+          <img src="before3.jpg" alt="До 3">
+          <img src="after3.jpg" alt="После 3">
+        </div>
+      </div>
+    </section>
 
-  <div class="block">
-    <img src="before-2.png" alt="До 2">
-    <b>До</b>
-    <img src="after-2.png" alt="После 2">
-    <b>После</b>
-  </div>
+    <section id="contact" class="contact">
+      <h2>Связаться со мной</h2>
+      <form action="https://formspree.io/f/ваш-id" method="POST">
+        <label>
+          Ваше имя
+          <input type="text" name="name" required>
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+        <label>
+          Сообщение
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <button type="submit">Отправить</button>
+      </form>
+    </section>
+  </main>
 
-  <div class="block">
-    <img src="before-3.png" alt="До 3">
-    <b>До</b>
-    <img src="after-3.png" alt="После 3">
-    <b>После</b>
-  </div>
+  <footer class="site-footer">
+    <p>© 2025 Ильдар. Все права защищены.</p>
+  </footer>
 
 </body>
 </html>
