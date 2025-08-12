@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>До / После — 4 слайдера</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b0c10;color:#e8e8e8}
@@ -51,8 +52,8 @@
     <div class="contacts" aria-label="Контакты">
       <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram (личный)</a>
       <a class="pill" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Канал (AI До/После)</a>
-      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7.">Email</a>
-      <a class="pill" href="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/price_a4.png" target="_blank" rel="noopener">Скачать прайс (PNG)</a>
+      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%B7%D0%B0%D0%B7.">Email</a>
+      <a id="price-link" class="pill" href="#" target="_blank" rel="noopener">Скачать прайс (PNG)</a>
     </div>
 
     <div class="grid">
@@ -61,8 +62,8 @@
         <h2>Кроссовки</h2>
         <div class="ba" data-swap="1">
           <div class="ba-images">
-            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-after.jpg"  alt="Кроссовки — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-before.jpg" alt="Кроссовки — До">
+            <img class="ba-after"  data-name="krossovki-after.jpg"  alt="Кроссовки — После">
+            <img class="ba-before" data-name="krossovki-before.jpg" alt="Кроссовки — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -75,8 +76,8 @@
         <h2>Товар</h2>
         <div class="ba" data-swap="1">
           <div class="ba-images">
-            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-after.jpg"  alt="Товар — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-before.jpg" alt="Товар — До">
+            <img class="ba-after"  data-name="product-after.jpg"  alt="Товар — После">
+            <img class="ba-before" data-name="product-before.jpg" alt="Товар — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -89,8 +90,8 @@
         <h2>Наушники</h2>
         <div class="ba" data-swap="1">
           <div class="ba-images">
-            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-after.jpg"  alt="Наушники — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-before.jpg" alt="Наушники — До">
+            <img class="ba-after"  data-name="headphones-after.jpg"  alt="Наушники — После">
+            <img class="ba-before" data-name="headphones-before.jpg" alt="Наушники — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -103,8 +104,8 @@
         <h2>Часы</h2>
         <div class="ba" data-swap="1">
           <div class="ba-images">
-            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-after.jpg"  alt="Часы — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-before.jpg" alt="Часы — До">
+            <img class="ba-after"  data-name="watch-after.jpg"  alt="Часы — После">
+            <img class="ba-before" data-name="watch-before.jpg" alt="Часы — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -120,22 +121,60 @@
   <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener" title="WhatsApp"><small>WA</small></a>
 
   <script>
-    // Инициализация слайдеров + автосвап, если data-swap="1"
+    // Пара путей: 1) assets/, 2) закодированная папка "авуары/"
+    const PATHS = ["assets/", "%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/"];
+    const CACHE_Q = "?v=" + Date.now();
+
+    // Установить src с падением на второй путь при ошибке
+    function setWithFallback(img, filename) {
+      let tried = 0;
+      function tryNext() {
+        img.src = PATHS[tried] + filename + CACHE_Q;
+      }
+      img.onerror = () => {
+        tried++;
+        if (tried < PATHS.length) { img.onerror = null; tryNext(); }
+      };
+      tryNext();
+    }
+
+    // Инициализация всех слайдеров
     (function(){
       document.querySelectorAll('.ba').forEach((ba)=>{
-        if(ba.dataset.swap==="1"){
-          const bef=ba.querySelector('.ba-before'), aft=ba.querySelector('.ba-after');
-          const t=bef.src; bef.src=aft.src; aft.src=t;
+        const bef = ba.querySelector('.ba-before');
+        const aft = ba.querySelector('.ba-after');
+
+        // имена файлов
+        let beforeName = bef.dataset.name;
+        let afterName  = aft.dataset.name;
+
+        // если файлы перепутаны — меняем местами
+        if (ba.dataset.swap === "1") {
+          const t = beforeName; beforeName = afterName; afterName = t;
         }
-        const range=ba.querySelector('.ba-range');
-        const set=(p)=>{p=Math.max(0,Math.min(100,+p)); ba.style.setProperty('--pos',p+'%'); range.value=p;}
-        set(50);
-        range.addEventListener('input',e=>set(e.target.value));
-        const move=(e)=>{const r=ba.getBoundingClientRect(); const x=Math.max(r.left,Math.min(e.clientX,r.right))-r.left; set((x/r.width)*100);}
-        ba.addEventListener('pointerdown',e=>{ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove',move);});
-        ba.addEventListener('pointerup',e=>{ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove',move);});
-        ba.addEventListener('pointerleave',()=>ba.removeEventListener('pointermove',move));
+
+        // грузим с fallback (assets/ -> "авуары/")
+        setWithFallback(bef, beforeName);
+        setWithFallback(aft, afterName);
+
+        // слайдер
+        const range = ba.querySelector('.ba-range');
+        const setPos = (p)=>{ p=Math.max(0,Math.min(100,+p)); ba.style.setProperty('--pos',p+'%'); range.value=p; };
+        setPos(50);
+        range.addEventListener('input', e=>setPos(e.target.value));
+        const move = (e)=>{ const r=ba.getBoundingClientRect(); const x=Math.max(r.left,Math.min(e.clientX,r.right))-r.left; setPos((x/r.width)*100); };
+        ba.addEventListener('pointerdown', e=>{ ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove', move); });
+        ba.addEventListener('pointerup',   e=>{ ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove', move); });
+        ba.addEventListener('pointerleave',()=> ba.removeEventListener('pointermove', move));
       });
+
+      // Прайс: ставим ссылку с тем же fallback (assets -> "авуары")
+      const priceLink = document.getElementById('price-link');
+      const trySrc = PATHS[0] + "price_a4.png" + CACHE_Q;
+      const img = new Image();
+      img.onload  = ()=> priceLink.href = trySrc;
+      img.onerror = ()=> priceLink.href = PATHS[1] + "price_a4.png" + CACHE_Q;
+      img.src = trySrc;
     })();
   </script>
 </body>
