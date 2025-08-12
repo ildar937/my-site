@@ -67,17 +67,22 @@
   </div>
 
   <script>
-    // Логика ползунка (мышь/тач)
-    document.querySelectorAll('.ba').forEach(w=>{
+    // Исправлено: при движении ВЛЕВО показываем больше "До", ВПРАВО — "После"
+    document.querySelectorAll('.ba').forEach(w => {
       const range = w.querySelector('.ba-r');
-      const set = v => w.style.setProperty('--pos', v + '%');
+      const set = v => w.style.setProperty('--pos', (100 - v) + '%'); // инверсия
+      set(range.value); // стартовая позиция
+
       range.addEventListener('input', e => set(e.target.value));
+
+      // Перетаскивание по всей области
       w.addEventListener('pointerdown', e => {
         const rect = w.getBoundingClientRect();
         const move = ev => {
-          const x = (ev.clientX ?? (ev.touches && ev.touches[0].clientX));
-          const p = Math.max(0, Math.min(100, (x - rect.left)/rect.width*100));
-          set(p); range.value = p;
+          const x = (ev.clientX ?? ev.touches?.[0]?.clientX);
+          const p = Math.max(0, Math.min(100, (x - rect.left) / rect.width * 100));
+          set(p);
+          range.value = p;
         };
         move(e);
         const stop = () => {
