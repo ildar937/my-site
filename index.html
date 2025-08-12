@@ -9,7 +9,7 @@
     h1,h2{text-align:center;margin:12px 0}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px;margin:0 auto}
     .card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-    .card img{width:100%;height:auto;display:block;border-radius:12px;object-fit:cover;background:#eee}
+    .card picture, .card img{width:100%;display:block;border-radius:12px;background:#eee}
     @media (max-width:720px){.grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -20,14 +20,16 @@
   <div class="grid">
     <div class="card">
       <picture>
-        <source srcset="./krossovki-before.png?v=2" type="image/png">
-        <img src="./krossovki-before.jpg?v=2" alt="Кроссовки — До">
+        <source srcset="assets/krossovki-before.webp" type="image/webp">
+        <source srcset="assets/krossovki-before.png"  type="image/png">
+        <img src="assets/krossovki-before.jpg" alt="Кроссовки — До">
       </picture>
     </div>
     <div class="card">
       <picture>
-        <source srcset="./krossovki-after.png?v=2" type="image/png">
-        <img src="./krossovki-after.jpg?v=2" alt="Кроссовки — После">
+        <source srcset="assets/krossovki-after.webp" type="image/webp">
+        <source srcset="assets/krossovki-after.png"  type="image/png">
+        <img src="assets/krossovki-after.jpg" alt="Кроссовки — После">
       </picture>
     </div>
   </div>
@@ -36,14 +38,16 @@
   <div class="grid">
     <div class="card">
       <picture>
-        <source srcset="./product-before.png?v=2" type="image/png">
-        <img src="./product-before.jpg?v=2" alt="Товар — До">
+        <source srcset="assets/product-before.webp" type="image/webp">
+        <source srcset="assets/product-before.png"  type="image/png">
+        <img src="assets/product-before.jpg" alt="Товар — До">
       </picture>
     </div>
     <div class="card">
       <picture>
-        <source srcset="./product-after.png?v=2" type="image/png">
-        <img src="./product-after.jpg?v=2" alt="Товар — После">
+        <source srcset="assets/product-after.webp" type="image/webp">
+        <source srcset="assets/product-after.png"  type="image/png">
+        <img src="assets/product-after.jpg" alt="Товар — После">
       </picture>
     </div>
   </div>
