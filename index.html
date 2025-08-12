@@ -1,55 +1,100 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Примеры работ: До / После</title>
-  <style>
-    body{font-family:system-ui,Arial,sans-serif;margin:0;padding:24px;background:#fafafa;color:#111}
-    h1,h2{text-align:center;margin:12px 0}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px;margin:0 auto}
-    .card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-    .card picture, .card img{width:100%;display:block;border-radius:12px;background:#eee}
-    @media (max-width:720px){.grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Примеры работ: До / После</title>
+<style>
+  body{font-family:system-ui,Arial,sans-serif;margin:0;padding:24px;background:#fafafa;color:#111}
+  h1,h2{text-align:center;margin:12px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px;margin:0 auto}
+  .card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);min-height:200px}
+  .card img{width:100%;height:auto;display:block;border-radius:12px;object-fit:cover;background:#eee}
+  .note{font-size:14px;text-align:center;opacity:.7}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
   <h1>Примеры работ: До / После</h1>
 
   <h2>Кроссовки</h2>
   <div class="grid">
-    <div class="card">
-      <picture>
-        <source srcset="assets/krossovki-before.webp" type="image/webp">
-        <source srcset="assets/krossovki-before.png"  type="image/png">
-        <img src="assets/krossovki-before.jpg" alt="Кроссовки — До">
-      </picture>
-    </div>
-    <div class="card">
-      <picture>
-        <source srcset="assets/krossovki-after.webp" type="image/webp">
-        <source srcset="assets/krossovki-after.png"  type="image/png">
-        <img src="assets/krossovki-after.jpg" alt="Кроссовки — После">
-      </picture>
-    </div>
+    <div class="card"><img id="img1" alt="Кроссовки — До"></div>
+    <div class="card"><img id="img2" alt="Кроссовки — После"></div>
   </div>
 
   <h2>Товар</h2>
   <div class="grid">
-    <div class="card">
-      <picture>
-        <source srcset="assets/product-before.webp" type="image/webp">
-        <source srcset="assets/product-before.png"  type="image/png">
-        <img src="assets/product-before.jpg" alt="Товар — До">
-      </picture>
-    </div>
-    <div class="card">
-      <picture>
-        <source srcset="assets/product-after.webp" type="image/webp">
-        <source srcset="assets/product-after.png"  type="image/png">
-        <img src="assets/product-after.jpg" alt="Товар — После">
-      </picture>
-    </div>
+    <div class="card"><img id="img3" alt="Товар — До"></div>
+    <div class="card"><img id="img4" alt="Товар — После"></div>
   </div>
+
+  <p class="note" id="log"></p>
+
+<script>
+(async () => {
+  const owner  = "ildar937";
+  const repo   = "my-site";
+  const branch = "main";
+  const treeURL = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
+  const RAW = (path) => `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encodeURI(path)}`;
+
+  const log = (t) => document.getElementById('log').textContent = t;
+
+  try {
+    const res = await fetch(treeURL);
+    if(!res.ok) throw new Error("GitHub API недоступен");
+    const data = await res.json();
+    const files = (data.tree || [])
+      .filter(x => x.type === "blob")
+      .map(x => x.path);
+
+    // Утилита поиска: все ключевые слова должны встретиться в имени файла (без пути)
+    const find = (mustHave=[]) => {
+      const lc = files.map(p => [p, p.split('/').pop().toLowerCase()]);
+      for (const [full, base] of lc) {
+        let ok = true;
+        for (const k of mustHave) if (!base.includes(k)) { ok = false; break; }
+        if (ok) return full;
+      }
+      return null;
+    };
+
+    // Подбираем пары
+    const krosBefore = find(["kross","before"])  || find(["kros","before"]) || find(["krossov","before"]);
+    const krosAfter  = find(["kross","after"])   || find(["kros","after"])  || find(["krossov","after"]);
+    const prodBefore = find(["product","before"])|| find(["tovar","before"])|| find(["before","prod"]);
+    const prodAfter  = find(["product","after"]) || find(["tovar","after"]) || find(["after","prod"]);
+
+    // Фоллбек: любые before/after, если точных нет
+    const anyBefore = find(["before"]) || find(["до"]) || find(["bef"]);
+    const anyAfter  = find(["after"])  || find(["после"]) || find(["aft"]);
+
+    const map = [
+      ["img1", krosBefore || anyBefore],
+      ["img2", krosAfter  || anyAfter],
+      ["img3", prodBefore || anyBefore],
+      ["img4", prodAfter  || anyAfter],
+    ];
+
+    let shown = 0;
+    for (const [id, path] of map) {
+      const el = document.getElementById(id);
+      if (path) {
+        el.src = RAW(path) + "?v=10";
+        el.onerror = () => { el.alt = "Файл не найден: " + path; };
+        shown++;
+      } else {
+        el.alt = "Не найден подходящий файл";
+      }
+    }
+    log(`Найдено файлов: ${shown}/4. Если чего-то не видно — скажи точные имена, подставлю в код.`);
+
+  } catch (e) {
+    log("Ошибка загрузки списка файлов: " + e.message);
+    console.error(e);
+  }
+})();
+</script>
 </body>
 </html>
