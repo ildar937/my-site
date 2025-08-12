@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px;margin:0 auto}
   .card{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);min-height:200px}
   .card img{width:100%;height:auto;display:block;border-radius:12px;object-fit:cover;background:#eee}
-  .note{font-size:14px;text-align:center;opacity:.7}
+  .hint{font:12px/1.4 system-ui,Arial;color:#666;text-align:center;margin-top:6px}
   @media (max-width:720px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -19,81 +19,62 @@
 
   <h2>Кроссовки</h2>
   <div class="grid">
-    <div class="card"><img id="img1" alt="Кроссовки — До"></div>
-    <div class="card"><img id="img2" alt="Кроссовки — После"></div>
+    <div class="card"><img id="img1" alt="Кроссовки — До"><div class="hint" id="h1"></div></div>
+    <div class="card"><img id="img2" alt="Кроссовки — После"><div class="hint" id="h2"></div></div>
   </div>
 
   <h2>Товар</h2>
   <div class="grid">
-    <div class="card"><img id="img3" alt="Товар — До"></div>
-    <div class="card"><img id="img4" alt="Товар — После"></div>
+    <div class="card"><img id="img3" alt="Товар — До"><div class="hint" id="h3"></div></div>
+    <div class="card"><img id="img4" alt="Товар — После"><div class="hint" id="h4"></div></div>
   </div>
 
-  <p class="note" id="log"></p>
-
 <script>
-(async () => {
-  const owner  = "ildar937";
-  const repo   = "my-site";
-  const branch = "main";
-  const treeURL = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-  const RAW = (path) => `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${encodeURI(path)}`;
+(function(){
+  // Возможные папки (и их URL-кодированные варианты для кириллицы)
+  const dirs = [
+    "", "assets/", "assets/images/", "Изображения/", "авары/Изображения/",
+    "%D0%98%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F/",
+    "%D0%B0%D0%B2%D0%B0%D1%80%D1%8B/%D0%98%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F/"
+  ];
+  const exts = [".webp",".png",".jpg",".jpeg"];
+  const base = "/my-site/";
 
-  const log = (t) => document.getElementById('log').textContent = t;
-
-  try {
-    const res = await fetch(treeURL);
-    if(!res.ok) throw new Error("GitHub API недоступен");
-    const data = await res.json();
-    const files = (data.tree || [])
-      .filter(x => x.type === "blob")
-      .map(x => x.path);
-
-    // Утилита поиска: все ключевые слова должны встретиться в имени файла (без пути)
-    const find = (mustHave=[]) => {
-      const lc = files.map(p => [p, p.split('/').pop().toLowerCase()]);
-      for (const [full, base] of lc) {
-        let ok = true;
-        for (const k of mustHave) if (!base.includes(k)) { ok = false; break; }
-        if (ok) return full;
-      }
-      return null;
-    };
-
-    // Подбираем пары
-    const krosBefore = find(["kross","before"])  || find(["kros","before"]) || find(["krossov","before"]);
-    const krosAfter  = find(["kross","after"])   || find(["kros","after"])  || find(["krossov","after"]);
-    const prodBefore = find(["product","before"])|| find(["tovar","before"])|| find(["before","prod"]);
-    const prodAfter  = find(["product","after"]) || find(["tovar","after"]) || find(["after","prod"]);
-
-    // Фоллбек: любые before/after, если точных нет
-    const anyBefore = find(["before"]) || find(["до"]) || find(["bef"]);
-    const anyAfter  = find(["after"])  || find(["после"]) || find(["aft"]);
-
-    const map = [
-      ["img1", krosBefore || anyBefore],
-      ["img2", krosAfter  || anyAfter],
-      ["img3", prodBefore || anyBefore],
-      ["img4", prodAfter  || anyAfter],
-    ];
-
-    let shown = 0;
-    for (const [id, path] of map) {
-      const el = document.getElementById(id);
-      if (path) {
-        el.src = RAW(path) + "?v=10";
-        el.onerror = () => { el.alt = "Файл не найден: " + path; };
-        shown++;
-      } else {
-        el.alt = "Не найден подходящий файл";
+  function tryPaths(fileBases){
+    // Собираем матрицу путей: все папки × все базовые имена × все расширения
+    const paths = [];
+    for(const d of dirs){
+      for(const b of fileBases){
+        for(const e of exts){
+          paths.push(base + d + b + e + "?v=999999");
+        }
       }
     }
-    log(`Найдено файлов: ${shown}/4. Если чего-то не видно — скажи точные имена, подставлю в код.`);
-
-  } catch (e) {
-    log("Ошибка загрузки списка файлов: " + e.message);
-    console.error(e);
+    return paths;
   }
+
+  function loadFirst(imgEl, hintEl, candidates){
+    let i = 0;
+    const next = () => {
+      if(i >= candidates.length){ hintEl.textContent = "Не найдено"; return; }
+      const url = candidates[i++];
+      imgEl.onerror = next;
+      imgEl.onload  = () => { hintEl.textContent = url.replace(/\?v=.*/,""); };
+      imgEl.src = url;
+    };
+    next();
+  }
+
+  // Поддержим любые написания: krossovki/kros/krossov, product/tovar и т.д.
+  const KB = tryPaths(["krossovki-before","kross-before","kros-before","krossov-before","before-2","before-1"]);
+  const KA = tryPaths(["krossovki-after","kross-after","kros-after","krossov-after","after-2","after-1"]);
+  const PB = tryPaths(["product-before","tovar-before","prod-before","before-3","before-1"]);
+  const PA = tryPaths(["product-after","tovar-after","prod-after","after-3","after-1"]);
+
+  loadFirst(document.getElementById("img1"), document.getElementById("h1"), KB);
+  loadFirst(document.getElementById("img2"), document.getElementById("h2"), KA);
+  loadFirst(document.getElementById("img3"), document.getElementById("h3"), PB);
+  loadFirst(document.getElementById("img4"), document.getElementById("h4"), PA);
 })();
 </script>
 </body>
