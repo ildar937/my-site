@@ -12,71 +12,38 @@
     .grid { display: grid; gap: 28px; }
     @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-    /* Контакты (пилюли) */
     .contacts { display:flex; flex-wrap:wrap; gap:10px; margin: 4px 0 18px; }
-    .pill {
-      display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
-      background:#111318; border:1px solid #1f2330; border-radius:999px;
-      color:#e8e8e8; text-decoration:none; font-weight:700; font-size:14px;
-    }
+    .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
+      background:#111318; border:1px solid #1f2330; border-radius:999px; color:#e8e8e8; text-decoration:none; font-weight:700; font-size:14px; }
     .pill:hover { background:#151925; }
     .pill svg { width:18px; height:18px; }
 
-    /* Карточки */
     .card { background:#111318; border:1px solid #1f2330; border-radius:16px; padding:16px 16px 20px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
     .card h2 { font-size: 18px; margin-bottom: 12px; color:#f1f5f9; }
 
-    /* До/После */
     .ba { --pos: 50%; position: relative; border-radius:14px; overflow: hidden; user-select: none; touch-action: none; background:#0d0f14; }
     .ba:focus-within { outline: 2px solid #3b82f6; outline-offset: 2px; }
     .ba-images { position: relative; width: 100%; }
-    .ba-img { display: block; width: 100%; height: auto; pointer-events: none; }
-    .ba-after { position: relative; z-index: 1; }
-    .ba-before {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; z-index: 2;
-      clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%);
-      will-change: clip-path;
-    }
+    .ba-after { position: relative; z-index: 1; display:block; width:100%; height:auto; }
+    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
+      clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%); will-change: clip-path; }
     .ba-divider { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
-    .ba-divider::before {
-      content: ""; position: absolute; top: 0; bottom: 0; left: var(--pos);
-      width: 2px; background: rgba(255,255,255,.9);
-      box-shadow: 0 0 0 1px rgba(0,0,0,.35);
-      transform: translateX(-1px);
-    }
-    .ba-handle {
-      position: absolute; left: var(--pos); top: 50%; transform: translate(-50%, -50%);
+    .ba-divider::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--pos);
+      width: 2px; background: rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(0,0,0,.35); transform: translateX(-1px); }
+    .ba-handle { position: absolute; left: var(--pos); top: 50%; transform: translate(-50%, -50%);
       width: 40px; height: 40px; border-radius: 50%; background: #ffffff; color:#111318; font-weight: 800;
-      display: grid; place-items: center; font-size: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(0,0,0,.12);
-    }
-    .ba-handle span { pointer-events: none; }
-    .ba-label {
-      position: absolute; top: 12px; z-index: 4; padding: 6px 10px; border-radius: 12px;
-      background: rgba(0,0,0,.55); color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2px;
-    }
-    .ba-label-before { left: 12px; }
-    .ba-label-after  { right: 12px; }
-    .ba-range {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      bottom: 12px; width: clamp(200px, 60%, 560px); z-index: 5;
-      -webkit-appearance: none; appearance: none; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; outline: none;
-    }
-    .ba-range::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%;
-      background: #ffffff; border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer;
-    }
-    .ba-range::-moz-range-thumb {
-      width: 18px; height: 18px; border-radius: 50%;
-      background: #ffffff; border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer;
-    }
+      display: grid; place-items: center; font-size: 16px; box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(0,0,0,.12); }
+    .ba-label { position: absolute; top: 12px; z-index: 4; padding: 6px 10px; border-radius: 12px;
+      background: rgba(0,0,0,.55); color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2px; }
+    .ba-label-before { left: 12px; } .ba-label-after { right: 12px; }
+    .ba-range { position: absolute; left: 50%; transform: translateX(-50%); bottom: 12px; width: clamp(200px, 60%, 560px); z-index: 5;
+      -webkit-appearance: none; appearance: none; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; outline: none; }
+    .ba-range::-webkit-slider-thumb, .ba-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #ffffff;
+      border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer; }
 
-    /* FAB-кнопки */
     .fab { position: fixed; right: 18px; z-index: 50; width: 58px; height: 58px; border-radius: 50%;
       color: #fff; text-decoration: none; display: grid; place-items: center; font-weight: 800; font-size: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-    }
+      box-shadow: 0 10px 24px rgba(0,0,0,.35); }
     .tg-fab { bottom: 88px; background: #2AABEE; }
     .wa-fab { bottom: 18px; background: #25D366; }
     .fab:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
@@ -101,9 +68,9 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
         Email
       </a>
-      <a class="pill" href="price.pdf" target="_blank" rel="noopener">
+      <a class="pill" href="авуары/price_a4.png" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6"/></svg>
-        Скачать прайс (PDF)
+        Скачать прайс (PNG)
       </a>
     </div>
 
@@ -112,12 +79,11 @@
         <h2>Кроссовки</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Кроссовки">
           <div class="ba-images">
-            <img class="ba-after" src="krossovki-after.jpg" alt="Кроссовки — После">
-            <img class="ba-before" src="krossovki-before.jpg" alt="Кроссовки — До">
+            <img class="ba-after" src="авуары/krossovki-after.jpg" alt="Кроссовки — После">
+            <img class="ba-before" src="авуары/krossovki-before.jpg" alt="Кроссовки — До">
           </div>
           <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div>
-          <div class="ba-label ba-label-after">После</div>
+          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Кроссовки" />
         </div>
       </section>
@@ -126,12 +92,11 @@
         <h2>Товар</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Товар">
           <div class="ba-images">
-            <img class="ba-after" src="product-after.jpg" alt="Товар — После">
-            <img class="ba-before" src="product-before.jpg" alt="Товар — До">
+            <img class="ba-after" src="авуары/product-after.jpg" alt="Товар — После">
+            <img class="ba-before" src="авуары/product-before.jpg" alt="Товар — До">
           </div>
           <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div>
-          <div class="ba-label ba-label-after">После</div>
+          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Товар" />
         </div>
       </section>
@@ -140,12 +105,11 @@
         <h2>Наушники</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Наушники">
           <div class="ba-images">
-            <img class="ba-after" src="headphones-after.jpg" alt="Наушники — После">
-            <img class="ba-before" src="headphones-before.jpg" alt="Наушники — До">
+            <img class="ba-after" src="авуары/headphones-after.jpg" alt="Наушники — После">
+            <img class="ba-before" src="авуары/headphones-before.jpg" alt="Наушники — До">
           </div>
           <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div>
-          <div class="ba-label ba-label-after">После</div>
+          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Наушники" />
         </div>
       </section>
@@ -154,12 +118,11 @@
         <h2>Часы</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Часы">
           <div class="ba-images">
-            <img class="ba-after" src="watch-after.jpg" alt="Часы — После">
-            <img class="ba-before" src="watch-before.jpg" alt="Часы — До">
+            <img class="ba-after" src="авуары/watch-after.jpg" alt="Часы — После">
+            <img class="ba-before" src="авуары/watch-before.jpg" alt="Часы — До">
           </div>
           <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div>
-          <div class="ba-label ba-label-after">После</div>
+          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Часы" />
         </div>
       </section>
@@ -167,14 +130,9 @@
   </div>
 
   <!-- FAB: Telegram -->
-  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" title="Написать в Telegram">
-    <small>TG</small>
-  </a>
-
+  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" title="Написать в Telegram"><small>TG</small></a>
   <!-- FAB: WhatsApp -->
-  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" title="Написать в WhatsApp">
-    <small>WA</small>
-  </a>
+  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" title="Написать в WhatsApp"><small>WA</small></a>
 
   <script>
     (function initBeforeAfter() {
@@ -197,21 +155,4 @@
           onPointerMove(e);
           ba.addEventListener('pointermove', onPointerMove);
         });
-        ba.addEventListener('pointerup', (e) => {
-          ba.releasePointerCapture?.(e.pointerId);
-          ba.removeEventListener('pointermove', onPointerMove);
-        });
-        ba.addEventListener('pointerleave', () => {
-          ba.removeEventListener('pointermove', onPointerMove);
-        });
-
-        function setPos(p) {
-          const clamped = Math.max(0, Math.min(100, Number(p)));
-          ba.style.setProperty('--pos', clamped + '%');
-          range.value = String(clamped);
-        }
-      });
-    })();
-  </script>
-</body>
-</html>
+        ba.addEventListener('pointerup', (
