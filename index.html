@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>До / После — 4 слайдера</title>
   <style>
-    /* ---------- БАЗА ---------- */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0c10; color:#e8e8e8; }
     h1, h2 { margin: 16px 0; line-height: 1.25; }
@@ -13,7 +12,7 @@
     .grid { display: grid; gap: 28px; }
     @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
 
-    /* ---------- КОНТАКТЫ ---------- */
+    /* Контакты (пилюли) */
     .contacts { display:flex; flex-wrap:wrap; gap:10px; margin: 4px 0 18px; }
     .pill {
       display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
@@ -23,86 +22,65 @@
     .pill:hover { background:#151925; }
     .pill svg { width:18px; height:18px; }
 
-    /* ---------- СЕКЦИЯ ---------- */
+    /* Карточки */
     .card { background:#111318; border:1px solid #1f2330; border-radius:16px; padding:16px 16px 20px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
     .card h2 { font-size: 18px; margin-bottom: 12px; color:#f1f5f9; }
 
-    /* ---------- ДО/ПОСЛЕ ---------- */
+    /* До/После */
     .ba { --pos: 50%; position: relative; border-radius:14px; overflow: hidden; user-select: none; touch-action: none; background:#0d0f14; }
     .ba:focus-within { outline: 2px solid #3b82f6; outline-offset: 2px; }
-
     .ba-images { position: relative; width: 100%; }
     .ba-img { display: block; width: 100%; height: auto; pointer-events: none; }
-
-    /* Нижний слой — ПОСЛЕ (статичное изображение) */
     .ba-after { position: relative; z-index: 1; }
-
-    /* Верхний слой — ДО (обрезаем по переменной --pos) */
     .ba-before {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; z-index: 2;
       clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%);
       will-change: clip-path;
     }
-
-    /* Разделитель + «ручка» */
-    .ba-divider {
-      position: absolute; inset: 0; z-index: 3; pointer-events: none;
-    }
+    .ba-divider { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
     .ba-divider::before {
-      content: "";
-      position: absolute; top: 0; bottom: 0; left: var(--pos);
+      content: ""; position: absolute; top: 0; bottom: 0; left: var(--pos);
       width: 2px; background: rgba(255,255,255,.9);
       box-shadow: 0 0 0 1px rgba(0,0,0,.35);
       transform: translateX(-1px);
     }
     .ba-handle {
-      position: absolute; left: var(--pos); top: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px; height: 40px; border-radius: 50%;
-      background: #ffffff; color:#111318; font-weight: 800;
+      position: absolute; left: var(--pos); top: 50%; transform: translate(-50%, -50%);
+      width: 40px; height: 40px; border-radius: 50%; background: #ffffff; color:#111318; font-weight: 800;
       display: grid; place-items: center; font-size: 16px;
       box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(0,0,0,.12);
     }
     .ba-handle span { pointer-events: none; }
-
-    /* Метки ДО/ПОСЛЕ */
     .ba-label {
-      position: absolute; top: 12px; z-index: 4;
-      padding: 6px 10px; border-radius: 12px;
-      background: rgba(0,0,0,.55); color: #fff; font-weight: 700; font-size: 13px;
-      letter-spacing: .2px;
+      position: absolute; top: 12px; z-index: 4; padding: 6px 10px; border-radius: 12px;
+      background: rgba(0,0,0,.55); color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2px;
     }
     .ba-label-before { left: 12px; }
     .ba-label-after  { right: 12px; }
-
-    /* Диапазон (для клавиатуры и точной регулировки) */
     .ba-range {
       position: absolute; left: 50%; transform: translateX(-50%);
       bottom: 12px; width: clamp(200px, 60%, 560px); z-index: 5;
       -webkit-appearance: none; appearance: none; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; outline: none;
     }
     .ba-range::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 2px 8px rgba(0,0,0,.35);
-      cursor: pointer;
+      -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%;
+      background: #ffffff; border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer;
     }
     .ba-range::-moz-range-thumb {
-      width: 18px; height: 18px; border-radius: 50%; background: #ffffff; border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 2px 8px rgba(0,0,0,.35);
-      cursor: pointer;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #ffffff; border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer;
     }
 
-    /* ---------- FAB WhatsApp ---------- */
-    .wa-fab {
-      position: fixed; right: 18px; bottom: 18px; z-index: 50;
-      width: 58px; height: 58px; border-radius: 50%;
-      background: #25D366; color: #fff; text-decoration: none;
-      display: grid; place-items: center; font-weight: 800; font-size: 14px;
+    /* FAB-кнопки */
+    .fab { position: fixed; right: 18px; z-index: 50; width: 58px; height: 58px; border-radius: 50%;
+      color: #fff; text-decoration: none; display: grid; place-items: center; font-weight: 800; font-size: 14px;
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
     }
-    .wa-fab:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
-    .wa-fab small { font-size: 11px; font-weight: 700; opacity: .95; }
+    .tg-fab { bottom: 88px; background: #2AABEE; }
+    .wa-fab { bottom: 18px; background: #25D366; }
+    .fab:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+    .fab small { font-size: 11px; font-weight: 700; opacity: .95; }
   </style>
 </head>
 <body>
@@ -112,7 +90,6 @@
     <!-- Контакты -->
     <div class="contacts" aria-label="Контакты">
       <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">
-        <!-- Иконка Telegram -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66l2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
         Telegram (личный)
       </a>
@@ -120,71 +97,67 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66l2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
         Канал (AI До/После)
       </a>
+      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7.">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+        Email
+      </a>
+      <a class="pill" href="price.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6"/></svg>
+        Скачать прайс (PDF)
+      </a>
     </div>
 
     <div class="grid">
-      <!-- 1) КРОССОВКИ -->
       <section class="card">
         <h2>Кроссовки</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Кроссовки">
           <div class="ba-images">
-            <img class="ba-after" src="assets/krossovki-after.jpg" alt="Кроссовки — После">
-            <img class="ba-before" src="assets/krossovki-before.jpg" alt="Кроссовки — До">
+            <img class="ba-after" src="krossovki-after.jpg" alt="Кроссовки — После">
+            <img class="ba-before" src="krossovki-before.jpg" alt="Кроссовки — До">
           </div>
-          <div class="ba-divider">
-            <div class="ba-handle" aria-hidden="true"><span>↔</span></div>
-          </div>
+          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div>
           <div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Кроссовки" />
         </div>
       </section>
 
-      <!-- 2) ТОВАР -->
       <section class="card">
         <h2>Товар</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Товар">
           <div class="ba-images">
-            <img class="ba-after" src="assets/product-after.jpg" alt="Товар — После">
-            <img class="ba-before" src="assets/product-before.jpg" alt="Товар — До">
+            <img class="ba-after" src="product-after.jpg" alt="Товар — После">
+            <img class="ba-before" src="product-before.jpg" alt="Товар — До">
           </div>
-          <div class="ba-divider">
-            <div class="ba-handle" aria-hidden="true"><span>↔</span></div>
-          </div>
+          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div>
           <div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Товар" />
         </div>
       </section>
 
-      <!-- 3) НАУШНИКИ -->
       <section class="card">
         <h2>Наушники</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Наушники">
           <div class="ba-images">
-            <img class="ba-after" src="assets/headphones-after.jpg" alt="Наушники — После">
-            <img class="ba-before" src="assets/headphones-before.jpg" alt="Наушники — До">
+            <img class="ba-after" src="headphones-after.jpg" alt="Наушники — После">
+            <img class="ba-before" src="headphones-before.jpg" alt="Наушники — До">
           </div>
-          <div class="ba-divider">
-            <div class="ba-handle" aria-hidden="true"><span>↔</span></div>
-          </div>
+          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div>
           <div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Наушники" />
         </div>
       </section>
 
-      <!-- 4) ЧАСЫ -->
       <section class="card">
         <h2>Часы</h2>
         <div class="ba" data-initial="50" aria-label="Слайдер До/После: Часы">
           <div class="ba-images">
-            <img class="ba-after" src="assets/watch-after.jpg" alt="Часы — После">
-            <img class="ba-before" src="assets/watch-before.jpg" alt="Часы — До">
+            <img class="ba-after" src="watch-after.jpg" alt="Часы — После">
+            <img class="ba-before" src="watch-before.jpg" alt="Часы — До">
           </div>
-          <div class="ba-divider">
-            <div class="ba-handle" aria-hidden="true"><span>↔</span></div>
-          </div>
+          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div>
           <div class="ba-label ba-label-after">После</div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Часы" />
@@ -193,18 +166,17 @@
     </div>
   </div>
 
-  <!-- Кнопка WhatsApp (ваш номер и текст) -->
-  <a
-    class="wa-fab"
-    href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7."
-    target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"
-    title="Написать в WhatsApp"
-  >
+  <!-- FAB: Telegram -->
+  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" title="Написать в Telegram">
+    <small>TG</small>
+  </a>
+
+  <!-- FAB: WhatsApp -->
+  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" title="Написать в WhatsApp">
     <small>WA</small>
   </a>
 
   <script>
-    // Инициализация всех слайдеров «До/После»
     (function initBeforeAfter() {
       const sliders = document.querySelectorAll('.ba');
       sliders.forEach((ba) => {
@@ -214,14 +186,12 @@
 
         range.addEventListener('input', () => setPos(range.valueAsNumber));
 
-        // Перемещение «ручки» по клику/перетаскиванию по всей области
         const onPointerMove = (e) => {
           const rect = ba.getBoundingClientRect();
           const x = Math.max(rect.left, Math.min(e.clientX, rect.right)) - rect.left;
           const perc = (x / rect.width) * 100;
           setPos(perc);
         };
-
         ba.addEventListener('pointerdown', (e) => {
           ba.setPointerCapture?.(e.pointerId);
           onPointerMove(e);
