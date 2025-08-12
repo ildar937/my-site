@@ -22,7 +22,6 @@
     .card h2 { font-size: 18px; margin-bottom: 12px; color:#f1f5f9; }
 
     .ba { --pos: 50%; position: relative; border-radius:14px; overflow: hidden; user-select: none; touch-action: none; background:#0d0f14; }
-    .ba:focus-within { outline: 2px solid #3b82f6; outline-offset: 2px; }
     .ba-images { position: relative; width: 100%; }
     .ba-after { position: relative; z-index: 1; display:block; width:100%; height:auto; }
     .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
@@ -54,122 +53,99 @@
   <div class="wrap">
     <h1>До → После: 4 примера</h1>
 
-    <!-- Контакты -->
     <div class="contacts" aria-label="Контакты">
       <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66l2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
         Telegram (личный)
       </a>
       <a class="pill" href="https://t.me/ai_do_after" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66l2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66л2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
         Канал (AI До/После)
       </a>
-      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7.">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-        Email
-      </a>
-      <a class="pill" href="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/price_a4.png" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Zm0 0v6h6"/></svg>
-        Скачать прайс (PNG)
-      </a>
+      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7.">Email</a>
+      <a class="pill" href="assets/price_a4.png" target="_blank" rel="noopener">Скачать прайс (PNG)</a>
     </div>
 
     <div class="grid">
       <section class="card">
         <h2>Кроссовки</h2>
-        <div class="ba" data-initial="50" aria-label="Слайдер До/После: Кроссовки">
+        <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-after.jpg" alt="Кроссовки — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-before.jpg" alt="Кроссовки — До">
+            <img class="ba-after" src="assets/krossovki-after.jpg" alt="Кроссовки — После">
+            <img class="ba-before" src="assets/krossovki-before.jpg" alt="Кроссовки — До">
           </div>
-          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
+          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Кроссовки" />
+          <input class="ba-range" type="range" min="0" max="100" value="50" />
         </div>
       </section>
 
       <section class="card">
         <h2>Товар</h2>
-        <div class="ba" data-initial="50" aria-label="Слайдер До/После: Товар">
+        <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-after.jpg" alt="Товар — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-before.jpg" alt="Товар — До">
+            <img class="ba-after" src="assets/product-after.jpg" alt="Товар — После">
+            <img class="ba-before" src="assets/product-before.jpg" alt="Товар — До">
           </div>
-          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
+          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Товар" />
+          <input class="ba-range" type="range" min="0" max="100" value="50" />
         </div>
       </section>
 
       <section class="card">
         <h2>Наушники</h2>
-        <div class="ba" data-initial="50" aria-label="Слайдер До/После: Наушники">
+        <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-after.jpg" alt="Наушники — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-before.jpg" alt="Наушники — До">
+            <img class="ba-after" src="assets/headphones-after.jpg" alt="Наушники — После">
+            <img class="ba-before" src="assets/headphones-before.jpg" alt="Наушники — До">
           </div>
-          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
+          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Наушники" />
+          <input class="ba-range" type="range" min="0" max="100" value="50" />
         </div>
       </section>
 
       <section class="card">
         <h2>Часы</h2>
-        <div class="ba" data-initial="50" aria-label="Слайдер До/После: Часы">
+        <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-after.jpg" alt="Часы — После">
-            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-before.jpg" alt="Часы — До">
+            <img class="ba-after" src="assets/watch-after.jpg" alt="Часы — После">
+            <img class="ba-before" src="assets/watch-before.jpg" alt="Часы — До">
           </div>
-          <div class="ba-divider"><div class="ba-handle" aria-hidden="true"><span>↔</span></div></div>
+          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Регулировка разделителя Часы" />
+          <input class="ba-range" type="range" min="0" max="100" value="50" />
         </div>
       </section>
     </div>
   </div>
 
-  <!-- FAB: Telegram -->
-  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" title="Написать в Telegram"><small>TG</small></a>
-  <!-- FAB: WhatsApp -->
-  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" title="Написать в WhatsApp"><small>WA</small></a>
+  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener" title="Telegram"><small>TG</small></a>
+  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener" title="WhatsApp"><small>WA</small></a>
 
   <script>
-    (function initBeforeAfter() {
-      const sliders = document.querySelectorAll('.ba');
-      sliders.forEach((ba) => {
+    (function () {
+      document.querySelectorAll('.ba').forEach((ba) => {
         const range = ba.querySelector('.ba-range');
-        const initial = Number(ba.dataset.initial || 50);
-        setPos(initial);
-
-        range.addEventListener('input', () => setPos(range.valueAsNumber));
-
-        const onPointerMove = (e) => {
-          const rect = ba.getBoundingClientRect();
-          const x = Math.max(rect.left, Math.min(e.clientX, rect.right)) - rect.left;
-          const perc = (x / rect.width) * 100;
-          setPos(perc);
+        const setPos = (p) => {
+          const v = Math.max(0, Math.min(100, +p));
+          ba.style.setProperty('--pos', v + '%');
+          range.value = v;
         };
-        ba.addEventListener('pointerdown', (e) => {
-          ba.setPointerCapture?.(e.pointerId);
-          onPointerMove(e);
-          ba.addEventListener('pointermove', onPointerMove);
-        });
-        ba.addEventListener('pointerup', (e) => {
-          ba.releasePointerCapture?.(e.pointerId);
-          ba.removeEventListener('pointermove', onPointerMove);
-        });
-        ba.addEventListener('pointerleave', () => {
-          ba.removeEventListener('pointermove', onPointerMove);
-        });
-
-        function setPos(p) {
-          const clamped = Math.max(0, Math.min(100, Number(p)));
-          ba.style.setProperty('--pos', clamped + '%');
-          range.value = String(clamped);
-        }
+        setPos(50);
+        range.addEventListener('input', e => setPos(e.target.value));
+        const move = (e) => {
+          const r = ba.getBoundingClientRect();
+          const x = Math.max(r.left, Math.min(e.clientX, r.right)) - r.left;
+          setPos((x / r.width) * 100);
+        };
+        ba.addEventListener('pointerdown', (e) => { ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove', move); });
+        ba.addEventListener('pointerup',   (e) => { ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove', move); });
+        ba.addEventListener('pointerleave',() => { ba.removeEventListener('pointermove', move); });
       });
     })();
   </script>
 </body>
 </html>
+ 
