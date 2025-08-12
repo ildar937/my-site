@@ -6,73 +6,69 @@
   <title>До / После — 4 слайдера</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0c10; color:#e8e8e8; }
-    h1, h2 { margin: 16px 0; line-height: 1.25; }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 96px; }
-    .grid { display: grid; gap: 28px; }
-    @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+    html, body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0c10; color:#e8e8e8; }
+    h1, h2 { margin:16px 0; line-height:1.25; }
+    .wrap { max-width:1100px; margin:0 auto; padding:24px 16px 96px; }
+    .grid { display:grid; gap:28px; }
+    @media (min-width: 900px){ .grid{ grid-template-columns:1fr 1fr; } }
 
-    .contacts { display:flex; flex-wrap:wrap; gap:10px; margin: 4px 0 18px; }
-    .pill { display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
+    /* Пилюли-контакты */
+    .contacts{ display:flex; flex-wrap:wrap; gap:10px; margin:4px 0 18px; }
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px;
       background:#111318; border:1px solid #1f2330; border-radius:999px; color:#e8e8e8; text-decoration:none; font-weight:700; font-size:14px; }
-    .pill:hover { background:#151925; }
-    .pill svg { width:18px; height:18px; }
+    .pill:hover{ background:#151925; }
 
-    .card { background:#111318; border:1px solid #1f2330; border-radius:16px; padding:16px 16px 20px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
-    .card h2 { font-size: 18px; margin-bottom: 12px; color:#f1f5f9; }
+    /* Карточки */
+    .card{ background:#111318; border:1px solid #1f2330; border-radius:16px; padding:16px 16px 20px; box-shadow:0 6px 18px rgba(0,0,0,.25); }
+    .card h2{ font-size:18px; margin-bottom:12px; color:#f1f5f9; }
 
-    .ba { --pos: 50%; position: relative; border-radius:14px; overflow: hidden; user-select: none; touch-action: none; background:#0d0f14; }
-    .ba-images { position: relative; width: 100%; }
-    .ba-after { position: relative; z-index: 1; display:block; width:100%; height:auto; }
-    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;
-      clip-path: polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%); will-change: clip-path; }
-    .ba-divider { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
-    .ba-divider::before { content: ""; position: absolute; top: 0; bottom: 0; left: var(--pos);
-      width: 2px; background: rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(0,0,0,.35); transform: translateX(-1px); }
-    .ba-handle { position: absolute; left: var(--pos); top: 50%; transform: translate(-50%, -50%);
-      width: 40px; height: 40px; border-radius: 50%; background: #ffffff; color:#111318; font-weight: 800;
-      display: grid; place-items: center; font-size: 16px; box-shadow: 0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(0,0,0,.12); }
-    .ba-label { position: absolute; top: 12px; z-index: 4; padding: 6px 10px; border-radius: 12px;
-      background: rgba(0,0,0,.55); color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2px; }
-    .ba-label-before { left: 12px; } .ba-label-after { right: 12px; }
-    .ba-range { position: absolute; left: 50%; transform: translateX(-50%); bottom: 12px; width: clamp(200px, 60%, 560px); z-index: 5;
-      -webkit-appearance: none; appearance: none; height: 6px; background: rgba(255,255,255,.25); border-radius: 999px; outline: none; }
-    .ba-range::-webkit-slider-thumb, .ba-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #ffffff;
-      border: 2px solid rgba(0,0,0,.25); box-shadow: 0 2px 8px rgba(0,0,0,.35); cursor: pointer; }
+    /* До/После */
+    .ba{ --pos:50%; position:relative; border-radius:14px; overflow:hidden; user-select:none; touch-action:none; background:#0d0f14; }
+    .ba-images{ position:relative; width:100%; }
+    .ba-after{ position:relative; z-index:1; display:block; width:100%; height:auto; } /* ПРАВАЯ сторона (После) — лежит снизу */
+    .ba-before{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2;
+      clip-path:polygon(0 0, var(--pos) 0, var(--pos) 100%, 0 100%); will-change:clip-path; } /* ЛЕВАЯ сторона (До) — верхний слой */
+    .ba-divider{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+    .ba-divider::before{ content:""; position:absolute; top:0; bottom:0; left:var(--pos); width:2px; background:rgba(255,255,255,.9);
+      box-shadow:0 0 0 1px rgba(0,0,0,.35); transform:translateX(-1px); }
+    .ba-handle{ position:absolute; left:var(--pos); top:50%; transform:translate(-50%,-50%); width:40px; height:40px; border-radius:50%;
+      background:#fff; color:#111318; font-weight:800; display:grid; place-items:center; font-size:16px; box-shadow:0 6px 16px rgba(0,0,0,.35), inset 0 0 0 2px rgba(0,0,0,.12); }
+    .ba-label{ position:absolute; top:12px; z-index:4; padding:6px 10px; border-radius:12px; background:rgba(0,0,0,.55); color:#fff; font-weight:700; font-size:13px; letter-spacing:.2px; }
+    .ba-label-before{ left:12px; } .ba-label-after{ right:12px; }
+    .ba-range{ position:absolute; left:50%; transform:translateX(-50%); bottom:12px; width:clamp(200px,60%,560px); z-index:5;
+      -webkit-appearance:none; appearance:none; height:6px; background:rgba(255,255,255,.25); border-radius:999px; outline:none; }
+    .ba-range::-webkit-slider-thumb, .ba-range::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:#fff;
+      border:2px solid rgba(0,0,0,.25); box-shadow:0 2px 8px rgba(0,0,0,.35); cursor:pointer; }
 
-    .fab { position: fixed; right: 18px; z-index: 50; width: 58px; height: 58px; border-radius: 50%;
-      color: #fff; text-decoration: none; display: grid; place-items: center; font-weight: 800; font-size: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35); }
-    .tg-fab { bottom: 88px; background: #2AABEE; }
-    .wa-fab { bottom: 18px; background: #25D366; }
-    .fab:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
-    .fab small { font-size: 11px; font-weight: 700; opacity: .95; }
+    /* Плавающие кнопки */
+    .fab{ position:fixed; right:18px; z-index:50; width:58px; height:58px; border-radius:50%;
+      color:#fff; text-decoration:none; display:grid; place-items:center; font-weight:800; font-size:14px; box-shadow:0 10px 24px rgba(0,0,0,.35); }
+    .tg-fab{ bottom:88px; background:#2AABEE; }
+    .wa-fab{ bottom:18px; background:#25D366; }
+    .fab small{ font-size:11px; font-weight:700; opacity:.95; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>До → После: 4 примера</h1>
 
+    <!-- Контакты -->
     <div class="contacts" aria-label="Контакты">
-      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66l2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
-        Telegram (личный)
-      </a>
-      <a class="pill" href="https://t.me/ai_do_after" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.04 15.47 8.9 19.3c.4 0 .58-.17.79-.37l1.9-1.82 3.94 2.88c.72.4 1.24.19 1.44-.66л2.6-12.2h.01c.23-1.08-.39-1.5-1.1-1.24L3.7 9.9c-1.05.41-1.03 1-.18 1.25l4.55 1.42 10.57-6.67c.5-.3.95-.14.58.16z"/></svg>
-        Канал (AI До/После)
-      </a>
+      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram (личный)</a>
+      <a class="pill" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Канал (AI До/После)</a>
       <a class="pill" href="mailto:eldargainutdinoff@yandex.ru?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%20AI-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7.">Email</a>
-      <a class="pill" href="assets/price_a4.png" target="_blank" rel="noopener">Скачать прайс (PNG)</a>
+      <a class="pill" href="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/price_a4.png" target="_blank" rel="noopener">Скачать прайс (PNG)</a>
     </div>
 
     <div class="grid">
+      <!-- Кроссовки -->
       <section class="card">
         <h2>Кроссовки</h2>
         <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="assets/krossovki-after.jpg" alt="Кроссовки — После">
-            <img class="ba-before" src="assets/krossovki-before.jpg" alt="Кроссовки — До">
+            <!-- ПРАВИЛЬНО: справа (снизу) — after, слева (сверху) — before -->
+            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-after.jpg"  alt="Кроссовки — После">
+            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/krossovki-before.jpg" alt="Кроссовки — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -80,12 +76,13 @@
         </div>
       </section>
 
+      <!-- Товар -->
       <section class="card">
         <h2>Товар</h2>
         <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="assets/product-after.jpg" alt="Товар — После">
-            <img class="ba-before" src="assets/product-before.jpg" alt="Товар — До">
+            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-after.jpg"  alt="Товар — После">
+            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/product-before.jpg" alt="Товар — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -93,12 +90,13 @@
         </div>
       </section>
 
+      <!-- Наушники -->
       <section class="card">
         <h2>Наушники</h2>
         <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="assets/headphones-after.jpg" alt="Наушники — После">
-            <img class="ba-before" src="assets/headphones-before.jpg" alt="Наушники — До">
+            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-after.jpg"  alt="Наушники — После">
+            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/headphones-before.jpg" alt="Наушники — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -106,12 +104,13 @@
         </div>
       </section>
 
+      <!-- Часы -->
       <section class="card">
         <h2>Часы</h2>
         <div class="ba">
           <div class="ba-images">
-            <img class="ba-after" src="assets/watch-after.jpg" alt="Часы — После">
-            <img class="ba-before" src="assets/watch-before.jpg" alt="Часы — До">
+            <img class="ba-after"  src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-after.jpg"  alt="Часы — После">
+            <img class="ba-before" src="%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/watch-before.jpg" alt="Часы — До">
           </div>
           <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
           <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
@@ -121,31 +120,35 @@
     </div>
   </div>
 
+  <!-- FAB: Telegram -->
   <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener" title="Telegram"><small>TG</small></a>
+  <!-- FAB: WhatsApp -->
   <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener" title="WhatsApp"><small>WA</small></a>
 
   <script>
-    (function () {
-      document.querySelectorAll('.ba').forEach((ba) => {
+    // Инициализация всех слайдеров «До/После»
+    (function(){
+      document.querySelectorAll('.ba').forEach((ba)=>{
         const range = ba.querySelector('.ba-range');
-        const setPos = (p) => {
+        const setPos = (p)=>{
           const v = Math.max(0, Math.min(100, +p));
           ba.style.setProperty('--pos', v + '%');
           range.value = v;
         };
         setPos(50);
+
         range.addEventListener('input', e => setPos(e.target.value));
-        const move = (e) => {
+
+        const move = (e)=>{
           const r = ba.getBoundingClientRect();
           const x = Math.max(r.left, Math.min(e.clientX, r.right)) - r.left;
           setPos((x / r.width) * 100);
         };
-        ba.addEventListener('pointerdown', (e) => { ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove', move); });
-        ba.addEventListener('pointerup',   (e) => { ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove', move); });
-        ba.addEventListener('pointerleave',() => { ba.removeEventListener('pointermove', move); });
+        ba.addEventListener('pointerdown', (e)=>{ ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove', move); });
+        ba.addEventListener('pointerup',   (e)=>{ ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove', move); });
+        ba.addEventListener('pointerleave',()=>{ ba.removeEventListener('pointermove', move); });
       });
     })();
   </script>
 </body>
 </html>
- 
