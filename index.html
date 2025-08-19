@@ -1,42 +1,87 @@
-<section id="portfolio">
-  <h2>Примеры работ</h2>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примеры работ</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        .work-example {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .work-example img {
+            max-width: 90%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        .buttons button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .buttons button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
 
-  <div class="work-sample">
-    <img src="авауры/Изображения/krossovki-before.jpg" alt="Кроссовки До">
-    <div>
-      <p>Кроссовки</p>
-      <button onclick="swapImage(this, 'авауры/Изображения/krossovki-before.jpg', 'авауры/Изображения/krossovki-after.jpg')">До / После</button>
+    <h2>Примеры работ</h2>
+
+    <div class="work-example">
+        <img id="krossovki" src="авауры/Изображения/krossovki-before.jpg" alt="Кроссовки До">
+        <div>Кроссовки</div>
+        <div class="buttons">
+            <button onclick="document.getElementById('krossovki').src='авауры/Изображения/krossovki-before.jpg'">До</button>
+            <button onclick="document.getElementById('krossovki').src='авауры/Изображения/krossovki-after.jpg'">После</button>
+        </div>
     </div>
-  </div>
 
-  <div class="work-sample">
-    <img src="авауры/Изображения/product-before.jpg" alt="Товар До">
-    <div>
-      <p>Товар</p>
-      <button onclick="swapImage(this, 'авауры/Изображения/product-before.jpg', 'авауры/Изображения/product-after.jpg')">До / После</button>
+    <div class="work-example">
+        <img id="product" src="авауры/Изображения/product-before.jpg" alt="Товар До">
+        <div>Товар</div>
+        <div class="buttons">
+            <button onclick="document.getElementById('product').src='авауры/Изображения/product-before.jpg'">До</button>
+            <button onclick="document.getElementById('product').src='авауры/Изображения/product-after.jpg'">После</button>
+        </div>
     </div>
-  </div>
 
-  <div class="work-sample">
-    <img src="авауры/Изображения/headphones-before.jpg" alt="Наушники До">
-    <div>
-      <p>Наушники</p>
-      <button onclick="swapImage(this, 'авауры/Изображения/headphones-before.jpg', 'авауры/Изображения/headphones-after.jpg')">До / После</button>
+    <div class="work-example">
+        <img id="headphones" src="авауры/Изображения/headphones-before.jpg" alt="Наушники До">
+        <div>Наушники</div>
+        <div class="buttons">
+            <button onclick="document.getElementById('headphones').src='авауры/Изображения/headphones-before.jpg'">До</button>
+            <button onclick="document.getElementById('headphones').src='авауры/Изображения/headphones-after.jpg'">После</button>
+        </div>
     </div>
-  </div>
 
-  <div class="work-sample">
-    <img src="авауры/Изображения/watch-before.jpg" alt="Часы До">
-    <div>
-      <p>Часы</p>
-      <button onclick="swapImage(this, 'авауры/Изображения/watch-before.jpg', 'авауры/Изображения/watch-after.jpg')">До / После</button>
+    <div class="work-example">
+        <img id="watch" src="авауры/Изображения/watch-before.jpg" alt="Часы До">
+        <div>Часы</div>
+        <div class="buttons">
+            <button onclick="document.getElementById('watch').src='авауры/Изображения/watch-before.jpg'">До</button>
+            <button onclick="document.getElementById('watch').src='авауры/Изображения/watch-after.jpg'">После</button>
+        </div>
     </div>
-  </div>
-</section>
 
-<script>
-function swapImage(button, before, after) {
-  const img = button.closest('.work-sample').querySelector('img');
-  img.src = (img.src.includes('before')) ? after : before;
-}
-</script>
+</body>
+</html>
