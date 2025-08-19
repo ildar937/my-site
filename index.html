@@ -1,126 +1,221 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>AI-дизайн • До / После</title>
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff;color:#111}
-    header{text-align:center;padding:24px 12px}
-    h1{margin:0 0 6px}
-    .grid{max-width:900px;margin:0 auto;padding:16px}
-    .card{display:flex;flex-direction:column;align-items:center;margin:28px 0}
-    .card img{max-width:92%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15);min-height:160px;background:#f3f3f3;object-fit:cover}
+    :root{--bg:#ffffff;--fg:#111;--muted:#666;--panel:#f6f7f9;--btn:#111;--btnh:#333}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+    header{padding:28px 14px;text-align:center;background:var(--panel)}
+    header h1{margin:0 0 6px}
+    header p{margin:0;color:var(--muted)}
+    main{max-width:1000px;margin:0 auto;padding:20px 14px}
+    .hero{margin:18px 0 6px;text-align:center}
+    h2{margin:28px 0 16px;text-align:center}
+    .grid{display:grid;gap:18px}
+    @media(min-width:760px){.grid.cards{grid-template-columns:repeat(3,1fr)}}
+    .card{border:1px solid #e7e9ee;background:#fff;border-radius:14px;padding:16px}
+    .sample{display:flex;flex-direction:column;align-items:center;margin:22px 0}
+    .sample img{width:100%;max-width:880px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.12);min-height:180px;background:#f1f2f4;object-fit:cover}
     .btns{margin-top:10px}
-    .btns button{background:#111;color:#fff;border:0;border-radius:8px;padding:8px 14px;margin:0 6px;cursor:pointer}
-    .btns button:hover{background:#333}
-    footer{padding:24px 12px;text-align:center;color:#666}
+    .btn{display:inline-block;background:var(--btn);color:#fff;border:0;border-radius:9px;padding:9px 14px;margin:0 6px;cursor:pointer}
+    .btn:hover{background:var(--btnh)}
+    .pill{display:inline-block;background:#eef1f5;border-radius:999px;padding:8px 14px;font-size:14px;color:#222;text-decoration:none}
+    .muted{color:var(--muted);font-size:13px}
+    footer{padding:28px 14px;text-align:center;background:var(--panel);margin-top:26px}
+    .stack{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+    .ok{color:#18a058}.warn{color:#c22727}
   </style>
 </head>
 <body>
-<header>
-  <h1>Примеры работ</h1>
-  <div>Карточки, обложки, аватары • До → После</div>
-</header>
-
-<main class="grid">
-  <div class="card">
-    <img id="krossovki-img" alt="Кроссовки">
-    <div class="btns">
-      <button onclick="showBefore('krossovki')">До</button>
-      <button onclick="showAfter('krossovki')">После</button>
+  <header>
+    <h1>AI-дизайн • До / После</h1>
+    <p>Карточки, обложки, аватары • быстрый премиум-визуал</p>
+    <div class="stack">
+      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram</a>
+      <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
     </div>
-  </div>
+  </header>
 
-  <div class="card">
-    <img id="product-img" alt="Товар">
-    <div class="btns">
-      <button onclick="showBefore('product')">До</button>
-      <button onclick="showAfter('product')">После</button>
-    </div>
-  </div>
+  <main>
+    <section class="hero">
+      <p class="muted">Ниже — интерактивные примеры. Кнопками переключается «До»/«После».</p>
+    </section>
 
-  <div class="card">
-    <img id="headphones-img" alt="Наушники">
-    <div class="btns">
-      <button onclick="showBefore('headphones')">До</button>
-      <button onclick="showAfter('headphones')">После</button>
-    </div>
-  </div>
+    <section>
+      <h2>Примеры работ</h2>
 
-  <div class="card">
-    <img id="watch-img" alt="Часы">
-    <div class="btns">
-      <button onclick="showBefore('watch')">До</button>
-      <button onclick="showAfter('watch')">После</button>
-    </div>
-  </div>
-</main>
+      <div class="sample">
+        <img id="krossovki-img" alt="Кроссовки">
+        <div class="btns">
+          <button class="btn" onclick="showBefore('krossovki')">До</button>
+          <button class="btn" onclick="showAfter('krossovki')">После</button>
+        </div>
+        <div id="badge-krossovki" class="muted"></div>
+      </div>
 
-<footer>
-  © Ильдар • AI-дизайн
-</footer>
+      <div class="sample">
+        <img id="product-img" alt="Товар">
+        <div class="btns">
+          <button class="btn" onclick="showBefore('product')">До</button>
+          <button class="btn" onclick="showAfter('product')">После</button>
+        </div>
+        <div id="badge-product" class="muted"></div>
+      </div>
 
-<script>
-/* Кандидатные базовые пути — скрипт попробует по очереди, пока не найдёт существующий */
-const BASES = [
-  "assets/",
-  "image/",
-  "Изображения/",
-  "авауры/",
-  "авауры/Изображения/",
-  "авуары/Изображения/",
-  "авуары/авуары/Изображения/",
-  "Личный сайт/авуары/авуары/Изображения/",
-];
+      <div class="sample">
+        <img id="headphones-img" alt="Наушники">
+        <div class="btns">
+          <button class="btn" onclick="showBefore('headphones')">До</button>
+          <button class="btn" onclick="showAfter('headphones')">После</button>
+        </div>
+        <div id="badge-headphones" class="muted"></div>
+      </div>
 
-/* Храним найденную «базу» для каждого ключа */
-const FOUND = {};
+      <div class="sample">
+        <img id="watch-img" alt="Часы">
+        <div class="btns">
+          <button class="btn" onclick="showBefore('watch')">До</button>
+          <button class="btn" onclick="showAfter('watch')">После</button>
+        </div>
+        <div id="badge-watch" class="muted"></div>
+      </div>
+    </section>
 
-/* Поиск первого существующего пути для файла */
-function findBaseFor(file, done){
-  let i = 0;
-  function tryNext(){
-    if(i >= BASES.length){ done(null); return; }
-    const base = BASES[i++];
+    <section>
+      <h2>Преимущества</h2>
+      <div class="grid cards">
+        <div class="card"><b>Экономия</b><br><span class="muted">Без дорогих фотосессий</span></div>
+        <div class="card"><b>Скорость</b><br><span class="muted">От 12 часов</span></div>
+        <div class="card"><b>Стиль</b><br><span class="muted">Премиальный визуал</span></div>
+      </div>
+    </section>
 
-    const test = new Image();
-    // ВАЖНО: кодируем кириллицу/пробелы
-    const url = encodeURI(base + file);
+    <section>
+      <h2>Тарифы</h2>
+      <div class="grid cards">
+        <div class="card"><b>Только текст</b><br><span class="muted">SEO-описание + ключи — от 1000 ₽</span></div>
+        <div class="card"><b>Текст + 3 фото</b><br><span class="muted">«До/После» — от 2500 ₽</span></div>
+        <div class="card"><b>Пакет</b><br><span class="muted">5–7 карточек — от 5000 ₽</span></div>
+      </div>
+    </section>
 
-    test.onload = () => done(base);
-    test.onerror = tryNext;
-    test.src = url;
-  }
-  tryNext();
-}
+    <section style="text-align:center">
+      <h2>Прайс</h2>
+      <a id="price-link" class="pill" href="#" download>📂 Скачать прайс</a>
+      <div id="price-badge" class="muted" style="margin-top:8px"></div>
+    </section>
+  </main>
 
-/* Инициализация одного блока: ищем базу и подставляем "до" */
-function initSample(key, imgId, beforeFile, afterFile){
-  findBaseFor(beforeFile, function(base){
-    const img = document.getElementById(imgId);
-    if(!base){ img.alt = "Файл не найден"; return; }
-    FOUND[key] = { base, before: beforeFile, after: afterFile, imgId };
-    img.src = encodeURI(base + beforeFile);
-  });
-}
+  <footer>
+    © Ильдар • AI-дизайн
+  </footer>
 
-/* Кнопки переключения */
-function showBefore(key){
-  const s = FOUND[key]; if(!s) return;
-  document.getElementById(s.imgId).src = encodeURI(s.base + s.before);
-}
-function showAfter(key){
-  const s = FOUND[key]; if(!s) return;
-  document.getElementById(s.imgId).src = encodeURI(s.base + s.after);
-}
+  <script>
+    /* === Автопоиск путей и файлов (картинки + прайс) === */
 
-/* Запуск: указываем только ИМЕНА файлов — скрипт найдёт путь сам */
-initSample("krossovki", "krossovki-img", "krossovki-before.jpg", "krossovki-after.jpg");
-initSample("product",    "product-img",    "product-before.jpg",    "product-after.jpg");
-initSample("headphones", "headphones-img", "headphones-before.jpg", "headphones-after.jpg");
-initSample("watch",      "watch-img",      "watch-before.jpg",      "watch-after.jpg");
-</script>
+    // Возможные базовые папки (включил все ваши варианты и дублёры)
+    const BASES = [
+      "", "assets/","asset/","image/","images/",
+      "Изображения/","изображения/","авауры/","авуары/",
+      "авауры/Изображения/","авуары/Изображения/",
+      "авуары/авуары/Изображения/","Личный сайт/авуары/авуары/Изображения/"
+    ];
 
+    // Имена файлов (их менять не нужно)
+    const SAMPLES = {
+      krossovki: ["krossovki-before.jpg","krossovki-after.jpg"],
+      product:   ["product-before.jpg","product-after.jpg"],
+      headphones:["headphones-before.jpg","headphones-after.jpg"],
+      watch:     ["watch-before.jpg","watch-after.jpg"]
+    };
+
+    // Кандидаты прайса (PDF в приоритете; если нет — PNG тоже подхватим)
+    const PRICE_FILES = [
+      "price-ildar.pdf","price.pdf","ai_design_site_ads_simple.pdf",
+      "ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf","price_a4.pdf",
+      "price-ildar.png","price.png","price_a4.png"
+    ];
+
+    const FOUND = {}; // { key: {base, before, after, imgId} }
+
+    function setBadge(id, text, ok=true){
+      const el = document.getElementById("badge-"+id);
+      if(el){ el.innerHTML = (ok ? '<span class="ok">✔</span> ' : '<span class="warn">✖</span> ') + text; }
+    }
+
+    // Проверка существования файла (HEAD → GET fallback) с учётом кириллицы
+    async function exists(url){
+      const u = encodeURI(url);
+      try{
+        const r = await fetch(u, { method: "HEAD", cache: "no-store" });
+        if (r.ok) return true;
+      }catch(e){}
+      try{
+        const r2 = await fetch(u, { method: "GET", cache: "no-store" });
+        return r2.ok;
+      }catch(e){ return false; }
+    }
+
+    // Поиск базовой папки, где есть конкретный файл
+    async function findBase(file){
+      for (const b of BASES){
+        if (await exists(b + file)) return b;
+      }
+      return null;
+    }
+
+    // Инициализация одного примера
+    async function initSample(key, imgId, beforeFile, afterFile){
+      const base = await findBase(beforeFile);
+      const img = document.getElementById(imgId);
+      if(!base){ img.alt = "Файл не найден: " + beforeFile; setBadge(key, "Не найдено", false); return; }
+      FOUND[key] = { base, before: beforeFile, after: afterFile, imgId };
+      img.src = encodeURI(base + beforeFile) + "?v=" + Date.now();
+      setBadge(key, "Путь: " + base);
+      console.log(`[OK] ${key} → ${base}`);
+    }
+
+    function showBefore(key){
+      const s = FOUND[key]; if(!s) return;
+      document.getElementById(s.imgId).src = encodeURI(s.base + s.before) + "?v=" + Date.now();
+    }
+    function showAfter(key){
+      const s = FOUND[key]; if(!s) return;
+      document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
+    }
+
+    // Поиск прайса
+    async function initPrice(){
+      const link = document.getElementById("price-link");
+      const badge = document.getElementById("price-badge");
+      for (const f of PRICE_FILES){
+        const base = await findBase(f);
+        if(base){
+          const url = encodeURI(base + f) + "?v=" + Date.now();
+          link.href = url;
+          link.textContent = "📂 Скачать прайс" + (f.endsWith(".png") ? " (PNG)" : " (PDF)");
+          badge.textContent = "Файл: " + base + f;
+          return;
+        }
+      }
+      link.removeAttribute("href");
+      link.style.pointerEvents = "none";
+      link.style.opacity = "0.6";
+      badge.textContent = "Прайс не найден. Положите файл (например, price-ildar.pdf) в любую из папок: " + BASES.join(" · ");
+    }
+
+    // Старт
+    (async function(){
+      await initSample("krossovki","krossovki-img",...SAMPLES.krossovki);
+      await initSample("product","product-img",...SAMPLES.product);
+      await initSample("headphones","headphones-img",...SAMPLES.headphones);
+      await initSample("watch","watch-img",...SAMPLES.watch);
+      await initPrice();
+    })();
+  </script>
 </body>
 </html>
