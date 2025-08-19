@@ -42,6 +42,11 @@
 
   <main>
     <section class="hero">
+      <h2>Новый пример</h2>
+      <div class="sample">
+        <img id="custom-hero" alt="Пример До/После (наушники)">
+        <div id="badge-custom" class="muted"></div>
+      </div>
       <p class="muted">Ниже — интерактивные примеры. Кнопками переключается «До»/«После».</p>
     </section>
 
@@ -86,15 +91,6 @@
     </section>
 
     <section>
-      <h2>Преимущества</h2>
-      <div class="grid cards">
-        <div class="card"><b>Экономия</b><br><span class="muted">Без дорогих фотосессий</span></div>
-        <div class="card"><b>Скорость</b><br><span class="muted">От 12 часов</span></div>
-        <div class="card"><b>Стиль</b><br><span class="muted">Премиальный визуал</span></div>
-      </div>
-    </section>
-
-    <section>
       <h2>Тарифы</h2>
       <div class="grid cards">
         <div class="card"><b>Только текст</b><br><span class="muted">SEO-описание + ключи — от 1000 ₽</span></div>
@@ -105,7 +101,7 @@
 
     <section style="text-align:center">
       <h2>Прайс</h2>
-      <a id="price-link" class="pill" href="#" download style="pointer-events:none;opacity:.6">📂 Скачать прайс</a>
+      <a id="price-link" class="pill" href="#" download style="pointer-events:none;opacity:.6">📄 Скачать прайс</a>
       <div id="price-badge" class="muted" style="margin-top:8px"></div>
     </section>
   </main>
@@ -115,7 +111,7 @@
   </footer>
 
   <script>
-    /* Возможные базовые папки (включая кириллицу и вложения) */
+    /* Папки-кандидаты (учтены кириллица и вложения) */
     const BASES = [
       "", "assets/","asset/","image/","images/",
       "Изображения/","изображения/","авауры/","авуары/",
@@ -123,7 +119,7 @@
       "авуары/авуары/Изображения/","Личный сайт/авуары/авуары/Изображения/"
     ];
 
-    /* Варианты имён для before/after (ловим (1), jpeg, png) */
+    /* ---- ВАРИАНТЫ ИМЁН ---- */
     function nameVariants(stem){
       const list = [
         `${stem}-before.jpg`, `${stem}-before (1).jpg`, `${stem}-before.jpeg`, `${stem}-before.png`,
@@ -134,6 +130,7 @@
       return [...new Set(list)];
     }
 
+    /* Карточки */
     const ITEMS = [
       { key:"krossovki", imgId:"krossovki-img", stem:"krossovki" },
       { key:"product",   imgId:"product-img",   stem:"product"   },
@@ -141,13 +138,22 @@
       { key:"watch",     imgId:"watch-img",     stem:"watch"     },
     ];
 
+    /* Пример-картинка, которую ты прислал (варианты имён на всякий случай) */
+    const CUSTOM_IMAGE_CANDIDATES = [
+      "photo_2025-08-11_23-34-43.jpg13.jpg",
+      "photo_2025-08-11_23-34-43.jpg"
+    ];
+
+    /* Прайс: приоритет DOCX → PDF → PNG */
     const PRICE_FILES = [
+      "price-ildar.docx","price.docx","ai_design_site_ads.docx",
+      "ai_design_site_ads 2.docx","ai_design_site_ads.docx 2.docx",
       "price-ildar.pdf","price.pdf","price_a4.pdf",
       "ai_design_site_ads_simple.pdf","ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf",
       "price-ildar.png","price.png","price_a4.png"
     ];
 
-    const FOUND = {};
+    const FOUND = {}; // key -> {base,before,after,imgId}
 
     function setBadge(id, html, ok=true){
       const el = document.getElementById("badge-"+id);
@@ -160,12 +166,10 @@
       try{ const r = await fetch(u,{method:"HEAD",cache:"no-store"}); if(r.ok) return true; }catch(e){}
       try{ const r2 = await fetch(u,{method:"GET",cache:"no-store"}); return r2.ok; }catch(e){ return false; }
     }
-
     async function findBaseFor(file){
       for(const b of BASES){ if(await exists(b+file)) return b; }
       return null;
     }
-
     async function findAny(files){
       for(const f of files){
         const b = await findBaseFor(f);
@@ -200,7 +204,6 @@
       FOUND[key] = { base: before.base, before: before.file, after: afterFile, imgId };
       img.src = encodeURI(before.base + before.file) + "?v=" + Date.now();
       setBadge(key,"Путь: " + before.base + " · файл: " + before.file);
-      console.log(`[OK] ${key} →`, before.base, before.file);
     }
 
     function showBefore(key){
@@ -212,6 +215,23 @@
       document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
     }
 
+    /* Поиск кастомной картинки */
+    async function initCustom(){
+      for(const f of CUSTOM_IMAGE_CANDIDATES){
+        const b = await findBaseFor(f);
+        if(b){
+          const el = document.getElementById("custom-hero");
+          el.src = encodeURI(b+f) + "?v=" + Date.now();
+          const badge = document.getElementById("badge-custom");
+          if(badge) badge.innerHTML = '<span class="ok">✔</span> Путь: ' + b + ' · файл: ' + f;
+          return;
+        }
+      }
+      const badge = document.getElementById("badge-custom");
+      if(badge) badge.innerHTML = '<span class="warn">✖</span> Картинка не найдена';
+    }
+
+    /* Прайс */
     async function initPrice(){
       const link = document.getElementById("price-link");
       const badge = document.getElementById("price-badge");
@@ -220,20 +240,22 @@
         if(b){
           const url = encodeURI(b+f) + "?v=" + Date.now();
           link.href = url;
-          link.textContent = "📂 Скачать прайс" + (f.endsWith(".png")?" (PNG)":" (PDF)");
+          const ext = f.split(".").pop().toUpperCase();
+          link.textContent = "📄 Скачать прайс ("+ext+")";
           link.style.pointerEvents = "auto";
           link.style.opacity = "1";
-          badge.innerHTML = '<span style="color:#18a058">✔</span> Файл: ' + b + f;
+          badge.innerHTML = '<span class="ok">✔</span> Файл: ' + b + f;
           return;
         }
       }
       link.removeAttribute("href");
       link.style.pointerEvents = "none";
       link.style.opacity = "0.6";
-      badge.innerHTML = '<span style="color:#c22727">✖</span> Прайс не найден. Положите файл (например, price-ildar.pdf) в любую из папок: ' + BASES.join(" · ");
+      badge.innerHTML = '<span class="warn">✖</span> Прайс не найден. Положите DOCX/PDF в любую из папок: ' + BASES.join(" · ");
     }
 
     (async function(){
+      await initCustom();
       for(const it of ITEMS){ await initItem(it); }
       await initPrice();
     })();
