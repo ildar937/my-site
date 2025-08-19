@@ -105,7 +105,7 @@
 
     <section style="text-align:center">
       <h2>Прайс</h2>
-      <a id="price-link" class="pill" href="#" download>📂 Скачать прайс</a>
+      <a id="price-link" class="pill" href="#" download style="pointer-events:none;opacity:.6">📂 Скачать прайс</a>
       <div id="price-badge" class="muted" style="margin-top:8px"></div>
     </section>
   </main>
@@ -115,9 +115,7 @@
   </footer>
 
   <script>
-    /* === Автопоиск путей и файлов (картинки + прайс) === */
-
-    // Возможные базовые папки (включил все ваши варианты и дублёры)
+    /* Возможные базовые папки (включая кириллицу и вложения) */
     const BASES = [
       "", "assets/","asset/","image/","images/",
       "Изображения/","изображения/","авауры/","авуары/",
@@ -125,58 +123,84 @@
       "авуары/авуары/Изображения/","Личный сайт/авуары/авуары/Изображения/"
     ];
 
-    // Имена файлов (их менять не нужно)
-    const SAMPLES = {
-      krossovki: ["krossovki-before.jpg","krossovki-after.jpg"],
-      product:   ["product-before.jpg","product-after.jpg"],
-      headphones:["headphones-before.jpg","headphones-after.jpg"],
-      watch:     ["watch-before.jpg","watch-after.jpg"]
-    };
+    /* Варианты имён для before/after (ловим (1), jpeg, png) */
+    function nameVariants(stem){
+      const list = [
+        `${stem}-before.jpg`, `${stem}-before (1).jpg`, `${stem}-before.jpeg`, `${stem}-before.png`,
+        `${stem}-after.jpg`,  `${stem}-after (1).jpg`,  `${stem}-after.jpeg`,  `${stem}-after.png`
+      ];
+      const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
+      list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
+      return [...new Set(list)];
+    }
 
-    // Кандидаты прайса (PDF в приоритете; если нет — PNG тоже подхватим)
+    const ITEMS = [
+      { key:"krossovki", imgId:"krossovki-img", stem:"krossovki" },
+      { key:"product",   imgId:"product-img",   stem:"product"   },
+      { key:"headphones",imgId:"headphones-img",stem:"headphones"},
+      { key:"watch",     imgId:"watch-img",     stem:"watch"     },
+    ];
+
     const PRICE_FILES = [
-      "price-ildar.pdf","price.pdf","ai_design_site_ads_simple.pdf",
-      "ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf","price_a4.pdf",
+      "price-ildar.pdf","price.pdf","price_a4.pdf",
+      "ai_design_site_ads_simple.pdf","ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf",
       "price-ildar.png","price.png","price_a4.png"
     ];
 
-    const FOUND = {}; // { key: {base, before, after, imgId} }
+    const FOUND = {};
 
-    function setBadge(id, text, ok=true){
+    function setBadge(id, html, ok=true){
       const el = document.getElementById("badge-"+id);
-      if(el){ el.innerHTML = (ok ? '<span class="ok">✔</span> ' : '<span class="warn">✖</span> ') + text; }
+      if(!el) return;
+      el.innerHTML = (ok?'<span style="color:#18a058">✔</span> ':'<span style="color:#c22727">✖</span> ')+html;
     }
 
-    // Проверка существования файла (HEAD → GET fallback) с учётом кириллицы
     async function exists(url){
       const u = encodeURI(url);
-      try{
-        const r = await fetch(u, { method: "HEAD", cache: "no-store" });
-        if (r.ok) return true;
-      }catch(e){}
-      try{
-        const r2 = await fetch(u, { method: "GET", cache: "no-store" });
-        return r2.ok;
-      }catch(e){ return false; }
+      try{ const r = await fetch(u,{method:"HEAD",cache:"no-store"}); if(r.ok) return true; }catch(e){}
+      try{ const r2 = await fetch(u,{method:"GET",cache:"no-store"}); return r2.ok; }catch(e){ return false; }
     }
 
-    // Поиск базовой папки, где есть конкретный файл
-    async function findBase(file){
-      for (const b of BASES){
-        if (await exists(b + file)) return b;
+    async function findBaseFor(file){
+      for(const b of BASES){ if(await exists(b+file)) return b; }
+      return null;
+    }
+
+    async function findAny(files){
+      for(const f of files){
+        const b = await findBaseFor(f);
+        if(b) return {base:b,file:f};
       }
       return null;
     }
 
-    // Инициализация одного примера
-    async function initSample(key, imgId, beforeFile, afterFile){
-      const base = await findBase(beforeFile);
+    async function initItem({key,imgId,stem}){
+      const vars = nameVariants(stem);
+      const beforeVars = vars.filter(v=>/before\./i.test(v));
+      const afterVars  = vars.filter(v=>/after\./i.test(v));
+
+      const before = await findAny(beforeVars);
       const img = document.getElementById(imgId);
-      if(!base){ img.alt = "Файл не найден: " + beforeFile; setBadge(key, "Не найдено", false); return; }
-      FOUND[key] = { base, before: beforeFile, after: afterFile, imgId };
-      img.src = encodeURI(base + beforeFile) + "?v=" + Date.now();
-      setBadge(key, "Путь: " + base);
-      console.log(`[OK] ${key} → ${base}`);
+
+      if(!before){
+        img.alt = "Файл не найден: " + beforeVars[0];
+        setBadge(key,"Не найдено",false);
+        return;
+      }
+
+      let afterFile = null;
+      for(const f of afterVars){
+        if(await exists(before.base + f)){ afterFile = f; break; }
+      }
+      if(!afterFile){
+        const found = await findAny(afterVars);
+        afterFile = found ? found.file : afterVars[0];
+      }
+
+      FOUND[key] = { base: before.base, before: before.file, after: afterFile, imgId };
+      img.src = encodeURI(before.base + before.file) + "?v=" + Date.now();
+      setBadge(key,"Путь: " + before.base + " · файл: " + before.file);
+      console.log(`[OK] ${key} →`, before.base, before.file);
     }
 
     function showBefore(key){
@@ -188,32 +212,29 @@
       document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
     }
 
-    // Поиск прайса
     async function initPrice(){
       const link = document.getElementById("price-link");
       const badge = document.getElementById("price-badge");
-      for (const f of PRICE_FILES){
-        const base = await findBase(f);
-        if(base){
-          const url = encodeURI(base + f) + "?v=" + Date.now();
+      for(const f of PRICE_FILES){
+        const b = await findBaseFor(f);
+        if(b){
+          const url = encodeURI(b+f) + "?v=" + Date.now();
           link.href = url;
-          link.textContent = "📂 Скачать прайс" + (f.endsWith(".png") ? " (PNG)" : " (PDF)");
-          badge.textContent = "Файл: " + base + f;
+          link.textContent = "📂 Скачать прайс" + (f.endsWith(".png")?" (PNG)":" (PDF)");
+          link.style.pointerEvents = "auto";
+          link.style.opacity = "1";
+          badge.innerHTML = '<span style="color:#18a058">✔</span> Файл: ' + b + f;
           return;
         }
       }
       link.removeAttribute("href");
       link.style.pointerEvents = "none";
       link.style.opacity = "0.6";
-      badge.textContent = "Прайс не найден. Положите файл (например, price-ildar.pdf) в любую из папок: " + BASES.join(" · ");
+      badge.innerHTML = '<span style="color:#c22727">✖</span> Прайс не найден. Положите файл (например, price-ildar.pdf) в любую из папок: ' + BASES.join(" · ");
     }
 
-    // Старт
     (async function(){
-      await initSample("krossovki","krossovki-img",...SAMPLES.krossovki);
-      await initSample("product","product-img",...SAMPLES.product);
-      await initSample("headphones","headphones-img",...SAMPLES.headphones);
-      await initSample("watch","watch-img",...SAMPLES.watch);
+      for(const it of ITEMS){ await initItem(it); }
       await initPrice();
     })();
   </script>
