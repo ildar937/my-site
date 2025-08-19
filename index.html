@@ -1,173 +1,219 @@
-<script>
-/* ===== Расширенный автопоиск ===== */
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>AI-дизайн • До/После</title>
+  <style>
+    :root{--bg:#fff;--fg:#111;--muted:#666;--panel:#f6f7f9;--btn:#111;--btnh:#333}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+    header,footer{padding:26px 14px;text-align:center;background:var(--panel)}
+    header h1{margin:0 0 6px}
+    main{max-width:980px;margin:0 auto;padding:18px 14px}
+    .pill{display:inline-block;background:#eef1f5;border-radius:999px;padding:8px 14px;color:#111;text-decoration:none;margin:0 6px}
+    h2{text-align:center;margin:24px 0 10px}
+    .card{display:flex;flex-direction:column;align-items:center;margin:28px 0}
+    .card img{width:100%;max-width:880px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.12);min-height:180px;background:#f1f2f4;object-fit:cover}
+    .btns{margin-top:10px}
+    .btn{background:var(--btn);color:#fff;border:0;border-radius:9px;padding:9px 14px;margin:0 6px;cursor:pointer}
+    .btn:hover{background:var(--btnh)}
+    .muted{color:var(--muted);font-size:13px;margin-top:6px}
+    .ok{color:#18a058}.bad{color:#c22727}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AI-дизайн • До/После</h1>
+    <div>Карточки, обложки, аватары • быстрый премиум-визуал</div>
+    <p style="margin-top:10px">
+      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram</a>
+      <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank" rel="noopener">WhatsApp</a>
+      <!-- ЖЁСТКАЯ ссылка на твой DOCX в корне (пробел закодирован) -->
+      <a id="price-hard" class="pill" href="ai_design_site_ads.docx%202.docx" download>📄 Скачать прайс (DOCX)</a>
+    </p>
+  </header>
 
-/* Базовые папки (все ваши варианты + вложенные) */
-const BASES = [
-  "", "assets/", "asset/", "image/", "images/",
-  "assets/images/", "assets/Изображения/",
-  "Изображения/", "изображения/",
-  "авауры/", "авуары/",
-  "авауры/Изображения/", "авуары/Изображения/",
-  "авуары/авуары/Изображения/",
-  "Личный сайт/", "Личный сайт/assets/", "Личный сайт/images/", "Личный сайт/Изображения/",
-  "Личный сайт/авуары/", "Личный сайт/авуары/Изображения/",
-  "Личный сайт/авауры/", "Личный сайт/авауры/Изображения/",
-  "Личный сайт/авуары/авуары/Изображения/"
-];
+  <main>
+    <h2>Примеры работ</h2>
 
-/* Генерация вариантов имён before/after */
-function nameVariants(stem){
-  const bases = [
-    `${stem}-before`, `${stem}-after`,
-    `${stem}_before`, `${stem}_after`,
-    `${stem} before`, `${stem} after`
-  ];
-  const withIdx = [];
-  bases.forEach(b => withIdx.push(b, `${b} (1)`, `${b} (2)`));
-  const exts = [".jpg",".jpeg",".png",".webp"];
-  const list = [];
-  for(const b of withIdx) for(const e of exts) list.push(b+e);
+    <!-- Кроссовки -->
+    <div class="card">
+      <img id="krossovki-img" alt="Кроссовки">
+      <div class="btns">
+        <button class="btn" onclick="show('krossovki','before')">До</button>
+        <button class="btn" onclick="show('krossovki','after')">После</button>
+      </div>
+      <div id="badge-krossovki" class="muted"></div>
+    </div>
 
-  const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
-  list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
-  return [...new Set(list)];
-}
+    <!-- Товар -->
+    <div class="card">
+      <img id="product-img" alt="Товар">
+      <div class="btns">
+        <button class="btn" onclick="show('product','before')">До</button>
+        <button class="btn" onclick="show('product','after')">После</button>
+      </div>
+      <div id="badge-product" class="muted"></div>
+    </div>
 
-/* Набор карточек */
-const ITEMS = [
-  { key:"krossovki", imgId:"krossovki-img", stem:"krossovki" },
-  { key:"product",   imgId:"product-img",   stem:"product"   },
-  { key:"headphones",imgId:"headphones-img",stem:"headphones"},
-  { key:"watch",     imgId:"watch-img",     stem:"watch"     },
-];
+    <!-- Наушники -->
+    <div class="card">
+      <img id="headphones-img" alt="Наушники">
+      <div class="btns">
+        <button class="btn" onclick="show('headphones','before')">До</button>
+        <button class="btn" onclick="show('headphones','after')">После</button>
+      </div>
+      <div id="badge-headphones" class="muted"></div>
+    </div>
 
-/* Твоя большая картинка */
-const CUSTOM_IMAGE_CANDIDATES = [
-  "photo_2025-08-11_23-34-43.jpg13.jpg",
-  "photo_2025-08-11_23-34-43.jpg",
-  "наушники.jpg","headphones.jpg"
-];
+    <!-- Часы -->
+    <div class="card">
+      <img id="watch-img" alt="Часы">
+      <div class="btns">
+        <button class="btn" onclick="show('watch','before')">До</button>
+        <button class="btn" onclick="show('watch','after')">После</button>
+      </div>
+      <div id="badge-watch" class="muted"></div>
+    </div>
 
-/* Прайс: приоритет DOCX → PDF → PNG */
-const PRICE_FILES = [
-  // DOCX
-  "price-ildar.docx","price.docx","ai_design_site_ads.docx",
-  "ai_design_site_ads 2.docx","ai_design_site_ads.docx 2.docx",
-  "ai_design_site_ads (2).docx","ai_design_site_ads_2.docx",
-  // PDF
-  "price-ildar.pdf","price.pdf","price_a4.pdf",
-  "ai_design_site_ads_simple.pdf","ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf",
-  // PNG
-  "price-ildar.png","price.png","price_a4.png"
-];
+    <h2>Прайс</h2>
+    <p style="text-align:center">
+      <a id="price-auto" class="pill" href="#" download style="pointer-events:none;opacity:.6">📄 Скачать прайс (авто)</a>
+      <div id="price-badge" class="muted" style="text-align:center"></div>
+    </p>
+  </main>
 
-const FOUND = {}; // key -> {base,before,after,imgId}
+  <footer>© Ильдар • AI-дизайн</footer>
 
-function setBadge(id, html, ok=true){
-  const el = document.getElementById("badge-"+id);
-  if(!el) return;
-  el.innerHTML = (ok?'<span style="color:#18a058">✔</span> ':'<span style="color:#c22727">✖</span> ')+html;
-}
+  <script>
+    /* КАНДИДАТНЫЕ ПАПКИ (реальные у тебя были с кириллицей) */
+    const BASES = [
+      "", "assets/","asset/","image/","images/",
+      "Изображения/","изображения/",
+      "авауры/","авуары/",
+      "авауры/Изображения/","авуары/Изображения/",
+      "авуары/авуары/Изображения/",
+      "Личный сайт/авуары/авуары/Изображения/"
+    ];
 
-async function exists(url){
-  const u = encodeURI(url);
-  try{ const r = await fetch(u,{method:"HEAD",cache:"no-store"}); if(r.ok) return true; }catch(e){}
-  try{ const r2 = await fetch(u,{method:"GET",cache:"no-store"}); return r2.ok; }catch(e){ return false; }
-}
-async function findBaseFor(file){
-  for(const b of BASES){ if(await exists(b+file)) return b; }
-  return null;
-}
-async function findAny(files){
-  for(const f of files){
-    const b = await findBaseFor(f);
-    if(b) return {base:b,file:f};
-  }
-  return null;
-}
+    /* ПРОСТАЯ СХЕМА ФАЙЛОВ */
+    const items = {
+      krossovki:  { before:["krossovki-before.jpg"],  after:["krossovki-after.jpg"],  img:"krossovki-img"  },
+      product:    { before:["product-before.jpg"],    after:["product-after.jpg"],    img:"product-img"    },
+      headphones: { before:[
+                      "headphones-before.jpg","headphones-before (1).jpg",
+                      "headphones_before.jpg","headphones-before.jpeg","headphones-before.png"
+                    ],
+                    after:[
+                      "headphones-after.jpg","headphones-after (1).jpg",
+                      "headphones_after.jpg","headphones-after.jpeg","headphones-after.png"
+                    ],
+                    img:"headphones-img"
+                  },
+      watch:      { before:["watch-before.jpg"],      after:["watch-after.jpg"],      img:"watch-img"      }
+    };
 
-/* Инициализация карточки */
-async function initItem({key,imgId,stem}){
-  const vars = nameVariants(stem);
-  const beforeVars = vars.filter(v=>/before\./i.test(v));
-  const afterVars  = vars.filter(v=>/after\./i.test(v));
+    /* ПРАЙС: DOCX приоритет → PDF → PNG */
+    const PRICE_NAMES = [
+      "ai_design_site_ads.docx 2.docx","ai_design_site_ads.docx%202.docx", // твой файл
+      "price-ildar.docx","price.docx","ai_design_site_ads.docx",
+      "price-ildar.pdf","price.pdf","price_a4.pdf",
+      "price-ildar.png","price.png","price_a4.png"
+    ];
 
-  const before = await findAny(beforeVars);
-  const img = document.getElementById(imgId);
+    const FOUND = {}; // {key:{base,before,after,img}}
 
-  if(!before){
-    img.alt = "Файл не найден: " + (beforeVars[0] || (stem+"-before.jpg"));
-    setBadge(key,"Не найдено",false);
-    return;
-  }
-
-  let afterFile = null;
-  // сначала пробуем ту же базу
-  for(const f of afterVars){ if(await exists(before.base+f)){ afterFile = f; break; } }
-  // если нет — ищем в других базах
-  if(!afterFile){
-    const found = await findAny(afterVars);
-    afterFile = found ? found.file : afterVars[0];
-  }
-
-  FOUND[key] = { base: before.base, before: before.file, after: afterFile, imgId };
-  img.src = encodeURI(before.base + before.file) + "?v=" + Date.now();
-  setBadge(key,"Путь: " + before.base + " · файл: " + before.file);
-}
-
-/* Переключатели */
-function showBefore(key){
-  const s = FOUND[key]; if(!s) return;
-  document.getElementById(s.imgId).src = encodeURI(s.base + s.before) + "?v=" + Date.now();
-}
-function showAfter(key){
-  const s = FOUND[key]; if(!s) return;
-  document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
-}
-
-/* Кастомная картинка (наушники) */
-async function initCustom(){
-  for(const f of CUSTOM_IMAGE_CANDIDATES){
-    const b = await findBaseFor(f);
-    if(b){
-      const el = document.getElementById("custom-hero");
-      if(el){ el.src = encodeURI(b+f) + "?v=" + Date.now(); }
-      const badge = document.getElementById("badge-custom");
-      if(badge) badge.innerHTML = '<span style="color:#18a058">✔</span> Путь: ' + b + ' · файл: ' + f;
-      return;
+    /* --- ВСПОМОГАТЕЛЬНЫЕ --- */
+    function setBadge(key, ok, text){
+      const el = document.getElementById("badge-"+key);
+      if(!el) return;
+      el.innerHTML = (ok ? '<span class="ok">✔</span> ' : '<span class="bad">✖</span> ') + text;
     }
-  }
-  const badge = document.getElementById("badge-custom");
-  if(badge) badge.innerHTML = '<span style="color:#c22727">✖</span> Картинка не найдена';
-}
 
-/* Прайс (DOCX/PDF/PNG) */
-async function initPrice(){
-  const link  = document.getElementById("price-link");
-  const badge = document.getElementById("price-badge");
-  for(const f of PRICE_FILES){
-    const b = await findBaseFor(f);
-    if(b){
-      const url = encodeURI(b+f) + "?v=" + Date.now();
-      link.href = url;
-      const ext = f.split(".").pop().toUpperCase();
-      link.textContent = (ext==="DOCX" ? "📄 Открыть прайс (DOCX)" : "📄 Скачать прайс ("+ext+")");
-      link.style.pointerEvents = "auto";
-      link.style.opacity = "1";
-      badge.innerHTML = '<span style="color:#18a058">✔</span> Файл: ' + b + f;
-      return;
+    function testImage(url){
+      return new Promise(res=>{
+        const img = new Image();
+        img.onload = ()=>res(true);
+        img.onerror= ()=>res(false);
+        img.src = encodeURI(url) + (url.includes("?")?"&":"?") + "v=" + Date.now();
+      });
     }
-  }
-  link.removeAttribute("href");
-  link.style.pointerEvents = "none";
-  link.style.opacity = "0.6";
-  badge.innerHTML = '<span style="color:#c22727">✖</span> Прайс не найден. Допустимые имена: ' + PRICE_FILES.join(" · ");
-}
 
-/* Старт */
-(async function(){
-  await initCustom();
-  for(const it of ITEMS){ await initItem(it); }
-  await initPrice();
-})();
-</script>
+    async function pickUrl(fileCandidates){
+      // пробуем каждый файл + каждую базу
+      for(const name of fileCandidates){
+        for(const base of BASES){
+          const url = base + name;
+          if(await testImage(url)) return {base, file:name, url};
+        }
+      }
+      return null;
+    }
+
+    async function initItem(key){
+      const cfg = items[key];
+      const before = await pickUrl(cfg.before);
+      const imgEl = document.getElementById(cfg.img);
+      if(!before){ imgEl.alt = "Файл не найден"; setBadge(key,false,"Не найдено"); return; }
+
+      // подбираем after в той же базе; если нет — ищем где угодно
+      let afterFile = null, afterUrl = null;
+      for(const f of cfg.after){
+        const url = before.base + f;
+        if(await testImage(url)){ afterFile = f; afterUrl = url; break; }
+      }
+      if(!afterUrl){
+        const alt = await pickUrl(cfg.after);
+        if(alt){ afterFile = alt.file; afterUrl = alt.url; } else { afterFile = cfg.after[0]; afterUrl = before.base + afterFile; }
+      }
+
+      FOUND[key] = { base: before.base, before: before.file, after: afterFile, img: cfg.img };
+      imgEl.src = encodeURI(before.url);
+      setBadge(key,true,"Путь: " + before.base + " · файл: " + before.file);
+    }
+
+    function show(key, which){
+      const s = FOUND[key]; if(!s) return;
+      const file = (which==="before") ? s.before : s.after;
+      const url  = s.base + file;
+      document.getElementById(s.img).src = encodeURI(url) + "?v=" + Date.now();
+    }
+
+    /* ПРАЙС: авто-поиск (кроме жёсткой ссылки сверху) */
+    async function initPrice(){
+      const link = document.getElementById("price-auto");
+      const badge = document.getElementById("price-badge");
+
+      // пробуем имена + базы
+      for(const name of PRICE_NAMES){
+        const clean = decodeURI(name); // на случай %20
+        for(const base of BASES){
+          const url = base + clean;
+          try{
+            const r = await fetch(encodeURI(url), {method:"HEAD",cache:"no-store"});
+            if(r.ok){
+              link.href = encodeURI(url) + "?v=" + Date.now();
+              link.style.pointerEvents = "auto"; link.style.opacity = "1";
+              const ext = clean.split(".").pop().toUpperCase();
+              link.textContent = "📄 Скачать прайс ("+ext+")";
+              badge.innerHTML = '<span class="ok">✔</span> Файл: ' + base + clean;
+              return;
+            }
+          }catch(_){}
+        }
+      }
+      badge.innerHTML = '<span class="bad">✖</span> Прайс не найден (жёсткая кнопка выше работает).';
+    }
+
+    /* СТАРТ */
+    (async function(){
+      await initItem("krossovki");
+      await initItem("product");
+      await initItem("headphones");
+      await initItem("watch");
+      await initPrice();
+    })();
+  </script>
+</body>
+</html>
