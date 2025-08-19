@@ -1,52 +1,126 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI-дизайн • До / После</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#fff;color:#111}
+    header{text-align:center;padding:24px 12px}
+    h1{margin:0 0 6px}
+    .grid{max-width:900px;margin:0 auto;padding:16px}
+    .card{display:flex;flex-direction:column;align-items:center;margin:28px 0}
+    .card img{max-width:92%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15);min-height:160px;background:#f3f3f3;object-fit:cover}
+    .btns{margin-top:10px}
+    .btns button{background:#111;color:#fff;border:0;border-radius:8px;padding:8px 14px;margin:0 6px;cursor:pointer}
+    .btns button:hover{background:#333}
+    footer{padding:24px 12px;text-align:center;color:#666}
+  </style>
 </head>
 <body>
-  <h1>соцсетей</h1>
-  <p>Карточки, обложки, аватары • До → После • От 12 часов</p>
+<header>
+  <h1>Примеры работ</h1>
+  <div>Карточки, обложки, аватары • До → После</div>
+</header>
 
-  <h2>Примеры работ</h2>
-
-  <!-- Кроссовки -->
-  <div class="work">
-    <img id="krossovki-img" src="Личный сайт/авуары/авуары/Изображения/krossovki-before.jpg" alt="Кроссовки">
-    <p>Кроссовки</p>
-    <button onclick="document.getElementById('krossovki-img').src='Личный сайт/авуары/авуары/Изображения/krossovki-before.jpg'">До</button>
-    <button onclick="document.getElementById('krossovki-img').src='Личный сайт/авуары/авуары/Изображения/krossovki-after.jpg'">После</button>
+<main class="grid">
+  <div class="card">
+    <img id="krossovki-img" alt="Кроссовки">
+    <div class="btns">
+      <button onclick="showBefore('krossovki')">До</button>
+      <button onclick="showAfter('krossovki')">После</button>
+    </div>
   </div>
 
-  <!-- Товар -->
-  <div class="work">
-    <img id="product-img" src="Личный сайт/авуары/авуары/Изображения/product-before.jpg" alt="Товар">
-    <p>Товар</p>
-    <button onclick="document.getElementById('product-img').src='Личный сайт/авуары/авуары/Изображения/product-before.jpg'">До</button>
-    <button onclick="document.getElementById('product-img').src='Личный сайт/авуары/авуары/Изображения/product-after.jpg'">После</button>
+  <div class="card">
+    <img id="product-img" alt="Товар">
+    <div class="btns">
+      <button onclick="showBefore('product')">До</button>
+      <button onclick="showAfter('product')">После</button>
+    </div>
   </div>
 
-  <!-- Наушники -->
-  <div class="work">
-    <img id="headphones-img" src="Личный сайт/авуары/авуары/Изображения/headphones-before.jpg" alt="Наушники">
-    <p>Наушники</p>
-    <button onclick="document.getElementById('headphones-img').src='Личный сайт/авуары/авуары/Изображения/headphones-before.jpg'">До</button>
-    <button onclick="document.getElementById('headphones-img').src='Личный сайт/авуары/авуары/Изображения/headphones-after.jpg'">После</button>
+  <div class="card">
+    <img id="headphones-img" alt="Наушники">
+    <div class="btns">
+      <button onclick="showBefore('headphones')">До</button>
+      <button onclick="showAfter('headphones')">После</button>
+    </div>
   </div>
 
-  <!-- Часы -->
-  <div class="work">
-    <img id="watch-img" src="Личный сайт/авуары/авуары/Изображения/watch-before.jpg" alt="Часы">
-    <p>Часы</p>
-    <button onclick="document.getElementById('watch-img').src='Личный сайт/авуары/авуары/Изображения/watch-before.jpg'">До</button>
-    <button onclick="document.getElementById('watch-img').src='Личный сайт/авуары/авуары/Изображения/watch-after.jpg'">После</button>
+  <div class="card">
+    <img id="watch-img" alt="Часы">
+    <div class="btns">
+      <button onclick="showBefore('watch')">До</button>
+      <button onclick="showAfter('watch')">После</button>
+    </div>
   </div>
+</main>
 
-  <p>📩 Заказать → 
-    <a href="https://t.me/foodfox_eldar_gainutdinov">Telegram</a> | 
-    <a href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ.">WhatsApp</a>
-  </p>
+<footer>
+  © Ильдар • AI-дизайн
+</footer>
+
+<script>
+/* Кандидатные базовые пути — скрипт попробует по очереди, пока не найдёт существующий */
+const BASES = [
+  "assets/",
+  "image/",
+  "Изображения/",
+  "авауры/",
+  "авауры/Изображения/",
+  "авуары/Изображения/",
+  "авуары/авуары/Изображения/",
+  "Личный сайт/авуары/авуары/Изображения/",
+];
+
+/* Храним найденную «базу» для каждого ключа */
+const FOUND = {};
+
+/* Поиск первого существующего пути для файла */
+function findBaseFor(file, done){
+  let i = 0;
+  function tryNext(){
+    if(i >= BASES.length){ done(null); return; }
+    const base = BASES[i++];
+
+    const test = new Image();
+    // ВАЖНО: кодируем кириллицу/пробелы
+    const url = encodeURI(base + file);
+
+    test.onload = () => done(base);
+    test.onerror = tryNext;
+    test.src = url;
+  }
+  tryNext();
+}
+
+/* Инициализация одного блока: ищем базу и подставляем "до" */
+function initSample(key, imgId, beforeFile, afterFile){
+  findBaseFor(beforeFile, function(base){
+    const img = document.getElementById(imgId);
+    if(!base){ img.alt = "Файл не найден"; return; }
+    FOUND[key] = { base, before: beforeFile, after: afterFile, imgId };
+    img.src = encodeURI(base + beforeFile);
+  });
+}
+
+/* Кнопки переключения */
+function showBefore(key){
+  const s = FOUND[key]; if(!s) return;
+  document.getElementById(s.imgId).src = encodeURI(s.base + s.before);
+}
+function showAfter(key){
+  const s = FOUND[key]; if(!s) return;
+  document.getElementById(s.imgId).src = encodeURI(s.base + s.after);
+}
+
+/* Запуск: указываем только ИМЕНА файлов — скрипт найдёт путь сам */
+initSample("krossovki", "krossovki-img", "krossovki-before.jpg", "krossovki-after.jpg");
+initSample("product",    "product-img",    "product-before.jpg",    "product-after.jpg");
+initSample("headphones", "headphones-img", "headphones-before.jpg", "headphones-after.jpg");
+initSample("watch",      "watch-img",      "watch-before.jpg",      "watch-after.jpg");
+</script>
 
 </body>
 </html>
