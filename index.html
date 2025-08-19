@@ -1,161 +1,142 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>До / После — 4 слайдера</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-дизайн • До / После</title>
   <style>
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b0c10;color:#e8e8e8}
-    h1,h2{margin:16px 0;line-height:1.25}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 96px}
-    .grid{display:grid;gap:28px}
-    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
-
-    /* Кнопки вверху */
-    .contacts{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:#111318;border:1px solid #1f2330;border-radius:999px;color:#e8e8e8;text-decoration:none;font-weight:700;font-size:14px}
-    .pill:hover{background:#151925}
-
-    /* Карточки */
-    .card{background:#111318;border:1px solid #1f2330;border-radius:16px;padding:16px 16px 20px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
-    .card h2{font-size:18px;margin-bottom:12px;color:#f1f5f9}
-
-    /* Слайдер До/После */
-    .ba{--pos:50%;position:relative;border-radius:14px;overflow:hidden;user-select:none;touch-action:none;background:#0d0f14}
-    .ba-images{position:relative;width:100%}
-    .ba-after{position:relative;z-index:1;display:block;width:100%;height:auto}          /* справа (После) — нижний слой */
-    .ba-before{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2; /* слева (До) — верхний слой */
-      clip-path:polygon(0 0,var(--pos) 0,var(--pos) 100%,0 100%);will-change:clip-path}
-    .ba-divider{position:absolute;inset:0;z-index:3;pointer-events:none}
-    .ba-divider::before{content:"";position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(0,0,0,.35);transform:translateX(-1px)}
-    .ba-handle{position:absolute;left:var(--pos);top:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:#fff;color:#111318;font-weight:800;display:grid;place-items:center;font-size:16px;box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 0 0 2px rgba(0,0,0,.12)}
-    .ba-label{position:absolute;top:12px;z-index:4;padding:6px 10px;border-radius:12px;background:rgba(0,0,0,.55);color:#fff;font-weight:700;font-size:13px}
-    .ba-label-before{left:12px}.ba-label-after{right:12px}
-    .ba-range{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;width:clamp(200px,60%,560px);z-index:5;-webkit-appearance:none;appearance:none;height:6px;background:rgba(255,255,255,.25);border-radius:999px;outline:none}
-    .ba-range::-webkit-slider-thumb,.ba-range::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid rgba(0,0,0,.25);box-shadow:0 2px 8px rgba(0,0,0,.35);cursor:pointer}
-
-    /* Плавающие кнопки */
-    .fab{position:fixed;right:18px;z-index:50;width:58px;height:58px;border-radius:50%;color:#fff;text-decoration:none;display:grid;place-items:center;font-weight:800;font-size:14px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
-    .tg-fab{bottom:88px;background:#2AABEE}
-    .wa-fab{bottom:18px;background:#25D366}
-    .fab small{font-size:11px;font-weight:700;opacity:.95}
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #222; }
+    header { text-align: center; padding: 50px 20px; background: #f5f5f5; }
+    header h1 { margin: 0; font-size: 28px; }
+    header p { margin: 10px 0; font-size: 18px; }
+    section { padding: 40px 20px; max-width: 900px; margin: auto; }
+    h2 { text-align: center; margin-bottom: 20px; }
+    .advantages, .tariffs, .reviews, .steps { display: grid; gap: 20px; }
+    .advantages div, .tariffs div, .reviews div, .steps div {
+      padding: 15px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa;
+    }
+    footer { text-align: center; padding: 30px; background: #f5f5f5; }
+    .btn { display: inline-block; margin-top: 15px; padding: 12px 20px; background: #222; color: #fff; text-decoration: none; border-radius: 8px; }
+    .btn:hover { background: #444; }
+    .slider { position: relative; width: 100%; max-width: 800px; margin: 20px auto; overflow: hidden; border-radius: 10px; }
+    .slider img { width: 100%; display: none; }
+    .slider img.active { display: block; }
+    .slider-buttons { text-align: center; margin-top: 10px; }
+    .slider-buttons button { margin: 0 5px; padding: 5px 10px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>До → После: 4 примера</h1>
 
-    <!-- Контакты (без прайса) -->
-    <div class="contacts" aria-label="Контакты">
-      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram (личный)</a>
-      <a class="pill" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Канал (AI До/После)</a>
-      <a class="pill" href="mailto:Eldargainutdinoff@yandex.ru">E-mail: Eldargainutdinoff@yandex.ru</a>
-      <a class="pill" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener">Написать в WhatsApp</a>
-    </div>
+<header>
+  <h1>AI-дизайн • До / После</h1>
+  <p>Делаем ваши фото продающими за 12 часов</p>
+  <a href="https://t.me/foodfox_eldar_gainutdinov" class="btn">Заказать в Telegram</a>
+</header>
 
-    <div class="grid">
-      <!-- Кроссовки -->
-      <section class="card">
-        <h2>Кроссовки</h2>
-        <div class="ba" data-swap="1">
-          <div class="ba-images">
-            <img class="ba-after"  data-name="krossovki-after.jpg"  alt="Кроссовки — После">
-            <img class="ba-before" data-name="krossovki-before.jpg" alt="Кроссовки — До">
-          </div>
-          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" />
-        </div>
-      </section>
+<section>
+  <h2>Что мы делаем</h2>
+  <p>Мы превращаем обычные фото товаров в премиальные визуалы для маркетплейсов, соцсетей и рекламы. 
+     Посмотрите примеры «До / После» ниже.</p>
+</section>
 
-      <!-- Товар -->
-      <section class="card">
-        <h2>Товар</h2>
-        <div class="ba" data-swap="1">
-          <div class="ba-images">
-            <img class="ba-after"  data-name="product-after.jpg"  alt="Товар — После">
-            <img class="ba-before" data-name="product-before.jpg" alt="Товар — До">
-          </div>
-          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" />
-        </div>
-      </section>
+<!-- Слайдеры -->
+<section>
+  <h2>Примеры работ</h2>
 
-      <!-- Наушники -->
-      <section class="card">
-        <h2>Наушники</h2>
-        <div class="ba" data-swap="1">
-          <div class="ba-images">
-            <img class="ba-after"  data-name="headphones-after.jpg"  alt="Наушники — После">
-            <img class="ba-before" data-name="headphones-before.jpg" alt="Наушники — До">
-          </div>
-          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" />
-        </div>
-      </section>
-
-      <!-- Часы -->
-      <section class="card">
-        <h2>Часы</h2>
-        <div class="ba" data-swap="1">
-          <div class="ba-images">
-            <img class="ba-after"  data-name="watch-after.jpg"  alt="Часы — После">
-            <img class="ba-before" data-name="watch-before.jpg" alt="Часы — До">
-          </div>
-          <div class="ba-divider"><div class="ba-handle"><span>↔</span></div></div>
-          <div class="ba-label ba-label-before">До</div><div class="ba-label ba-label-after">После</div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" />
-        </div>
-      </section>
+  <div class="slider" id="slider1">
+    <img src="авуары/krossovki-before.jpg" alt="Кроссовки До" class="active">
+    <img src="авуары/krossovki-after.jpg" alt="Кроссовки После">
+    <div class="slider-buttons">
+      <button onclick="showSlide('slider1',0)">До</button>
+      <button onclick="showSlide('slider1',1)">После</button>
     </div>
   </div>
 
-  <!-- Плавающие кнопки -->
-  <a class="fab tg-fab" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener" title="Telegram"><small>TG</small></a>
-  <a class="fab wa-fab" href="https://wa.me/79031696661?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" rel="noopener" title="WhatsApp"><small>WA</small></a>
+  <div class="slider" id="slider2">
+    <img src="авуары/product-before.jpg" alt="Товар До" class="active">
+    <img src="авуары/product-after.jpg" alt="Товар После">
+    <div class="slider-buttons">
+      <button onclick="showSlide('slider2',0)">До</button>
+      <button onclick="showSlide('slider2',1)">После</button>
+    </div>
+  </div>
 
-  <script>
-    // Грузим картинки с фолбэком: сперва assets/, если 404 — папка "авуары/" (URL-encoded)
-    const PATHS = ["assets/", "%D0%B0%D0%B2%D1%83%D0%B0%D1%80%D1%8B/"];
-    const BUST = "?v=" + Date.now();
+  <div class="slider" id="slider3">
+    <img src="авуары/headphones-before.jpg" alt="Наушники До" class="active">
+    <img src="авуары/headphones-after.jpg" alt="Наушники После">
+    <div class="slider-buttons">
+      <button onclick="showSlide('slider3',0)">До</button>
+      <button onclick="showSlide('slider3',1)">После</button>
+    </div>
+  </div>
 
-    function setWithFallback(img, filename){
-      let i = 0;
-      function trySrc(){ img.src = PATHS[i] + filename + BUST; }
-      img.onerror = () => { i++; if (i < PATHS.length) { img.onerror = null; trySrc(); } };
-      trySrc();
+  <div class="slider" id="slider4">
+    <img src="авуары/watch-before.jpg" alt="Часы До" class="active">
+    <img src="авуары/watch-after.jpg" alt="Часы После">
+    <div class="slider-buttons">
+      <button onclick="showSlide('slider4',0)">До</button>
+      <button onclick="showSlide('slider4',1)">После</button>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  <h2>Преимущества</h2>
+  <div class="advantages">
+    <div>📸 Экономия на фотосессиях</div>
+    <div>⚡ Результат от 12 часов</div>
+    <div>💎 Премиум-стиль и продающий дизайн</div>
+    <div>📊 Рост доверия и продаж</div>
+  </div>
+</section>
+
+<section>
+  <h2>Тарифы</h2>
+  <div class="tariffs">
+    <div><b>Только текст</b><br>SEO-описание + ключи — от 1000 ₽</div>
+    <div><b>Текст + 3 фото</b><br>«До/После» — от 2500 ₽</div>
+    <div><b>Пакет</b><br>5–7 карточек — от 5000 ₽</div>
+  </div>
+</section>
+
+<section>
+  <h2>Отзывы</h2>
+  <div class="reviews">
+    <div>«Фото стали выглядеть в 3 раза дороже — продажи выросли!»</div>
+    <div>«Сделали быстро и стильно, результат превзошёл ожидания»</div>
+    <div>«Теперь мои карточки выделяются среди конкурентов»</div>
+  </div>
+</section>
+
+<section>
+  <h2>Как заказать</h2>
+  <div class="steps">
+    <div>1. Напишите нам в WhatsApp или Telegram</div>
+    <div>2. Отправьте фото товара</div>
+    <div>3. Получите готовые премиум-фото уже завтра</div>
+  </div>
+</section>
+
+<footer>
+  <p>Связаться: 
+    <a href="mailto:eldargainutdinoff@yandex.ru">E-mail</a> | 
+    <a href="https://wa.me/79031696661?text=Здравствуйте! Хочу оформить заказ." target="_blank" rel="noopener">WhatsApp</a> | 
+    <a href="https://t.me/foodfox_eldar_gainutdinov">Telegram</a>
+  </p>
+  <a href="авуары/price-ildar.pdf" class="btn" download>📂 Скачать прайс (PDF)</a>
+</footer>
+
+<script>
+  function showSlide(sliderId, index) {
+    let slider = document.getElementById(sliderId);
+    let images = slider.getElementsByTagName("img");
+    for (let i = 0; i < images.length; i++) {
+      images[i].classList.remove("active");
     }
+    images[index].classList.add("active");
+  }
+</script>
 
-    (function(){
-      document.querySelectorAll('.ba').forEach((ba)=>{
-        const before = ba.querySelector('.ba-before');
-        const after  = ba.querySelector('.ba-after');
-
-        // имена файлов
-        let beforeName = before.dataset.name;
-        let afterName  = after.dataset.name;
-
-        // если пары перепутаны — поменяем (чтобы слева всегда «До»)
-        if (ba.dataset.swap === "1") { const t = beforeName; beforeName = afterName; afterName = t; }
-
-        // загрузка с фолбэком
-        setWithFallback(before, beforeName);
-        setWithFallback(after,  afterName);
-
-        // слайдер
-        const range = ba.querySelector('.ba-range');
-        const setPos = (p)=>{ p=Math.max(0,Math.min(100,+p)); ba.style.setProperty('--pos',p+'%'); range.value=p; };
-        setPos(50);
-        range.addEventListener('input', e=>setPos(e.target.value));
-        const move = (e)=>{ const r=ba.getBoundingClientRect(); const x=Math.max(r.left,Math.min(e.clientX,r.right))-r.left; setPos((x/r.width)*100); };
-        ba.addEventListener('pointerdown', e=>{ ba.setPointerCapture?.(e.pointerId); move(e); ba.addEventListener('pointermove', move); });
-        ba.addEventListener('pointerup',   e=>{ ba.releasePointerCapture?.(e.pointerId); ba.removeEventListener('pointermove', move); });
-        ba.addEventListener('pointerleave',()=> ba.removeEventListener('pointermove', move));
-      });
-    })();
-  </script>
 </body>
 </html>
