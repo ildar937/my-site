@@ -2,54 +2,51 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-дизайн: До/После</title>
+  <title>AI-дизайн • До / После</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>🎨 AI-дизайн для маркетплейсов и соцсетей</h1>
-    <p>Карточки, обложки, аватары • До → После • От 12 часов</p>
-  </header>
+  <h1>соцсетей</h1>
+  <p>Карточки, обложки, аватары • До → После • От 12 часов</p>
 
-  <main>
-    <h2>Примеры работ</h2>
+  <h2>Примеры работ</h2>
 
-    <div class="example">
-      <img id="krossovki-img" src="авуары/авуары/Изображения/krossovki-before.jpg" alt="Кроссовки">
-      <p>Кроссовки</p>
-      <button onclick="showBefore('krossovki')">До</button>
-      <button onclick="showAfter('krossovki')">После</button>
-    </div>
+  <!-- Кроссовки -->
+  <div class="work">
+    <img id="krossovki-img" src="Личный сайт/авуары/авуары/Изображения/krossovki-before.jpg" alt="Кроссовки">
+    <p>Кроссовки</p>
+    <button onclick="document.getElementById('krossovki-img').src='Личный сайт/авуары/авуары/Изображения/krossovki-before.jpg'">До</button>
+    <button onclick="document.getElementById('krossovki-img').src='Личный сайт/авуары/авуары/Изображения/krossovki-after.jpg'">После</button>
+  </div>
 
-    <div class="example">
-      <img id="product-img" src="авуары/авуары/Изображения/product-before.jpg" alt="Товар">
-      <p>Товар</p>
-      <button onclick="showBefore('product')">До</button>
-      <button onclick="showAfter('product')">После</button>
-    </div>
+  <!-- Товар -->
+  <div class="work">
+    <img id="product-img" src="Личный сайт/авуары/авуары/Изображения/product-before.jpg" alt="Товар">
+    <p>Товар</p>
+    <button onclick="document.getElementById('product-img').src='Личный сайт/авуары/авуары/Изображения/product-before.jpg'">До</button>
+    <button onclick="document.getElementById('product-img').src='Личный сайт/авуары/авуары/Изображения/product-after.jpg'">После</button>
+  </div>
 
-    <div class="example">
-      <img id="headphones-img" src="авуары/авуары/Изображения/headphones-before.jpg" alt="Наушники">
-      <p>Наушники</p>
-      <button onclick="showBefore('headphones')">До</button>
-      <button onclick="showAfter('headphones')">После</button>
-    </div>
+  <!-- Наушники -->
+  <div class="work">
+    <img id="headphones-img" src="Личный сайт/авуары/авуары/Изображения/headphones-before.jpg" alt="Наушники">
+    <p>Наушники</p>
+    <button onclick="document.getElementById('headphones-img').src='Личный сайт/авуары/авуары/Изображения/headphones-before.jpg'">До</button>
+    <button onclick="document.getElementById('headphones-img').src='Личный сайт/авуары/авуары/Изображения/headphones-after.jpg'">После</button>
+  </div>
 
-    <div class="example">
-      <img id="watch-img" src="авуары/авуары/Изображения/watch-before.jpg" alt="Часы">
-      <p>Часы</p>
-      <button onclick="showBefore('watch')">До</button>
-      <button onclick="showAfter('watch')">После</button>
-    </div>
-  </main>
+  <!-- Часы -->
+  <div class="work">
+    <img id="watch-img" src="Личный сайт/авуары/авуары/Изображения/watch-before.jpg" alt="Часы">
+    <p>Часы</p>
+    <button onclick="document.getElementById('watch-img').src='Личный сайт/авуары/авуары/Изображения/watch-before.jpg'">До</button>
+    <button onclick="document.getElementById('watch-img').src='Личный сайт/авуары/авуары/Изображения/watch-after.jpg'">После</button>
+  </div>
 
-  <footer>
-    <p>📩 Заказать → 
-      <a href="https://t.me/foodfox_eldar_gainutdinov" target="_blank">Telegram</a> |
-      <a href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank">WhatsApp</a>
-    </p>
-  </footer>
+  <p>📩 Заказать → 
+    <a href="https://t.me/foodfox_eldar_gainutdinov">Telegram</a> | 
+    <a href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ.">WhatsApp</a>
+  </p>
+
 </body>
 </html>
