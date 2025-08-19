@@ -5,138 +5,209 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI-дизайн • До / После</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #222; }
-    header { text-align: center; padding: 50px 20px; background: #f5f5f5; }
-    header h1 { margin: 0; font-size: 28px; }
-    header p { margin: 10px 0; font-size: 18px; }
-    section { padding: 40px 20px; max-width: 900px; margin: auto; }
-    h2 { text-align: center; margin-bottom: 20px; }
-    .advantages, .tariffs, .reviews, .steps { display: grid; gap: 20px; }
-    .advantages div, .tariffs div, .reviews div, .steps div {
-      padding: 15px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #222;
+      line-height: 1.6;
     }
-    footer { text-align: center; padding: 30px; background: #f5f5f5; }
-    .btn { display: inline-block; margin-top: 15px; padding: 12px 20px; background: #222; color: #fff; text-decoration: none; border-radius: 8px; }
-    .btn:hover { background: #444; }
-    .slider { position: relative; width: 100%; max-width: 800px; margin: 20px auto; overflow: hidden; border-radius: 10px; }
-    .slider img { width: 100%; display: none; }
-    .slider img.active { display: block; }
-    .slider-buttons { text-align: center; margin-top: 10px; }
-    .slider-buttons button { margin: 0 5px; padding: 5px 10px; cursor: pointer; }
+    header {
+      background: #111318;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    .contacts {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .pill {
+      background: #f5f5f5;
+      border-radius: 20px;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #111;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .pill:hover {
+      background: #ddd;
+    }
+
+    /* Слайдеры */
+    section {
+      padding: 30px 10px;
+      text-align: center;
+    }
+    section h2 {
+      margin-bottom: 20px;
+    }
+    .slider {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .slider img {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .slider img.active {
+      display: block;
+    }
+    .slider-buttons {
+      margin-top: 10px;
+    }
+    .slider-buttons button {
+      padding: 6px 14px;
+      margin: 0 4px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #111318;
+      color: #fff;
+    }
+    .slider-buttons button:hover {
+      background: #444;
+    }
+
+    /* Тарифы */
+    .tariffs {
+      padding: 40px 20px;
+      background: #fafafa;
+    }
+    .tariffs h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .tariff {
+      background: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px auto;
+      max-width: 500px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Отзывы */
+    .reviews {
+      padding: 40px 20px;
+    }
+    .reviews h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .review {
+      background: #f9f9f9;
+      padding: 15px;
+      margin: 10px auto;
+      max-width: 600px;
+      border-left: 4px solid #111318;
+      font-style: italic;
+    }
+
+    footer {
+      background: #111318;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>AI-дизайн • До / После</h1>
-  <p>Делаем ваши фото продающими за 12 часов</p>
-  <a href="https://t.me/foodfox_eldar_gainutdinov" class="btn">Заказать в Telegram</a>
-</header>
+  <header>
+    <h1>🎨 AI-дизайн • До / После</h1>
+    <p>Карточки, обложки, аватары для маркетплейсов и соцсетей</p>
+  </header>
 
-<section>
-  <h2>Что мы делаем</h2>
-  <p>Мы превращаем обычные фото товаров в премиальные визуалы для маркетплейсов, соцсетей и рекламы. 
-     Посмотрите примеры «До / После» ниже.</p>
-</section>
+  <div class="contacts">
+    <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank">Telegram</a>
+    <a class="pill" href="https://t.me/ai_do_after" target="_blank">Канал</a>
+    <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
+    <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте! Хочу оформить заказ." target="_blank">WhatsApp</a>
+  </div>
 
-<!-- Слайдеры -->
-<section>
-  <h2>Примеры работ</h2>
+  <!-- Примеры работ -->
+  <section>
+    <h2>Примеры работ</h2>
 
-  <div class="slider" id="slider1">
-    <img src="авуары/krossovki-before.jpg" alt="Кроссовки До" class="active">
-    <img src="авуары/krossovki-after.jpg" alt="Кроссовки После">
-    <div class="slider-buttons">
-      <button onclick="showSlide('slider1',0)">До</button>
-      <button onclick="showSlide('slider1',1)">После</button>
+    <div class="slider" id="slider1">
+      <img src="авуары/krossovki-before.jpg" alt="Кроссовки До" class="active">
+      <img src="авуары/krossovki-after.jpg" alt="Кроссовки После">
+      <div class="slider-buttons">
+        <button onclick="showSlide('slider1',0)">До</button>
+        <button onclick="showSlide('slider1',1)">После</button>
+      </div>
     </div>
-  </div>
 
-  <div class="slider" id="slider2">
-    <img src="авуары/product-before.jpg" alt="Товар До" class="active">
-    <img src="авуары/product-after.jpg" alt="Товар После">
-    <div class="slider-buttons">
-      <button onclick="showSlide('slider2',0)">До</button>
-      <button onclick="showSlide('slider2',1)">После</button>
+    <div class="slider" id="slider2">
+      <img src="авуары/product-before.jpg" alt="Товар До" class="active">
+      <img src="авуары/product-after.jpg" alt="Товар После">
+      <div class="slider-buttons">
+        <button onclick="showSlide('slider2',0)">До</button>
+        <button onclick="showSlide('slider2',1)">После</button>
+      </div>
     </div>
-  </div>
 
-  <div class="slider" id="slider3">
-    <img src="авуары/headphones-before.jpg" alt="Наушники До" class="active">
-    <img src="авуары/headphones-after.jpg" alt="Наушники После">
-    <div class="slider-buttons">
-      <button onclick="showSlide('slider3',0)">До</button>
-      <button onclick="showSlide('slider3',1)">После</button>
+    <div class="slider" id="slider3">
+      <img src="авуары/headphones-before.jpg" alt="Наушники До" class="active">
+      <img src="авуары/headphones-after.jpg" alt="Наушники После">
+      <div class="slider-buttons">
+        <button onclick="showSlide('slider3',0)">До</button>
+        <button onclick="showSlide('slider3',1)">После</button>
+      </div>
     </div>
-  </div>
 
-  <div class="slider" id="slider4">
-    <img src="авуары/watch-before.jpg" alt="Часы До" class="active">
-    <img src="авуары/watch-after.jpg" alt="Часы После">
-    <div class="slider-buttons">
-      <button onclick="showSlide('slider4',0)">До</button>
-      <button onclick="showSlide('slider4',1)">После</button>
+    <div class="slider" id="slider4">
+      <img src="авуары/watch-before.jpg" alt="Часы До" class="active">
+      <img src="авуары/watch-after.jpg" alt="Часы После">
+      <div class="slider-buttons">
+        <button onclick="showSlide('slider4',0)">До</button>
+        <button onclick="showSlide('slider4',1)">После</button>
+      </div>
     </div>
-  </div>
+  </section>
 
-</section>
+  <!-- Тарифы -->
+  <section class="tariffs">
+    <h2>Тарифы</h2>
+    <div class="tariff"><b>Только текст</b><br>SEO-описание + ключи — от 1000 ₽</div>
+    <div class="tariff"><b>Текст + 3 фото</b><br>«До/После» — от 2500 ₽</div>
+    <div class="tariff"><b>Пакет</b><br>5–7 карточек — от 5000 ₽</div>
+  </section>
 
-<section>
-  <h2>Преимущества</h2>
-  <div class="advantages">
-    <div>📸 Экономия на фотосессиях</div>
-    <div>⚡ Результат от 12 часов</div>
-    <div>💎 Премиум-стиль и продающий дизайн</div>
-    <div>📊 Рост доверия и продаж</div>
-  </div>
-</section>
+  <!-- Отзывы -->
+  <section class="reviews">
+    <h2>Отзывы</h2>
+    <div class="review">«Фото стали выглядеть в 3 раза дороже — продажи выросли!»</div>
+    <div class="review">«Сделали быстро и стильно, результат превзошёл ожидания»</div>
+  </section>
 
-<section>
-  <h2>Тарифы</h2>
-  <div class="tariffs">
-    <div><b>Только текст</b><br>SEO-описание + ключи — от 1000 ₽</div>
-    <div><b>Текст + 3 фото</b><br>«До/После» — от 2500 ₽</div>
-    <div><b>Пакет</b><br>5–7 карточек — от 5000 ₽</div>
-  </div>
-</section>
+  <footer>
+    <p>© 2025 Ильдар • AI-дизайн • До / После</p>
+  </footer>
 
-<section>
-  <h2>Отзывы</h2>
-  <div class="reviews">
-    <div>«Фото стали выглядеть в 3 раза дороже — продажи выросли!»</div>
-    <div>«Сделали быстро и стильно, результат превзошёл ожидания»</div>
-    <div>«Теперь мои карточки выделяются среди конкурентов»</div>
-  </div>
-</section>
-
-<section>
-  <h2>Как заказать</h2>
-  <div class="steps">
-    <div>1. Напишите нам в WhatsApp или Telegram</div>
-    <div>2. Отправьте фото товара</div>
-    <div>3. Получите готовые премиум-фото уже завтра</div>
-  </div>
-</section>
-
-<footer>
-  <p>Связаться: 
-    <a href="mailto:eldargainutdinoff@yandex.ru">E-mail</a> | 
-    <a href="https://wa.me/79031696661?text=Здравствуйте! Хочу оформить заказ." target="_blank" rel="noopener">WhatsApp</a> | 
-    <a href="https://t.me/foodfox_eldar_gainutdinov">Telegram</a>
-  </p>
-  <a href="авуары/price-ildar.pdf" class="btn" download>📂 Скачать прайс (PDF)</a>
-</footer>
-
-<script>
-  function showSlide(sliderId, index) {
-    let slider = document.getElementById(sliderId);
-    let images = slider.getElementsByTagName("img");
-    for (let i = 0; i < images.length; i++) {
-      images[i].classList.remove("active");
+  <script>
+    function showSlide(sliderId, index) {
+      let slider = document.getElementById(sliderId);
+      let images = slider.getElementsByTagName('img');
+      for (let i = 0; i < images.length; i++) {
+        images[i].classList.remove('active');
+      }
+      images[index].classList.add('active');
     }
-    images[index].classList.add("active");
-  }
-</script>
+  </script>
 
 </body>
 </html>
