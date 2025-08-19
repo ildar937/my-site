@@ -1,264 +1,173 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>AI-дизайн • До / После</title>
-  <style>
-    :root{--bg:#ffffff;--fg:#111;--muted:#666;--panel:#f6f7f9;--btn:#111;--btnh:#333}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
-    header{padding:28px 14px;text-align:center;background:var(--panel)}
-    header h1{margin:0 0 6px}
-    header p{margin:0;color:var(--muted)}
-    main{max-width:1000px;margin:0 auto;padding:20px 14px}
-    .hero{margin:18px 0 6px;text-align:center}
-    h2{margin:28px 0 16px;text-align:center}
-    .grid{display:grid;gap:18px}
-    @media(min-width:760px){.grid.cards{grid-template-columns:repeat(3,1fr)}}
-    .card{border:1px solid #e7e9ee;background:#fff;border-radius:14px;padding:16px}
-    .sample{display:flex;flex-direction:column;align-items:center;margin:22px 0}
-    .sample img{width:100%;max-width:880px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.12);min-height:180px;background:#f1f2f4;object-fit:cover}
-    .btns{margin-top:10px}
-    .btn{display:inline-block;background:var(--btn);color:#fff;border:0;border-radius:9px;padding:9px 14px;margin:0 6px;cursor:pointer}
-    .btn:hover{background:var(--btnh)}
-    .pill{display:inline-block;background:#eef1f5;border-radius:999px;padding:8px 14px;font-size:14px;color:#222;text-decoration:none}
-    .muted{color:var(--muted);font-size:13px}
-    footer{padding:28px 14px;text-align:center;background:var(--panel);margin-top:26px}
-    .stack{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
-    .ok{color:#18a058}.warn{color:#c22727}
-  </style>
-</head>
-<body>
-  <header>
-    <h1>AI-дизайн • До / После</h1>
-    <p>Карточки, обложки, аватары • быстрый премиум-визуал</p>
-    <div class="stack">
-      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram</a>
-      <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank" rel="noopener">WhatsApp</a>
-      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
-    </div>
-  </header>
+<script>
+/* ===== Расширенный автопоиск ===== */
 
-  <main>
-    <section class="hero">
-      <h2>Новый пример</h2>
-      <div class="sample">
-        <img id="custom-hero" alt="Пример До/После (наушники)">
-        <div id="badge-custom" class="muted"></div>
-      </div>
-      <p class="muted">Ниже — интерактивные примеры. Кнопками переключается «До»/«После».</p>
-    </section>
+/* Базовые папки (все ваши варианты + вложенные) */
+const BASES = [
+  "", "assets/", "asset/", "image/", "images/",
+  "assets/images/", "assets/Изображения/",
+  "Изображения/", "изображения/",
+  "авауры/", "авуары/",
+  "авауры/Изображения/", "авуары/Изображения/",
+  "авуары/авуары/Изображения/",
+  "Личный сайт/", "Личный сайт/assets/", "Личный сайт/images/", "Личный сайт/Изображения/",
+  "Личный сайт/авуары/", "Личный сайт/авуары/Изображения/",
+  "Личный сайт/авауры/", "Личный сайт/авауры/Изображения/",
+  "Личный сайт/авуары/авуары/Изображения/"
+];
 
-    <section>
-      <h2>Примеры работ</h2>
+/* Генерация вариантов имён before/after */
+function nameVariants(stem){
+  const bases = [
+    `${stem}-before`, `${stem}-after`,
+    `${stem}_before`, `${stem}_after`,
+    `${stem} before`, `${stem} after`
+  ];
+  const withIdx = [];
+  bases.forEach(b => withIdx.push(b, `${b} (1)`, `${b} (2)`));
+  const exts = [".jpg",".jpeg",".png",".webp"];
+  const list = [];
+  for(const b of withIdx) for(const e of exts) list.push(b+e);
 
-      <div class="sample">
-        <img id="krossovki-img" alt="Кроссовки">
-        <div class="btns">
-          <button class="btn" onclick="showBefore('krossovki')">До</button>
-          <button class="btn" onclick="showAfter('krossovki')">После</button>
-        </div>
-        <div id="badge-krossovki" class="muted"></div>
-      </div>
+  const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
+  list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
+  return [...new Set(list)];
+}
 
-      <div class="sample">
-        <img id="product-img" alt="Товар">
-        <div class="btns">
-          <button class="btn" onclick="showBefore('product')">До</button>
-          <button class="btn" onclick="showAfter('product')">После</button>
-        </div>
-        <div id="badge-product" class="muted"></div>
-      </div>
+/* Набор карточек */
+const ITEMS = [
+  { key:"krossovki", imgId:"krossovki-img", stem:"krossovki" },
+  { key:"product",   imgId:"product-img",   stem:"product"   },
+  { key:"headphones",imgId:"headphones-img",stem:"headphones"},
+  { key:"watch",     imgId:"watch-img",     stem:"watch"     },
+];
 
-      <div class="sample">
-        <img id="headphones-img" alt="Наушники">
-        <div class="btns">
-          <button class="btn" onclick="showBefore('headphones')">До</button>
-          <button class="btn" onclick="showAfter('headphones')">После</button>
-        </div>
-        <div id="badge-headphones" class="muted"></div>
-      </div>
+/* Твоя большая картинка */
+const CUSTOM_IMAGE_CANDIDATES = [
+  "photo_2025-08-11_23-34-43.jpg13.jpg",
+  "photo_2025-08-11_23-34-43.jpg",
+  "наушники.jpg","headphones.jpg"
+];
 
-      <div class="sample">
-        <img id="watch-img" alt="Часы">
-        <div class="btns">
-          <button class="btn" onclick="showBefore('watch')">До</button>
-          <button class="btn" onclick="showAfter('watch')">После</button>
-        </div>
-        <div id="badge-watch" class="muted"></div>
-      </div>
-    </section>
+/* Прайс: приоритет DOCX → PDF → PNG */
+const PRICE_FILES = [
+  // DOCX
+  "price-ildar.docx","price.docx","ai_design_site_ads.docx",
+  "ai_design_site_ads 2.docx","ai_design_site_ads.docx 2.docx",
+  "ai_design_site_ads (2).docx","ai_design_site_ads_2.docx",
+  // PDF
+  "price-ildar.pdf","price.pdf","price_a4.pdf",
+  "ai_design_site_ads_simple.pdf","ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf",
+  // PNG
+  "price-ildar.png","price.png","price_a4.png"
+];
 
-    <section>
-      <h2>Тарифы</h2>
-      <div class="grid cards">
-        <div class="card"><b>Только текст</b><br><span class="muted">SEO-описание + ключи — от 1000 ₽</span></div>
-        <div class="card"><b>Текст + 3 фото</b><br><span class="muted">«До/После» — от 2500 ₽</span></div>
-        <div class="card"><b>Пакет</b><br><span class="muted">5–7 карточек — от 5000 ₽</span></div>
-      </div>
-    </section>
+const FOUND = {}; // key -> {base,before,after,imgId}
 
-    <section style="text-align:center">
-      <h2>Прайс</h2>
-      <a id="price-link" class="pill" href="#" download style="pointer-events:none;opacity:.6">📄 Скачать прайс</a>
-      <div id="price-badge" class="muted" style="margin-top:8px"></div>
-    </section>
-  </main>
+function setBadge(id, html, ok=true){
+  const el = document.getElementById("badge-"+id);
+  if(!el) return;
+  el.innerHTML = (ok?'<span style="color:#18a058">✔</span> ':'<span style="color:#c22727">✖</span> ')+html;
+}
 
-  <footer>
-    © Ильдар • AI-дизайн
-  </footer>
+async function exists(url){
+  const u = encodeURI(url);
+  try{ const r = await fetch(u,{method:"HEAD",cache:"no-store"}); if(r.ok) return true; }catch(e){}
+  try{ const r2 = await fetch(u,{method:"GET",cache:"no-store"}); return r2.ok; }catch(e){ return false; }
+}
+async function findBaseFor(file){
+  for(const b of BASES){ if(await exists(b+file)) return b; }
+  return null;
+}
+async function findAny(files){
+  for(const f of files){
+    const b = await findBaseFor(f);
+    if(b) return {base:b,file:f};
+  }
+  return null;
+}
 
-  <script>
-    /* Папки-кандидаты (учтены кириллица и вложения) */
-    const BASES = [
-      "", "assets/","asset/","image/","images/",
-      "Изображения/","изображения/","авауры/","авуары/",
-      "авауры/Изображения/","авуары/Изображения/",
-      "авуары/авуары/Изображения/","Личный сайт/авуары/авуары/Изображения/"
-    ];
+/* Инициализация карточки */
+async function initItem({key,imgId,stem}){
+  const vars = nameVariants(stem);
+  const beforeVars = vars.filter(v=>/before\./i.test(v));
+  const afterVars  = vars.filter(v=>/after\./i.test(v));
 
-    /* ---- ВАРИАНТЫ ИМЁН ---- */
-    function nameVariants(stem){
-      const list = [
-        `${stem}-before.jpg`, `${stem}-before (1).jpg`, `${stem}-before.jpeg`, `${stem}-before.png`,
-        `${stem}-after.jpg`,  `${stem}-after (1).jpg`,  `${stem}-after.jpeg`,  `${stem}-after.png`
-      ];
-      const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
-      list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
-      return [...new Set(list)];
-    }
+  const before = await findAny(beforeVars);
+  const img = document.getElementById(imgId);
 
-    /* Карточки */
-    const ITEMS = [
-      { key:"krossovki", imgId:"krossovki-img", stem:"krossovki" },
-      { key:"product",   imgId:"product-img",   stem:"product"   },
-      { key:"headphones",imgId:"headphones-img",stem:"headphones"},
-      { key:"watch",     imgId:"watch-img",     stem:"watch"     },
-    ];
+  if(!before){
+    img.alt = "Файл не найден: " + (beforeVars[0] || (stem+"-before.jpg"));
+    setBadge(key,"Не найдено",false);
+    return;
+  }
 
-    /* Пример-картинка, которую ты прислал (варианты имён на всякий случай) */
-    const CUSTOM_IMAGE_CANDIDATES = [
-      "photo_2025-08-11_23-34-43.jpg13.jpg",
-      "photo_2025-08-11_23-34-43.jpg"
-    ];
+  let afterFile = null;
+  // сначала пробуем ту же базу
+  for(const f of afterVars){ if(await exists(before.base+f)){ afterFile = f; break; } }
+  // если нет — ищем в других базах
+  if(!afterFile){
+    const found = await findAny(afterVars);
+    afterFile = found ? found.file : afterVars[0];
+  }
 
-    /* Прайс: приоритет DOCX → PDF → PNG */
-    const PRICE_FILES = [
-      "price-ildar.docx","price.docx","ai_design_site_ads.docx",
-      "ai_design_site_ads 2.docx","ai_design_site_ads.docx 2.docx",
-      "price-ildar.pdf","price.pdf","price_a4.pdf",
-      "ai_design_site_ads_simple.pdf","ai_design_site_ads_fixed.pdf","ai_design_site_ads.pdf",
-      "price-ildar.png","price.png","price_a4.png"
-    ];
+  FOUND[key] = { base: before.base, before: before.file, after: afterFile, imgId };
+  img.src = encodeURI(before.base + before.file) + "?v=" + Date.now();
+  setBadge(key,"Путь: " + before.base + " · файл: " + before.file);
+}
 
-    const FOUND = {}; // key -> {base,before,after,imgId}
+/* Переключатели */
+function showBefore(key){
+  const s = FOUND[key]; if(!s) return;
+  document.getElementById(s.imgId).src = encodeURI(s.base + s.before) + "?v=" + Date.now();
+}
+function showAfter(key){
+  const s = FOUND[key]; if(!s) return;
+  document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
+}
 
-    function setBadge(id, html, ok=true){
-      const el = document.getElementById("badge-"+id);
-      if(!el) return;
-      el.innerHTML = (ok?'<span style="color:#18a058">✔</span> ':'<span style="color:#c22727">✖</span> ')+html;
-    }
-
-    async function exists(url){
-      const u = encodeURI(url);
-      try{ const r = await fetch(u,{method:"HEAD",cache:"no-store"}); if(r.ok) return true; }catch(e){}
-      try{ const r2 = await fetch(u,{method:"GET",cache:"no-store"}); return r2.ok; }catch(e){ return false; }
-    }
-    async function findBaseFor(file){
-      for(const b of BASES){ if(await exists(b+file)) return b; }
-      return null;
-    }
-    async function findAny(files){
-      for(const f of files){
-        const b = await findBaseFor(f);
-        if(b) return {base:b,file:f};
-      }
-      return null;
-    }
-
-    async function initItem({key,imgId,stem}){
-      const vars = nameVariants(stem);
-      const beforeVars = vars.filter(v=>/before\./i.test(v));
-      const afterVars  = vars.filter(v=>/after\./i.test(v));
-
-      const before = await findAny(beforeVars);
-      const img = document.getElementById(imgId);
-
-      if(!before){
-        img.alt = "Файл не найден: " + beforeVars[0];
-        setBadge(key,"Не найдено",false);
-        return;
-      }
-
-      let afterFile = null;
-      for(const f of afterVars){
-        if(await exists(before.base + f)){ afterFile = f; break; }
-      }
-      if(!afterFile){
-        const found = await findAny(afterVars);
-        afterFile = found ? found.file : afterVars[0];
-      }
-
-      FOUND[key] = { base: before.base, before: before.file, after: afterFile, imgId };
-      img.src = encodeURI(before.base + before.file) + "?v=" + Date.now();
-      setBadge(key,"Путь: " + before.base + " · файл: " + before.file);
-    }
-
-    function showBefore(key){
-      const s = FOUND[key]; if(!s) return;
-      document.getElementById(s.imgId).src = encodeURI(s.base + s.before) + "?v=" + Date.now();
-    }
-    function showAfter(key){
-      const s = FOUND[key]; if(!s) return;
-      document.getElementById(s.imgId).src = encodeURI(s.base + s.after) + "?v=" + Date.now();
-    }
-
-    /* Поиск кастомной картинки */
-    async function initCustom(){
-      for(const f of CUSTOM_IMAGE_CANDIDATES){
-        const b = await findBaseFor(f);
-        if(b){
-          const el = document.getElementById("custom-hero");
-          el.src = encodeURI(b+f) + "?v=" + Date.now();
-          const badge = document.getElementById("badge-custom");
-          if(badge) badge.innerHTML = '<span class="ok">✔</span> Путь: ' + b + ' · файл: ' + f;
-          return;
-        }
-      }
+/* Кастомная картинка (наушники) */
+async function initCustom(){
+  for(const f of CUSTOM_IMAGE_CANDIDATES){
+    const b = await findBaseFor(f);
+    if(b){
+      const el = document.getElementById("custom-hero");
+      if(el){ el.src = encodeURI(b+f) + "?v=" + Date.now(); }
       const badge = document.getElementById("badge-custom");
-      if(badge) badge.innerHTML = '<span class="warn">✖</span> Картинка не найдена';
+      if(badge) badge.innerHTML = '<span style="color:#18a058">✔</span> Путь: ' + b + ' · файл: ' + f;
+      return;
     }
+  }
+  const badge = document.getElementById("badge-custom");
+  if(badge) badge.innerHTML = '<span style="color:#c22727">✖</span> Картинка не найдена';
+}
 
-    /* Прайс */
-    async function initPrice(){
-      const link = document.getElementById("price-link");
-      const badge = document.getElementById("price-badge");
-      for(const f of PRICE_FILES){
-        const b = await findBaseFor(f);
-        if(b){
-          const url = encodeURI(b+f) + "?v=" + Date.now();
-          link.href = url;
-          const ext = f.split(".").pop().toUpperCase();
-          link.textContent = "📄 Скачать прайс ("+ext+")";
-          link.style.pointerEvents = "auto";
-          link.style.opacity = "1";
-          badge.innerHTML = '<span class="ok">✔</span> Файл: ' + b + f;
-          return;
-        }
-      }
-      link.removeAttribute("href");
-      link.style.pointerEvents = "none";
-      link.style.opacity = "0.6";
-      badge.innerHTML = '<span class="warn">✖</span> Прайс не найден. Положите DOCX/PDF в любую из папок: ' + BASES.join(" · ");
+/* Прайс (DOCX/PDF/PNG) */
+async function initPrice(){
+  const link  = document.getElementById("price-link");
+  const badge = document.getElementById("price-badge");
+  for(const f of PRICE_FILES){
+    const b = await findBaseFor(f);
+    if(b){
+      const url = encodeURI(b+f) + "?v=" + Date.now();
+      link.href = url;
+      const ext = f.split(".").pop().toUpperCase();
+      link.textContent = (ext==="DOCX" ? "📄 Открыть прайс (DOCX)" : "📄 Скачать прайс ("+ext+")");
+      link.style.pointerEvents = "auto";
+      link.style.opacity = "1";
+      badge.innerHTML = '<span style="color:#18a058">✔</span> Файл: ' + b + f;
+      return;
     }
+  }
+  link.removeAttribute("href");
+  link.style.pointerEvents = "none";
+  link.style.opacity = "0.6";
+  badge.innerHTML = '<span style="color:#c22727">✖</span> Прайс не найден. Допустимые имена: ' + PRICE_FILES.join(" · ");
+}
 
-    (async function(){
-      await initCustom();
-      for(const it of ITEMS){ await initItem(it); }
-      await initPrice();
-    })();
-  </script>
-</body>
-</html>
+/* Старт */
+(async function(){
+  await initCustom();
+  for(const it of ITEMS){ await initItem(it); }
+  await initPrice();
+})();
+</script>
