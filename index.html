@@ -1,213 +1,42 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-дизайн • До / После</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff;
-      color: #222;
-      line-height: 1.6;
-    }
-    header {
-      background: #111318;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-    .contacts {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin: 20px 0;
-      flex-wrap: wrap;
-    }
-    .pill {
-      background: #f5f5f5;
-      border-radius: 20px;
-      padding: 10px 18px;
-      text-decoration: none;
-      color: #111;
-      font-weight: bold;
-      transition: 0.2s;
-    }
-    .pill:hover {
-      background: #ddd;
-    }
+<section id="portfolio">
+  <h2>Примеры работ</h2>
 
-    /* Слайдеры */
-    section {
-      padding: 30px 10px;
-      text-align: center;
-    }
-    section h2 {
-      margin-bottom: 20px;
-    }
-    .slider {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      margin: 20px auto;
-    }
-    .slider img {
-      display: none;
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-    .slider img.active {
-      display: block;
-    }
-    .slider-buttons {
-      margin-top: 10px;
-    }
-    .slider-buttons button {
-      padding: 6px 14px;
-      margin: 0 4px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #111318;
-      color: #fff;
-    }
-    .slider-buttons button:hover {
-      background: #444;
-    }
-
-    /* Тарифы */
-    .tariffs {
-      padding: 40px 20px;
-      background: #fafafa;
-    }
-    .tariffs h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .tariff {
-      background: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 10px auto;
-      max-width: 500px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    /* Отзывы */
-    .reviews {
-      padding: 40px 20px;
-    }
-    .reviews h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .review {
-      background: #f9f9f9;
-      padding: 15px;
-      margin: 10px auto;
-      max-width: 600px;
-      border-left: 4px solid #111318;
-      font-style: italic;
-    }
-
-    footer {
-      background: #111318;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>🎨 AI-дизайн • До / После</h1>
-    <p>Карточки, обложки, аватары для маркетплейсов и соцсетей</p>
-  </header>
-
-  <div class="contacts">
-    <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank">Telegram</a>
-    <a class="pill" href="https://t.me/ai_do_after" target="_blank">Канал</a>
-    <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
-    <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте! Хочу оформить заказ." target="_blank">WhatsApp</a>
+  <div class="work-sample">
+    <img src="авауры/Изображения/krossovki-before.jpg" alt="Кроссовки До">
+    <div>
+      <p>Кроссовки</p>
+      <button onclick="swapImage(this, 'авауры/Изображения/krossovki-before.jpg', 'авауры/Изображения/krossovki-after.jpg')">До / После</button>
+    </div>
   </div>
 
-  <!-- Примеры работ -->
-  <section>
-    <h2>Примеры работ</h2>
-
-    <div class="slider" id="slider1">
-      <img src="авуары/krossovki-before.jpg" alt="Кроссовки До" class="active">
-      <img src="авуары/krossovki-after.jpg" alt="Кроссовки После">
-      <div class="slider-buttons">
-        <button onclick="showSlide('slider1',0)">До</button>
-        <button onclick="showSlide('slider1',1)">После</button>
-      </div>
+  <div class="work-sample">
+    <img src="авауры/Изображения/product-before.jpg" alt="Товар До">
+    <div>
+      <p>Товар</p>
+      <button onclick="swapImage(this, 'авауры/Изображения/product-before.jpg', 'авауры/Изображения/product-after.jpg')">До / После</button>
     </div>
+  </div>
 
-    <div class="slider" id="slider2">
-      <img src="авуары/product-before.jpg" alt="Товар До" class="active">
-      <img src="авуары/product-after.jpg" alt="Товар После">
-      <div class="slider-buttons">
-        <button onclick="showSlide('slider2',0)">До</button>
-        <button onclick="showSlide('slider2',1)">После</button>
-      </div>
+  <div class="work-sample">
+    <img src="авауры/Изображения/headphones-before.jpg" alt="Наушники До">
+    <div>
+      <p>Наушники</p>
+      <button onclick="swapImage(this, 'авауры/Изображения/headphones-before.jpg', 'авауры/Изображения/headphones-after.jpg')">До / После</button>
     </div>
+  </div>
 
-    <div class="slider" id="slider3">
-      <img src="авуары/headphones-before.jpg" alt="Наушники До" class="active">
-      <img src="авуары/headphones-after.jpg" alt="Наушники После">
-      <div class="slider-buttons">
-        <button onclick="showSlide('slider3',0)">До</button>
-        <button onclick="showSlide('slider3',1)">После</button>
-      </div>
+  <div class="work-sample">
+    <img src="авауры/Изображения/watch-before.jpg" alt="Часы До">
+    <div>
+      <p>Часы</p>
+      <button onclick="swapImage(this, 'авауры/Изображения/watch-before.jpg', 'авауры/Изображения/watch-after.jpg')">До / После</button>
     </div>
+  </div>
+</section>
 
-    <div class="slider" id="slider4">
-      <img src="авуары/watch-before.jpg" alt="Часы До" class="active">
-      <img src="авуары/watch-after.jpg" alt="Часы После">
-      <div class="slider-buttons">
-        <button onclick="showSlide('slider4',0)">До</button>
-        <button onclick="showSlide('slider4',1)">После</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Тарифы -->
-  <section class="tariffs">
-    <h2>Тарифы</h2>
-    <div class="tariff"><b>Только текст</b><br>SEO-описание + ключи — от 1000 ₽</div>
-    <div class="tariff"><b>Текст + 3 фото</b><br>«До/После» — от 2500 ₽</div>
-    <div class="tariff"><b>Пакет</b><br>5–7 карточек — от 5000 ₽</div>
-  </section>
-
-  <!-- Отзывы -->
-  <section class="reviews">
-    <h2>Отзывы</h2>
-    <div class="review">«Фото стали выглядеть в 3 раза дороже — продажи выросли!»</div>
-    <div class="review">«Сделали быстро и стильно, результат превзошёл ожидания»</div>
-  </section>
-
-  <footer>
-    <p>© 2025 Ильдар • AI-дизайн • До / После</p>
-  </footer>
-
-  <script>
-    function showSlide(sliderId, index) {
-      let slider = document.getElementById(sliderId);
-      let images = slider.getElementsByTagName('img');
-      for (let i = 0; i < images.length; i++) {
-        images[i].classList.remove('active');
-      }
-      images[index].classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
+<script>
+function swapImage(button, before, after) {
+  const img = button.closest('.work-sample').querySelector('img');
+  img.src = (img.src.includes('before')) ? after : before;
+}
+</script>
