@@ -19,7 +19,6 @@
     .btn{background:var(--btn);color:#fff;border:0;border-radius:9px;padding:9px 14px;margin:0 6px;cursor:pointer}
     .btn:hover{background:var(--btnh)}
     .muted{color:var(--muted);font-size:13px;margin-top:6px}
-    .ok{color:#18a058}.bad{color:#c22727}
   </style>
 </head>
 <body>
@@ -29,65 +28,19 @@
     <p style="margin-top:10px">
       <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram</a>
       <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank" rel="noopener">WhatsApp</a>
-      <!-- ЖЁСТКАЯ ссылка на твой DOCX в корне (пробел закодирован) -->
-      <a id="price-hard" class="pill" href="ai_design_site_ads.docx%202.docx" download>📄 Скачать прайс (DOCX)</a>
+      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
     </p>
   </header>
 
   <main>
     <h2>Примеры работ</h2>
-
-    <!-- Кроссовки -->
-    <div class="card">
-      <img id="krossovki-img" alt="Кроссовки">
-      <div class="btns">
-        <button class="btn" onclick="show('krossovki','before')">До</button>
-        <button class="btn" onclick="show('krossovki','after')">После</button>
-      </div>
-      <div id="badge-krossovki" class="muted"></div>
-    </div>
-
-    <!-- Товар -->
-    <div class="card">
-      <img id="product-img" alt="Товар">
-      <div class="btns">
-        <button class="btn" onclick="show('product','before')">До</button>
-        <button class="btn" onclick="show('product','after')">После</button>
-      </div>
-      <div id="badge-product" class="muted"></div>
-    </div>
-
-    <!-- Наушники -->
-    <div class="card">
-      <img id="headphones-img" alt="Наушники">
-      <div class="btns">
-        <button class="btn" onclick="show('headphones','before')">До</button>
-        <button class="btn" onclick="show('headphones','after')">После</button>
-      </div>
-      <div id="badge-headphones" class="muted"></div>
-    </div>
-
-    <!-- Часы -->
-    <div class="card">
-      <img id="watch-img" alt="Часы">
-      <div class="btns">
-        <button class="btn" onclick="show('watch','before')">До</button>
-        <button class="btn" onclick="show('watch','after')">После</button>
-      </div>
-      <div id="badge-watch" class="muted"></div>
-    </div>
-
-    <h2>Прайс</h2>
-    <p style="text-align:center">
-      <a id="price-auto" class="pill" href="#" download style="pointer-events:none;opacity:.6">📄 Скачать прайс (авто)</a>
-      <div id="price-badge" class="muted" style="text-align:center"></div>
-    </p>
+    <div id="samples"></div>
   </main>
 
   <footer>© Ильдар • AI-дизайн</footer>
 
   <script>
-    /* КАНДИДАТНЫЕ ПАПКИ (реальные у тебя были с кириллицей) */
+    /* Базы, где могут лежать картинки (включая кириллицу/вложения) */
     const BASES = [
       "", "assets/","asset/","image/","images/",
       "Изображения/","изображения/",
@@ -97,40 +50,34 @@
       "Личный сайт/авуары/авуары/Изображения/"
     ];
 
-    /* ПРОСТАЯ СХЕМА ФАЙЛОВ */
-    const items = {
-      krossovki:  { before:["krossovki-before.jpg"],  after:["krossovki-after.jpg"],  img:"krossovki-img"  },
-      product:    { before:["product-before.jpg"],    after:["product-after.jpg"],    img:"product-img"    },
-      headphones: { before:[
-                      "headphones-before.jpg","headphones-before (1).jpg",
-                      "headphones_before.jpg","headphones-before.jpeg","headphones-before.png"
-                    ],
-                    after:[
-                      "headphones-after.jpg","headphones-after (1).jpg",
-                      "headphones_after.jpg","headphones-after.jpeg","headphones-after.png"
-                    ],
-                    img:"headphones-img"
-                  },
-      watch:      { before:["watch-before.jpg"],      after:["watch-after.jpg"],      img:"watch-img"      }
-    };
-
-    /* ПРАЙС: DOCX приоритет → PDF → PNG */
-    const PRICE_NAMES = [
-      "ai_design_site_ads.docx 2.docx","ai_design_site_ads.docx%202.docx", // твой файл
-      "price-ildar.docx","price.docx","ai_design_site_ads.docx",
-      "price-ildar.pdf","price.pdf","price_a4.pdf",
-      "price-ildar.png","price.png","price_a4.png"
+    /* Проекты: headphones можно вообще не находить — карточка тогда не рисуется */
+    const ITEMS = [
+      { key:"krossovki", title:"Кроссовки", stem:"krossovki" },
+      { key:"product",   title:"Товар",     stem:"product"   },
+      { key:"headphones",title:"Наушники",  stem:"headphones"},
+      { key:"watch",     title:"Часы",      stem:"watch"     }
     ];
 
-    const FOUND = {}; // {key:{base,before,after,img}}
-
-    /* --- ВСПОМОГАТЕЛЬНЫЕ --- */
-    function setBadge(key, ok, text){
-      const el = document.getElementById("badge-"+key);
-      if(!el) return;
-      el.innerHTML = (ok ? '<span class="ok">✔</span> ' : '<span class="bad">✖</span> ') + text;
+    /* Варианты имён: -before/-after, _before/_after, (1), .jpg/.jpeg/.png */
+    function nameVariants(stem){
+      const bases = [
+        `${stem}-before`, `${stem}-after`,
+        `${stem}_before`, `${stem}_after`,
+        `${stem} before`, `${stem} after`
+      ];
+      const withIdx = [];
+      bases.forEach(b => withIdx.push(b, `${b} (1)`, `${b} (2)`));
+      const exts = [".jpg",".jpeg",".png"];
+      const list = [];
+      for(const b of withIdx){ for(const e of exts){ list.push(b+e); } }
+      const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
+      list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
+      // Базовые короткие
+      list.push(`${stem}-before.jpg`, `${stem}-after.jpg`);
+      return [...new Set(list)];
     }
 
+    /* Проверка существования изображения через <img> (без CORS/HEAD) */
     function testImage(url){
       return new Promise(res=>{
         const img = new Image();
@@ -140,79 +87,90 @@
       });
     }
 
-    async function pickUrl(fileCandidates){
-      // пробуем каждый файл + каждую базу
-      for(const name of fileCandidates){
-        for(const base of BASES){
-          const url = base + name;
-          if(await testImage(url)) return {base, file:name, url};
-        }
-      }
+    async function findFirstExisting(urls){
+      for(const u of urls){ if(await testImage(u)) return u; }
       return null;
     }
 
-    async function initItem(key){
-      const cfg = items[key];
-      const before = await pickUrl(cfg.before);
-      const imgEl = document.getElementById(cfg.img);
-      if(!before){ imgEl.alt = "Файл не найден"; setBadge(key,false,"Не найдено"); return; }
+    /* Пытаемся найти BEFORE в любой базе/варианте; AFTER — сначала в той же базе, иначе где угодно */
+    async function resolvePair(stem){
+      const vars = nameVariants(stem);
+      const beforeVars = vars.filter(v=>/before\./i.test(v));
+      const afterVars  = vars.filter(v=>/after\./i.test(v));
 
-      // подбираем after в той же базе; если нет — ищем где угодно
-      let afterFile = null, afterUrl = null;
-      for(const f of cfg.after){
-        const url = before.base + f;
-        if(await testImage(url)){ afterFile = f; afterUrl = url; break; }
-      }
-      if(!afterUrl){
-        const alt = await pickUrl(cfg.after);
-        if(alt){ afterFile = alt.file; afterUrl = alt.url; } else { afterFile = cfg.after[0]; afterUrl = before.base + afterFile; }
-      }
+      // Все возможные URL для before: base + file
+      const beforeUrls = [];
+      for(const b of BASES) for(const f of beforeVars) beforeUrls.push(b+f);
 
-      FOUND[key] = { base: before.base, before: before.file, after: afterFile, img: cfg.img };
-      imgEl.src = encodeURI(before.url);
-      setBadge(key,true,"Путь: " + before.base + " · файл: " + before.file);
+      const beforeUrl = await findFirstExisting(beforeUrls);
+      if(!beforeUrl) return null;
+
+      // Найдём базу before (для компактности)
+      const beforeBase = beforeUrl.slice(0, beforeUrl.lastIndexOf("/") + 1);
+      // Попробуем after в той же базе
+      const afterSameBase = await findFirstExisting(afterVars.map(f=>beforeBase+f));
+      if(afterSameBase) return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: beforeBase, after: afterSameBase.slice(beforeBase.length) };
+
+      // Иначе — где угодно
+      const afterUrls = [];
+      for(const b of BASES) for(const f of afterVars) afterUrls.push(b+f);
+      const afterUrl = await findFirstExisting(afterUrls);
+      if(!afterUrl) return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: beforeBase, after: afterVars[0] };
+
+      const afterBase = afterUrl.slice(0, afterUrl.lastIndexOf("/") + 1);
+      return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: afterBase, after: afterUrl.slice(afterBase.length) };
     }
 
-    function show(key, which){
-      const s = FOUND[key]; if(!s) return;
-      const file = (which==="before") ? s.before : s.after;
-      const url  = s.base + file;
-      document.getElementById(s.img).src = encodeURI(url) + "?v=" + Date.now();
+    /* Рендер карточки только если найдено хотя бы "до" */
+    function renderCard({key,title}, pair){
+      const wrap = document.getElementById("samples");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img id="${key}-img" alt="${title}">
+        <div style="margin-top:8px">${title}</div>
+        <div class="btns">
+          <button class="btn" data-key="${key}" data-which="before">До</button>
+          <button class="btn" data-key="${key}" data-which="after">После</button>
+        </div>
+        <div id="badge-${key}" class="muted"></div>
+      `;
+      wrap.appendChild(card);
+
+      const img = document.getElementById(`${key}-img`);
+      img.dataset.baseBefore = pair.baseBefore;
+      img.dataset.before     = pair.before;
+      img.dataset.baseAfter  = pair.baseAfter;
+      img.dataset.after      = pair.after;
+
+      // Показать "до"
+      img.src = encodeURI(pair.baseBefore + pair.before) + "?v=" + Date.now();
+
+      // Бейдж пути (для контроля)
+      const badge = document.getElementById(`badge-${key}`);
+      badge.textContent = `Путь: ${pair.baseBefore} • файл: ${pair.before}`;
     }
 
-    /* ПРАЙС: авто-поиск (кроме жёсткой ссылки сверху) */
-    async function initPrice(){
-      const link = document.getElementById("price-auto");
-      const badge = document.getElementById("price-badge");
+    // Делегирование кликов по кнопкам
+    document.addEventListener("click", (e)=>{
+      if(!(e.target instanceof HTMLElement)) return;
+      if(!e.target.matches(".btn[data-key]")) return;
+      const key = e.target.dataset.key;
+      const which = e.target.dataset.which;
+      const img = document.getElementById(`${key}-img`);
+      if(!img) return;
+      const base = (which==="before") ? img.dataset.baseBefore : img.dataset.baseAfter;
+      const file = (which==="before") ? img.dataset.before     : img.dataset.after;
+      img.src = encodeURI(base + file) + "?v=" + Date.now();
+    });
 
-      // пробуем имена + базы
-      for(const name of PRICE_NAMES){
-        const clean = decodeURI(name); // на случай %20
-        for(const base of BASES){
-          const url = base + clean;
-          try{
-            const r = await fetch(encodeURI(url), {method:"HEAD",cache:"no-store"});
-            if(r.ok){
-              link.href = encodeURI(url) + "?v=" + Date.now();
-              link.style.pointerEvents = "auto"; link.style.opacity = "1";
-              const ext = clean.split(".").pop().toUpperCase();
-              link.textContent = "📄 Скачать прайс ("+ext+")";
-              badge.innerHTML = '<span class="ok">✔</span> Файл: ' + base + clean;
-              return;
-            }
-          }catch(_){}
-        }
-      }
-      badge.innerHTML = '<span class="bad">✖</span> Прайс не найден (жёсткая кнопка выше работает).';
-    }
-
-    /* СТАРТ */
+    // Инициализация: создаём карточки только для найденных наборов
     (async function(){
-      await initItem("krossovki");
-      await initItem("product");
-      await initItem("headphones");
-      await initItem("watch");
-      await initPrice();
+      for(const it of ITEMS){
+        const pair = await resolvePair(it.stem);
+        if(pair){ renderCard(it, pair); }
+        // если не найдено (например, "Наушники") — просто пропускаем
+      }
     })();
   </script>
 </body>
