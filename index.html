@@ -7,30 +7,42 @@
   <meta name="theme-color" content="#f6d365">
   <style>
     :root { --bg:#fdfdfd; --text:#222; --card:#fff; --muted:#777; --accent1:#f6d365; --accent2:#fda085; --btn:#ff7a59; }
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
     header{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;text-align:center;padding:24px 16px}
-    header h1{margin:0 0 6px;font-size:26px} header p{margin:0;opacity:.95}
+    header h1{margin:0 0 6px;font-size:26px}
+    header p{margin:0;opacity:.95}
     .wrap{max-width:1080px;margin:0 auto;padding:16px}
     .gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .card{background:var(--card);border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:14px;text-align:center}
-    .label{font-weight:700;margin:8px 0 10px} .title{margin:8px 0 0;color:var(--muted);font-size:14px}
+    .label{font-weight:700;margin:8px 0 10px}
+    .title{margin:8px 0 0;color:var(--muted);font-size:14px}
     img{width:100%;height:auto;border-radius:10px;display:block}
     .tariffs{margin:28px 0;background:#fafafa;border-radius:14px;padding:20px;text-align:center}
-    .tariffs h2{margin:0 0 12px} .tariff{margin:6px 0;font-size:17px}
+    .tariffs h2{margin:0 0 12px}
+    .tariff{margin:6px 0;font-size:17px}
     .btn{display:inline-block;padding:12px 22px;background:var(--btn);color:#fff;border-radius:10px;text-decoration:none;font-weight:600}
     .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-    .btn.telegram{background:#0088cc} .btn.whatsapp{background:#25D366} .btn.portfolio{background:#444} .btn.price{background:#6b4de6}
-    #price{margin:28px 0} #price h2{margin:0 0 14px;text-align:center}
+    .btn.telegram{background:#0088cc}
+    .btn.whatsapp{background:#25D366}
+    .btn.portfolio{background:#444}
+    .btn.price{background:#6b4de6}
+    #price{margin:28px 0}
+    #price h2{margin:0 0 14px;text-align:center}
     .price-note{color:var(--muted);text-align:center;margin:4px 0 18px}
     .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .plan{background:var(--card);border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:18px;display:flex;flex-direction:column}
-    .plan h3{margin:0 0 8px} .price-tag{font-size:22px;font-weight:700;margin:4px 0 10px}
-    .plan ul{list-style:none;padding:0;margin:0 0 12px} .plan ul li{margin:6px 0;position:relative;padding-left:22px}
+    .plan h3{margin:0 0 8px}
+    .price-tag{font-size:22px;font-weight:700;margin:4px 0 10px}
+    .plan ul{list-style:none;padding:0;margin:0 0 12px}
+    .plan ul li{margin:6px 0;position:relative;padding-left:22px}
     .plan ul li::before{content:"✔";position:absolute;left:0;top:0;color:#16a34a}
-    .plan .plan-actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap} .plan .btn{flex:1;text-align:center}
+    .plan .plan-actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+    .plan .btn{flex:1;text-align:center}
     .cta-bar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);border-top:1px solid #eee;padding:10px 12px;backdrop-filter:blur(6px);z-index:10}
-    .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap} .cta-row .btn{flex:1;text-align:center;min-width:150px}
+    .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .cta-row .btn{flex:1;text-align:center;min-width:150px}
     footer{padding:16px;text-align:center;color:var(--muted);font-size:14px}
     @media (max-width:980px){ .plans{grid-template-columns:1fr 1fr} }
     @media (max-width:820px){ .gallery{grid-template-columns:1fr} .pair{grid-template-columns:1fr} .plans{grid-template-columns:1fr} }
@@ -103,66 +115,73 @@
   <footer>© AI-шаблоны. Срок — от 12 часов</footer>
 
   <script>
-    // Базы и расширения: пробуем всё популярное и оба расположения (корень и /my-site/)
-    const bases = [
-      'assets/',           // если открыто как https://.../my-site/
-      'my-site/assets/'    // если открыто из корня
+    // Где искать: кириллица и латиница, корень и /my-site/
+    const BASE_DIRS = [
+      'активы/', 'изображения/', 'assets/',
+      'my-site/активы/', 'my-site/изображения/', 'my-site/assets/'
     ];
-    const exts = ['jpg','jpeg','png','webp'];
+    const EXTS = ['jpg','jpeg','png','webp'];
+    const BEFORE_VARIANTS = ['before','до'];
+    const AFTER_VARIANTS  = ['after','после'];
 
-    const items = [
-      { title: 'Кроссовки', name: 'krossovki' },
-      { title: 'Смартфон',  name: 'phone'     },
-      { title: 'Сумка',     name: 'sumka'     },
-      { title: 'Парфюм',    name: 'parfum'    },
-      { title: 'Наушники',  name: 'headphones'},
-      { title: 'Очки',      name: 'ochki'     },
-      { title: 'Блендер',   name: 'blender'   },
-      { title: 'Рюкзак',    name: 'ryukzak'   },
-      { title: 'Часы',      name: 'chasy'     },
-      { title: 'Вкладыши',  name: 'airpods'   },
+    // Какие пары хотим показать (варианты имён файлов без суффиксов)
+    const ITEMS = [
+      { title: 'Кроссовки', variants: ['кроссовки','krossovki'] },
+      { title: 'Наушники', variants: ['наушники','headphones'] },
+      { title: 'Продукт',  variants: ['продукт','product','phone'] },
+      { title: 'Смотреть', variants: ['смотреть','look','watch'] },
     ];
 
     const gallery = document.getElementById('gallery');
 
-    function testImg(src){
+    function testImg(url){
       return new Promise(res=>{
-        const i = new Image();
-        i.loading = 'lazy';
-        i.onload = ()=>res(true);
-        i.onerror = ()=>res(false);
-        i.src = src + '?v=' + Date.now();
+        const img = new Image();
+        img.loading = 'lazy';
+        img.onload = ()=>res(true);
+        img.onerror = ()=>res(false);
+        img.src = encodeURI(url) + '?v=' + Date.now(); // bust cache для GH Pages
       });
     }
 
-    async function findFile(name, part){ // part: 'before' | 'after'
-      for (const base of bases){
-        for (const ext of exts){
-          const url = `${base}${name}-${part}.${ext}`;
-          if (await testImg(url)) return url;
+    async function findOne(variant, part){ // part: 'before'|'after'
+      const suffixes = part === 'before' ? BEFORE_VARIANTS : AFTER_VARIANTS;
+      for (const base of BASE_DIRS){
+        for (const suf of suffixes){
+          for (const ext of EXTS){
+            const url = `${base}${variant}-${suf}.${ext}`;
+            if (await testImg(url)) return url;
+          }
         }
       }
       return null;
     }
 
     (async () => {
-      for (const it of items){
-        const before = await findFile(it.name, 'before');
-        const after  = await findFile(it.name, 'after');
-        if (!before || !after) continue; // показываем только полноценные пары
+      for (const item of ITEMS){
+        let found = null;
+        for (const v of item.variants){
+          const before = await findOne(v, 'before');
+          const after  = await findOne(v, 'after');
+          if (before && after){
+            found = { before, after, var:v };
+            break;
+          }
+        }
+        if (!found) continue;
 
         const pair = document.createElement('div');
         pair.className = 'pair';
         pair.innerHTML = `
           <div class="card">
             <div class="label">До — обычная карточка</div>
-            <img src="${before}" alt="${it.title} До" loading="lazy" />
-            <p class="title">${it.title}</p>
+            <img src="${found.before}" alt="${item.title} До" loading="lazy" />
+            <p class="title">${item.title}</p>
           </div>
           <div class="card">
             <div class="label">После — шаблон</div>
-            <img src="${after}" alt="${it.title} После" loading="lazy" />
-            <p class="title">${it.title}</p>
+            <img src="${found.after}" alt="${item.title} После" loading="lazy" />
+            <p class="title">${item.title}</p>
           </div>
         `;
         gallery.appendChild(pair);
@@ -171,4 +190,3 @@
   </script>
 </body>
 </html>
-          
