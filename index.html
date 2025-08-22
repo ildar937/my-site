@@ -70,50 +70,8 @@
   </header>
 
   <main class="wrap">
-    <!-- Портфолио -->
-    <section id="gallery" class="gallery">
-      <!-- Уже есть -->
-      <div class="pair" data-title="Кроссовки"
-           data-before="my-site/assets/krossovki-before.jpg"
-           data-after="my-site/assets/krossovki-after.jpg"></div>
-
-      <div class="pair" data-title="Смартфон"
-           data-before="my-site/assets/phone-before.jpg"
-           data-after="my-site/assets/phone-after.jpg"></div>
-
-      <!-- Заготовки: появятся сами, когда добавите файлы в my-site/assets/ -->
-      <div class="pair" data-title="Сумка"
-           data-before="my-site/assets/sumka-before.jpg"
-           data-after="my-site/assets/sumka-after.jpg"></div>
-
-      <div class="pair" data-title="Парфюм"
-           data-before="my-site/assets/parfum-before.jpg"
-           data-after="my-site/assets/parfum-after.jpg"></div>
-
-      <div class="pair" data-title="Наушники"
-           data-before="my-site/assets/headphones-before.jpg"
-           data-after="my-site/assets/headphones-after.jpg"></div>
-
-      <div class="pair" data-title="Очки"
-           data-before="my-site/assets/ochki-before.jpg"
-           data-after="my-site/assets/ochki-after.jpg"></div>
-
-      <div class="pair" data-title="Блендер"
-           data-before="my-site/assets/blender-before.jpg"
-           data-after="my-site/assets/blender-after.jpg"></div>
-
-      <div class="pair" data-title="Рюкзак"
-           data-before="my-site/assets/ryukzak-before.jpg"
-           data-after="my-site/assets/ryukzak-after.jpg"></div>
-
-      <div class="pair" data-title="Часы"
-           data-before="my-site/assets/chasy-before.jpg"
-           data-after="my-site/assets/chasy-after.jpg"></div>
-
-      <div class="pair" data-title="Вкладыши"
-           data-before="my-site/assets/airpods-before.jpg"
-           data-after="my-site/assets/airpods-after.jpg"></div>
-    </section>
+    <!-- Галерея (контейнер пустой — наполним из JS) -->
+    <section id="gallery" class="gallery"></section>
 
     <!-- Краткие тарифы -->
     <section class="tariffs">
@@ -134,7 +92,6 @@
       <h2>📋 Прайс-лист (подробно)</h2>
       <p class="price-note">Цены «от» зависят от количества и сложности. 2 раунда правок включено. Срок — от 12 часов.</p>
       <div class="plans">
-        <!-- Базовый -->
         <div class="plan">
           <h3>Базовый</h3>
           <div class="price-tag">от 500 ₽</div>
@@ -149,7 +106,6 @@
           </div>
         </div>
 
-        <!-- Стандарт -->
         <div class="plan">
           <h3>Стандарт</h3>
           <div class="price-tag">от 1500 ₽</div>
@@ -164,7 +120,6 @@
           </div>
         </div>
 
-        <!-- Премиум -->
         <div class="plan">
           <h3>Премиум</h3>
           <div class="price-tag">от 2500 ₽</div>
@@ -196,39 +151,58 @@
   <footer>© AI-шаблоны. Срок — от 12 часов</footer>
 
   <script>
-    // Рендерим только пары, у которых обе картинки реально загружаются
-    const pairs = Array.from(document.querySelectorAll('.pair'));
+    // 1) Определяем, откуда открыта страница: из корня или /my-site/
+    const inMySite = /\/my-site\/?$/i.test(location.pathname.replace(/\/+$/,''));
+    const BASE = inMySite ? 'assets/' : 'my-site/assets/';
+
+    // 2) Список пар (названия файлов без пути)
+    const items = [
+      { title: 'Кроссовки', name: 'krossovki' },
+      { title: 'Смартфон',  name: 'phone'     },
+      { title: 'Сумка',     name: 'sumka'     },
+      { title: 'Парфюм',    name: 'parfum'    },
+      { title: 'Наушники',  name: 'headphones'},
+      { title: 'Очки',      name: 'ochki'     },
+      { title: 'Блендер',   name: 'blender'   },
+      { title: 'Рюкзак',    name: 'ryukzak'   },
+      { title: 'Часы',      name: 'chasy'     },
+      { title: 'Вкладыши',  name: 'airpods'   },
+    ];
+
+    const gallery = document.getElementById('gallery');
+
     function preload(src){
       return new Promise(resolve=>{
         const img = new Image();
         img.loading = 'lazy';
-        img.onload = ()=>resolve({ok:true, src});
-        img.onerror = ()=>resolve({ok:false, src});
+        img.onload = ()=>resolve(true);
+        img.onerror = ()=>resolve(false);
         img.src = src + '?v=' + Date.now(); // bust cache для GH Pages
       });
     }
+
     (async () => {
-      for (const holder of pairs){
-        const title = holder.dataset.title || '';
-        const before = holder.dataset.before;
-        const after  = holder.dataset.after;
-        const [b,a] = await Promise.all([preload(before), preload(after)]);
-        if (b.ok && a.ok){
-          holder.innerHTML = `
-            <div class="card">
-              <div class="label">До — обычная карточка</div>
-              <img src="${before}" alt="${title} До" loading="lazy" />
-              <p class="title">${title}</p>
-            </div>
-            <div class="card">
-              <div class="label">После — шаблон</div>
-              <img src="${after}" alt="${title} После" loading="lazy" />
-              <p class="title">${title}</p>
-            </div>
-          `;
-        } else {
-          holder.remove(); // скрываем пару до появления обоих файлов
-        }
+      for (const it of items){
+        const before = BASE + it.name + '-before.jpg';
+        const after  = BASE + it.name + '-after.jpg';
+        const [okB, okA] = await Promise.all([preload(before), preload(after)]);
+        if (!okB || !okA) continue; // показываем только полноценные пары
+
+        const pair = document.createElement('div');
+        pair.className = 'pair';
+        pair.innerHTML = `
+          <div class="card">
+            <div class="label">До — обычная карточка</div>
+            <img src="${before}" alt="${it.title} До" loading="lazy" />
+            <p class="title">${it.title}</p>
+          </div>
+          <div class="card">
+            <div class="label">После — шаблон</div>
+            <img src="${after}" alt="${it.title} После" loading="lazy" />
+            <p class="title">${it.title}</p>
+          </div>
+        `;
+        gallery.appendChild(pair);
       }
     })();
   </script>
