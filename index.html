@@ -1,175 +1,226 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>AI-дизайн • До/После</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-шаблоны • Маркетплейсы и соцсети</title>
+  <meta name="description" content="AI-шаблоны для маркетплейсов и соцсетей: карточки, инфографика, обложки. Срок — от 12 часов. Цена — от 500 ₽." />
+  <meta name="theme-color" content="#f6d365">
   <style>
-    :root{--bg:#fff;--fg:#111;--muted:#666;--panel:#f6f7f9;--btn:#111;--btnh:#333}
+    :root { --bg:#fdfdfd; --text:#222; --card:#fff; --muted:#777; --accent1:#f6d365; --accent2:#fda085; --btn:#ff7a59; }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
-    header,footer{padding:26px 14px;text-align:center;background:var(--panel)}
-    header h1{margin:0 0 6px}
-    main{max-width:980px;margin:0 auto;padding:18px 14px}
-    .pill{display:inline-block;background:#eef1f5;border-radius:999px;padding:8px 14px;color:#111;text-decoration:none;margin:0 6px}
-    h2{text-align:center;margin:24px 0 10px}
-    .card{display:flex;flex-direction:column;align-items:center;margin:28px 0}
-    .card img{width:100%;max-width:880px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.12);min-height:180px;background:#f1f2f4;object-fit:cover}
-    .btns{margin-top:10px}
-    .btn{background:var(--btn);color:#fff;border:0;border-radius:9px;padding:9px 14px;margin:0 6px;cursor:pointer}
-    .btn:hover{background:var(--btnh)}
-    .muted{color:var(--muted);font-size:13px;margin-top:6px}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    header{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;text-align:center;padding:24px 16px}
+    header h1{margin:0 0 6px;font-size:26px}
+    header p{margin:0;opacity:.95}
+    .wrap{max-width:1080px;margin:0 auto;padding:16px}
+
+    /* Галерея */
+    .gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:14px;text-align:center}
+    .label{font-weight:700;margin:8px 0 10px}
+    .title{margin:8px 0 0;color:var(--muted);font-size:14px}
+    img{width:100%;height:auto;border-radius:10px;display:block}
+
+    /* Тарифы (кратко) */
+    .tariffs{margin:28px 0;background:#fafafa;border-radius:14px;padding:20px;text-align:center}
+    .tariffs h2{margin:0 0 12px}
+    .tariff{margin:6px 0;font-size:17px}
+    .btn{display:inline-block;padding:12px 22px;background:var(--btn);color:#fff;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+    .btn.telegram{background:#0088cc}
+    .btn.whatsapp{background:#25D366}
+    .btn.portfolio{background:#444}
+    .btn.price{background:#6b4de6}
+
+    /* Прайс-лист (подробно) */
+    #price{margin:28px 0}
+    #price h2{margin:0 0 14px;text-align:center}
+    .price-note{color:var(--muted);text-align:center;margin:4px 0 18px}
+    .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .plan{background:var(--card);border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:18px;display:flex;flex-direction:column}
+    .plan h3{margin:0 0 8px}
+    .plan .price-tag{font-size:22px;font-weight:700;margin:4px 0 10px}
+    .plan ul{list-style:none;padding:0;margin:0 0 12px}
+    .plan ul li{margin:6px 0;position:relative;padding-left:22px}
+    .plan ul li::before{content:"✔";position:absolute;left:0;top:0;color:#16a34a}
+    .plan .plan-actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+    .plan .btn{flex:1;text-align:center}
+
+    /* Нижняя контактная панель */
+    .cta-bar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);border-top:1px solid #eee;padding:10px 12px;backdrop-filter:blur(6px);z-index:10}
+    .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    .cta-row .btn{flex:1;text-align:center;min-width:150px}
+
+    footer{padding:16px;text-align:center;color:var(--muted);font-size:14px}
+
+    @media (max-width:980px){ .plans{grid-template-columns:1fr 1fr} }
+    @media (max-width:820px){
+      .gallery{grid-template-columns:1fr}
+      .pair{grid-template-columns:1fr}
+      .plans{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>AI-дизайн • До/После</h1>
-    <div>Карточки, обложки, аватары • быстрый премиум-визуал</div>
-    <p style="margin-top:10px">
-      <a class="pill" href="https://t.me/foodfox_eldar_gainutdinov" target="_blank" rel="noopener">Telegram</a>
-      <a class="pill" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20оформить%20заказ." target="_blank" rel="noopener">WhatsApp</a>
-      <a class="pill" href="mailto:eldargainutdinoff@yandex.ru">E-mail</a>
-    </p>
+    <h1>🚀 AI-шаблоны для маркетплейсов и соцсетей</h1>
+    <p>Карточки • инфографика • обложки</p>
   </header>
 
-  <main>
-    <h2>Примеры работ</h2>
-    <div id="samples"></div>
+  <main class="wrap">
+    <!-- Портфолио -->
+    <section id="gallery" class="gallery">
+      <!-- Уже есть -->
+      <div class="pair" data-title="Кроссовки"
+           data-before="assets/krossovki-before.jpg"
+           data-after="assets/krossovki-after.jpg"></div>
+      <div class="pair" data-title="Смартфон"
+           data-before="assets/phone-before.jpg"
+           data-after="assets/phone-after.jpg"></div>
+
+      <!-- Заготовки: появятся сами, когда добавите файлы в assets/ -->
+      <div class="pair" data-title="Сумка"
+           data-before="assets/sumka-before.jpg"
+           data-after="assets/sumka-after.jpg"></div>
+      <div class="pair" data-title="Парфюм"
+           data-before="assets/parfum-before.jpg"
+           data-after="assets/parfum-after.jpg"></div>
+      <div class="pair" data-title="Наушники"
+           data-before="assets/headphones-before.jpg"
+           data-after="assets/headphones-after.jpg"></div>
+      <div class="pair" data-title="Очки"
+           data-before="assets/ochki-before.jpg"
+           data-after="assets/ochki-after.jpg"></div>
+      <div class="pair" data-title="Блендер"
+           data-before="assets/blender-before.jpg"
+           data-after="assets/blender-after.jpg"></div>
+      <div class="pair" data-title="Рюкзак"
+           data-before="assets/ryukzak-before.jpg"
+           data-after="assets/ryukzak-after.jpg"></div>
+      <div class="pair" data-title="Часы"
+           data-before="assets/chasy-before.jpg"
+           data-after="assets/chasy-after.jpg"></div>
+      <div class="pair" data-title="Вкладыши"
+           data-before="assets/airpods-before.jpg"
+           data-after="assets/airpods-after.jpg"></div>
+    </section>
+
+    <!-- Краткие тарифы -->
+    <section class="tariffs">
+      <h2>💰 Тарифы (кратко)</h2>
+      <div class="tariff">📌 1 шаблон — от 500 ₽</div>
+      <div class="tariff">📌 3–5 шаблонов — от 1500 ₽</div>
+      <div class="tariff">📌 Пакет 5–7 шаблонов + адаптация — от 2500 ₽</div>
+      <div class="btn-row">
+        <a class="btn whatsapp" href="https://wa.me/79031696661?text=%F0%9F%91%8B%20Здравствуйте!%20Хочу%20заказать%20AI-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D1%8B.%20Сколько%20стоит%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%3F" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="btn telegram" href="https://t.me/ai_do_after" target="_blank" rel="noopener noreferrer">Telegram-канал</a>
+        <a class="btn portfolio" href="#gallery">Портфолио</a>
+        <a class="btn price" href="#price">Прайс-лист</a>
+      </div>
+    </section>
+
+    <!-- Прайс-лист (подробно) -->
+    <section id="price">
+      <h2>📋 Прайс-лист (подробно)</h2>
+      <p class="price-note">Цены «от» зависят от количества и сложности. 2 раунда правок включено. Срок — от 12 часов.</p>
+      <div class="plans">
+        <!-- Базовый -->
+        <div class="plan">
+          <h3>Базовый</h3>
+          <div class="price-tag">от 500 ₽</div>
+          <ul>
+            <li>1 шаблон (карточка / пост / обложка)</li>
+            <li>Единый стиль под вашу нишу</li>
+            <li>2 раунда правок</li>
+          </ul>
+          <div class="plan-actions">
+            <a class="btn whatsapp" href="https://wa.me/79031696661?text=Здравствуйте!%20Нужен%20Базовый%20пакет%20(1%20шаблон)." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn telegram" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+
+        <!-- Стандарт -->
+        <div class="plan">
+          <h3>Стандарт</h3>
+          <div class="price-tag">от 1500 ₽</div>
+          <ul>
+            <li>3–5 шаблонов (карточки/инфографика/сторис)</li>
+            <li>Мини-гайд по использованию</li>
+            <li>2 раунда правок</li>
+          </ul>
+          <div class="plan-actions">
+            <a class="btn whatsapp" href="https://wa.me/79031696661?text=Здравствуйте!%20Хочу%20Стандарт%20(3–5%20шаблонов)." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn telegram" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+
+        <!-- Премиум -->
+        <div class="plan">
+          <h3>Премиум</h3>
+          <div class="price-tag">от 2500 ₽</div>
+          <ul>
+            <li>5–7 шаблонов + адаптация под бренд</li>
+            <li>Единый набор шрифтов/цветов</li>
+            <li>Исходники по запросу</li>
+          </ul>
+          <div class="plan-actions">
+            <a class="btn whatsapp" href="https://wa.me/79031696661?text=Здравствуйте!%20Интересует%20Премиум%20(5–7%20шаблонов%20+%20адаптация)." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn telegram" href="https://t.me/ai_do_after" target="_blank" rel="noopener">Telegram</a>
+          </div>
+        </div>
+      </div>
+      <p class="price-note">Дополнительно: срочность (в день обращения) +50%; второй язык; исходники (PSD/FIG) — по запросу.</p>
+    </section>
   </main>
 
-  <footer>© Ильдар • AI-дизайн</footer>
+  <!-- Закреплённая нижняя панель контактов -->
+  <div class="cta-bar">
+    <div class="cta-row">
+      <a class="btn whatsapp" href="https://wa.me/79031696661?text=%F0%9F%91%8B%20Здравствуйте!%20Хочу%20заказать%20AI-%D1%88%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D1%8B.%20Сколько%20стоит%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%3F" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a class="btn telegram" href="https://t.me/ai_do_after" target="_blank" rel="noopener noreferrer">Telegram-канал</a>
+      <a class="btn portfolio" href="#gallery">Портфолио</a>
+      <a class="btn price" href="#price">Прайс-лист</a>
+    </div>
+  </div>
+
+  <footer>© AI-шаблоны. Срок — от 12 часов</footer>
 
   <script>
-    /* Базы, где могут лежать картинки (включая кириллицу/вложения) */
-    const BASES = [
-      "", "assets/","asset/","image/","images/",
-      "Изображения/","изображения/",
-      "авауры/","авуары/",
-      "авауры/Изображения/","авуары/Изображения/",
-      "авуары/авуары/Изображения/",
-      "Личный сайт/авуары/авуары/Изображения/"
-    ];
-
-    /* Проекты: headphones можно вообще не находить — карточка тогда не рисуется */
-    const ITEMS = [
-      { key:"krossovki", title:"Кроссовки", stem:"krossovki" },
-      { key:"product",   title:"Товар",     stem:"product"   },
-      { key:"headphones",title:"Наушники",  stem:"headphones"},
-      { key:"watch",     title:"Часы",      stem:"watch"     }
-    ];
-
-    /* Варианты имён: -before/-after, _before/_after, (1), .jpg/.jpeg/.png */
-    function nameVariants(stem){
-      const bases = [
-        `${stem}-before`, `${stem}-after`,
-        `${stem}_before`, `${stem}_after`,
-        `${stem} before`, `${stem} after`
-      ];
-      const withIdx = [];
-      bases.forEach(b => withIdx.push(b, `${b} (1)`, `${b} (2)`));
-      const exts = [".jpg",".jpeg",".png"];
-      const list = [];
-      for(const b of withIdx){ for(const e of exts){ list.push(b+e); } }
-      const cap = stem.charAt(0).toUpperCase()+stem.slice(1);
-      list.push(`${cap}-before.jpg`, `${cap}-after.jpg`);
-      // Базовые короткие
-      list.push(`${stem}-before.jpg`, `${stem}-after.jpg`);
-      return [...new Set(list)];
-    }
-
-    /* Проверка существования изображения через <img> (без CORS/HEAD) */
-    function testImage(url){
-      return new Promise(res=>{
+    // Рендерим только пары, у которых обе картинки реально загружаются
+    const pairs = Array.from(document.querySelectorAll('.pair'));
+    function preload(src){
+      return new Promise(resolve=>{
         const img = new Image();
-        img.onload = ()=>res(true);
-        img.onerror= ()=>res(false);
-        img.src = encodeURI(url) + (url.includes("?")?"&":"?") + "v=" + Date.now();
+        img.loading = 'lazy';
+        img.onload = ()=>resolve({ok:true, src});
+        img.onerror = ()=>resolve({ok:false, src});
+        img.src = src + '?v=' + Date.now(); // bust cache для GH Pages
       });
     }
-
-    async function findFirstExisting(urls){
-      for(const u of urls){ if(await testImage(u)) return u; }
-      return null;
-    }
-
-    /* Пытаемся найти BEFORE в любой базе/варианте; AFTER — сначала в той же базе, иначе где угодно */
-    async function resolvePair(stem){
-      const vars = nameVariants(stem);
-      const beforeVars = vars.filter(v=>/before\./i.test(v));
-      const afterVars  = vars.filter(v=>/after\./i.test(v));
-
-      // Все возможные URL для before: base + file
-      const beforeUrls = [];
-      for(const b of BASES) for(const f of beforeVars) beforeUrls.push(b+f);
-
-      const beforeUrl = await findFirstExisting(beforeUrls);
-      if(!beforeUrl) return null;
-
-      // Найдём базу before (для компактности)
-      const beforeBase = beforeUrl.slice(0, beforeUrl.lastIndexOf("/") + 1);
-      // Попробуем after в той же базе
-      const afterSameBase = await findFirstExisting(afterVars.map(f=>beforeBase+f));
-      if(afterSameBase) return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: beforeBase, after: afterSameBase.slice(beforeBase.length) };
-
-      // Иначе — где угодно
-      const afterUrls = [];
-      for(const b of BASES) for(const f of afterVars) afterUrls.push(b+f);
-      const afterUrl = await findFirstExisting(afterUrls);
-      if(!afterUrl) return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: beforeBase, after: afterVars[0] };
-
-      const afterBase = afterUrl.slice(0, afterUrl.lastIndexOf("/") + 1);
-      return { baseBefore: beforeBase, before: beforeUrl.slice(beforeBase.length), baseAfter: afterBase, after: afterUrl.slice(afterBase.length) };
-    }
-
-    /* Рендер карточки только если найдено хотя бы "до" */
-    function renderCard({key,title}, pair){
-      const wrap = document.getElementById("samples");
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img id="${key}-img" alt="${title}">
-        <div style="margin-top:8px">${title}</div>
-        <div class="btns">
-          <button class="btn" data-key="${key}" data-which="before">До</button>
-          <button class="btn" data-key="${key}" data-which="after">После</button>
-        </div>
-        <div id="badge-${key}" class="muted"></div>
-      `;
-      wrap.appendChild(card);
-
-      const img = document.getElementById(`${key}-img`);
-      img.dataset.baseBefore = pair.baseBefore;
-      img.dataset.before     = pair.before;
-      img.dataset.baseAfter  = pair.baseAfter;
-      img.dataset.after      = pair.after;
-
-      // Показать "до"
-      img.src = encodeURI(pair.baseBefore + pair.before) + "?v=" + Date.now();
-
-      // Бейдж пути (для контроля)
-      const badge = document.getElementById(`badge-${key}`);
-      badge.textContent = `Путь: ${pair.baseBefore} • файл: ${pair.before}`;
-    }
-
-    // Делегирование кликов по кнопкам
-    document.addEventListener("click", (e)=>{
-      if(!(e.target instanceof HTMLElement)) return;
-      if(!e.target.matches(".btn[data-key]")) return;
-      const key = e.target.dataset.key;
-      const which = e.target.dataset.which;
-      const img = document.getElementById(`${key}-img`);
-      if(!img) return;
-      const base = (which==="before") ? img.dataset.baseBefore : img.dataset.baseAfter;
-      const file = (which==="before") ? img.dataset.before     : img.dataset.after;
-      img.src = encodeURI(base + file) + "?v=" + Date.now();
-    });
-
-    // Инициализация: создаём карточки только для найденных наборов
-    (async function(){
-      for(const it of ITEMS){
-        const pair = await resolvePair(it.stem);
-        if(pair){ renderCard(it, pair); }
-        // если не найдено (например, "Наушники") — просто пропускаем
+    (async () => {
+      for (const holder of pairs){
+        const title = holder.dataset.title || '';
+        const before = holder.dataset.before;
+        const after  = holder.dataset.after;
+        const [b,a] = await Promise.all([preload(before), preload(after)]);
+        if (b.ok && a.ok){
+          holder.innerHTML = `
+            <div class="card">
+              <div class="label">До — обычная карточка</div>
+              <img src="${before}" alt="${title} До" loading="lazy" />
+              <p class="title">${title}</p>
+            </div>
+            <div class="card">
+              <div class="label">После — шаблон</div>
+              <img src="${after}" alt="${title} После" loading="lazy" />
+              <p class="title">${title}</p>
+            </div>
+          `;
+        } else {
+          holder.remove(); // скрываем пару до появления обоих файлов
+        }
       }
     })();
   </script>
