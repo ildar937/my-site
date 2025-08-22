@@ -115,21 +115,22 @@
   <footer>© AI-шаблоны. Срок — от 12 часов</footer>
 
   <script>
-    // Где искать: кириллица и латиница, корень и /my-site/
+    // 1) Где искать файлы
     const BASE_DIRS = [
       'активы/', 'изображения/', 'assets/',
-      'my-site/активы/', 'my-site/изображения/', 'my-site/assets/'
+      'my-site/активы/', 'my-site/изображения/', 'my-site/assets/',
+      'мой сайт/активы/', 'мой сайт/изображения/'  // <— добавили кириллицу с пробелом
     ];
     const EXTS = ['jpg','jpeg','png','webp'];
-    const BEFORE_VARIANTS = ['before','до'];
-    const AFTER_VARIANTS  = ['after','после'];
+    const BEFORE = ['before','до'];
+    const AFTER  = ['after','после'];
 
-    // Какие пары хотим показать (варианты имён файлов без суффиксов)
+    // 2) Что искать (варианты имён без суффиксов)
     const ITEMS = [
-      { title: 'Кроссовки', variants: ['кроссовки','krossovki'] },
-      { title: 'Наушники', variants: ['наушники','headphones'] },
-      { title: 'Продукт',  variants: ['продукт','product','phone'] },
-      { title: 'Смотреть', variants: ['смотреть','look','watch'] },
+      { title:'Кроссовки', variants:['кроссовки','krossovki'] },
+      { title:'Наушники', variants:['наушники','headphones'] },
+      { title:'Продукт',  variants:['продукт','product','phone'] },
+      { title:'Смотреть', variants:['смотреть','look','watch'] }
     ];
 
     const gallery = document.getElementById('gallery');
@@ -140,47 +141,50 @@
         img.loading = 'lazy';
         img.onload = ()=>res(true);
         img.onerror = ()=>res(false);
-        img.src = encodeURI(url) + '?v=' + Date.now(); // bust cache для GH Pages
+        img.src = encodeURI(url) + '?v=' + Date.now();
       });
     }
 
-    async function findOne(variant, part){ // part: 'before'|'after'
-      const suffixes = part === 'before' ? BEFORE_VARIANTS : AFTER_VARIANTS;
-      for (const base of BASE_DIRS){
-        for (const suf of suffixes){
-          for (const ext of EXTS){
-            const url = `${base}${variant}-${suf}.${ext}`;
-            if (await testImg(url)) return url;
-          }
-        }
-      }
+    async function find(urls){
+      for (const u of urls) if (await testImg(u)) return u;
       return null;
     }
 
     (async () => {
       for (const item of ITEMS){
-        let found = null;
-        for (const v of item.variants){
-          const before = await findOne(v, 'before');
-          const after  = await findOne(v, 'after');
-          if (before && after){
-            found = { before, after, var:v };
-            break;
+        let beforeURL=null, afterURL=null;
+
+        // соберём все возможные URL для before/after
+        const candidates = (suffixes) => {
+          const list = [];
+          for (const base of BASE_DIRS){
+            for (const v of item.variants){
+              for (const ext of EXTS){
+                for (const suf of suffixes){
+                  list.push(`${base}${v}-${suf}.${ext}`);
+                }
+              }
+            }
           }
-        }
-        if (!found) continue;
+          return list;
+        };
+
+        beforeURL = await find(candidates(BEFORE));
+        afterURL  = await find(candidates(AFTER));
+
+        if (!beforeURL || !afterURL) continue; // показываем только полноценные пары
 
         const pair = document.createElement('div');
         pair.className = 'pair';
         pair.innerHTML = `
           <div class="card">
             <div class="label">До — обычная карточка</div>
-            <img src="${found.before}" alt="${item.title} До" loading="lazy" />
+            <img src="${beforeURL}" alt="${item.title} До" loading="lazy" />
             <p class="title">${item.title}</p>
           </div>
           <div class="card">
             <div class="label">После — шаблон</div>
-            <img src="${found.after}" alt="${item.title} После" loading="lazy" />
+            <img src="${afterURL}" alt="${item.title} После" loading="lazy" />
             <p class="title">${item.title}</p>
           </div>
         `;
@@ -190,3 +194,4 @@
   </script>
 </body>
 </html>
+
