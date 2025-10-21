@@ -1,1 +1,24 @@
+name: Replit KeepAlive
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # каждые 10 минут (UTC)
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/keepalive.yml"
+
+env:
+  PING_URL: "https://280b14e3-c379-4154-8789-7bb7183564fd-00-14ggk3txcbni.riker.replit.dev/"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl ping
+        run: |
+          set -e
+          echo "Pinging: $PING_URL"
+          curl -f -sS -m 10 --retry 2 -L "$PING_URL?keepalive=$(date +%s)"
+          echo "OK"
 
