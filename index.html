@@ -1,1 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoirCard Studio — AI-оформление под ключ</title>
+  <meta name="description" content="До/После для маркетплейсов, AI-обложки, карточки, инфографика. Ответ в течение 2–12 часов. Демоверсия — за 24 часа." />
+  <meta property="og:title" content="NoirCard Studio — AI-оформление под ключ" />
+  <meta property="og:description" content="До/После для маркетплейсов, AI-обложки, карточки, инфографика." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/cover.jpg" />
+  <link rel="icon" href="assets/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* плавный скролл и мелкие шлифовки */
+    html{scroll-behavior:smooth}
+    .glass{background:rgba(255,255,255,.06);backdrop-filter:blur(10px)}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#0B0F2A] to-[#1A1A40] text-white selection:bg-white/20">
+  <!-- Навигация -->
+  <header class="sticky top-0 z-40 glass border-b border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="#" class="font-semibold tracking-wide">NoirCard <span class="text-yellow-300">Studio</span></a>
+      <nav class="hidden sm:flex gap-6 text-sm">
+        <a href="#portfolio" class="hover:text-yellow-300">Портфолио</a>
+        <a href="#pricing" class="hover:text-yellow-300">Прайс</a>
+        <a href="#contact" class="hover:text-yellow-300">Контакты</a>
+      </nav>
+      <a href="https://t.me/foodfox_eldar_gainutdinov" class="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-yellow-300 text-black hover:brightness-110">
+        Telegram
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="mx-auto max-w-6xl px-4 pt-14 pb-10">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight">
+          AI-оформление под ключ<br>
+          <span class="text-yellow-300">До/После для маркетплейсов</span>
+        </h1>
+        <p class="mt-4 text-white/80">
+          Карточки, обложки, инфографика. Ответ 2–12 часов. Демоверсия — за 24 часа.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="FORM_URL" class="rounded-2xl px-5 py-3 bg-yellow-300 text-black hover:brightness-110">Оставить заявку</a>
+          <a href="https://t.me/foodfox_eldar_gainutdinov" class="rounded-2xl px-5 py-3 border border-white/20 hover:border-white/40">Написать в Telegram</a>
+          <a href="assets/price.pdf" class="rounded-2xl px-5 py-3 border border-white/20 hover:border-white/40">Скачать прайс (PDF)</a>
+        </div>
+        <ul class="mt-6 text-sm text-white/70 space-y-1">
+          <li>• Без воды: аккуратные тексты и чистые визуалы</li>
+          <li>• Подгон под ЦА и площадку (WB, Ozon, Я.Маркет)</li>
+          <li>• Готовые исходники + быстрые правки</li>
+        </ul>
+      </div>
+      <div class="rounded-3xl overflow-hidden border border-white/10">
+        <!-- Блок До/После -->
+        <div class="grid grid-cols-2">
+          <figure class="relative aspect-square bg-black/30">
+            <img src="assets/before.jpg" alt="До" class="w-full h-full object-cover opacity-90" />
+            <figcaption class="absolute left-3 top-3 rounded-lg bg-black/60 px-3 py-1 text-xs">До</figcaption>
+          </figure>
+          <figure class="relative aspect-square bg-black/30">
+            <img src="assets/after.jpg" alt="После" class="w-full h-full object-cover" />
+            <figcaption class="absolute left-3 top-3 rounded-lg bg-yellow-300 text-black px-3 py-1 text-xs">После</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Портфолио -->
+  <section id="portfolio" class="mx-auto max-w-6xl px-4 py-12">
+    <h2 class="text-2xl font-semibold">Портфолио</h2>
+    <p class="mt-2 text-white/70 text-sm">Несколько работ. Больше — по запросу в Telegram.</p>
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <img src="assets/work1.jpg" alt="Работа 1" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+      <img src="assets/work2.jpg" alt="Работа 2" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+      <img src="assets/work3.jpg" alt="Работа 3" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+      <img src="assets/work4.jpg" alt="Работа 4" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+      <img src="assets/work5.jpg" alt="Работа 5" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+      <img src="assets/work6.jpg" alt="Работа 6" class="rounded-2xl border border-white/10 object-cover w-full aspect-[4/3]" />
+    </div>
+  </section>
+
+  <!-- Прайс (якорь) -->
+  <section id="pricing" class="mx-auto max-w-6xl px-4 py-12">
+    <h2 class="text-2xl font-semibold">Пакеты</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="rounded-2xl p-6 border border-white/10 glass">
+        <h3 class="font-semibold">Lite</h3>
+        <p class="mt-2 text-sm text-white/70">1 карточка + правка</p>
+        <a href="FORM_URL" class="mt-4 inline-block rounded-xl px-4 py-2 bg-yellow-300 text-black">Заказать</a>
+      </div>
+      <div class="rounded-2xl p-6 border border-yellow-300/40 bg-yellow-300/10">
+        <h3 class="font-semibold">Pro</h3>
+        <p class="mt-2 text-sm text-white/70">3 карточки + правки</p>
+        <a href="FORM_URL" class="mt-4 inline-block rounded-xl px-4 py-2 bg-yellow-300 text-black">Заказать</a>
+      </div>
+      <div class="rounded-2xl p-6 border border-white/10 glass">
+        <h3 class="font-semibold">Max</h3>
+        <p class="mt-2 text-sm text-white/70">5–7 карточек + набор исходников</p>
+        <a href="FORM_URL" class="mt-4 inline-block rounded-xl px-4 py-2 bg-yellow-300 text-black">Заказать</a>
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-white/60">Нужен расчёт под задачу? Напиши в Telegram — отвечу быстро.</p>
+  </section>
+
+  <!-- Контакты -->
+  <section id="contact" class="mx-auto max-w-6xl px-4 py-12">
+    <div class="rounded-2xl p-6 border border-white/10 glass">
+      <h2 class="text-2xl font-semibold">Контакты</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a href="https://t.me/foodfox_eldar_gainutdinov" class="rounded-2xl px-4 py-2 bg-yellow-300 text-black">Telegram</a>
+        <a href="FORM_URL" class="rounded-2xl px-4 py-2 border border-white/20 hover:border-white/40">Форма заявки</a>
+        <a href="mailto:eldargainutdinoff@yandex.ru" class="rounded-2xl px-4 py-2 border border-white/20 hover:border-white/40">Email</a>
+      </div>
+      <p class="mt-3 text-xs text-white/60">Данные из формы используются только для связи по заявке.</p>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center text-white/50 text-sm">
+    © NoirCard Studio. Сделано с любовью к аккуратному дизайну.
+  </footer>
+</body>
+</html>
 
