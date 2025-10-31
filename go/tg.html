@@ -3,23 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Переход в Telegram…</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0B0F2A;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center}
+    .card{background:#12163a;border-radius:18px;padding:28px;max-width:560px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:0 0 8px;font-size:22px}
+    p{margin:8px 0 0;opacity:.9;line-height:1.5}
+    .row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:12px;text-decoration:none;background:#2a2f59;color:#fff}
+    a.btn.primary{background:linear-gradient(90deg,#F6D365,#A18CFD)}
+    small{opacity:.7}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Открываем чат в Telegram…</h1>
+    <p>Если бот не ответил в течение 1–2 минут, используйте запасные контакты ниже.</p>
+    <div class="row">
+      <a id="tg" class="btn primary" href="#" rel="noopener">Открыть @DoAfterBot</a>
+      <a class="btn" href="https://t.me/foodfox_eldar_gainutdinov" rel="noopener">@foodfox_eldar_gainutdinov</a>
+      <a class="btn" href="https://forms.gle/sdYtLmTePpkc5g516" rel="noopener">Короткий бриф</a>
+    </div>
+    <p><small>Мы передадим параметры кампании вместе со стартом в бота (UTM).</small></p>
+  </div>
+
   <script>
     (function () {
-      // 1) читаем query (?ref=...&utm_source=... и т.д.)
       const q = new URLSearchParams(location.search);
-
-      // 2) готовим payload под твой парсер: lead__s=...__m=...__c=...__o=...__t=...
-      //    s=utm_source, m=utm_medium, c=utm_campaign, o=utm_content, t=utm_term
       const s = q.get('utm_source')  || q.get('src') || '';
       const m = q.get('utm_medium')  || q.get('med') || '';
       const c = q.get('utm_campaign')|| q.get('cmp') || '';
-      // ref маппим в o (utm_content)
       const o = q.get('utm_content') || q.get('ref') || '';
       const t = q.get('utm_term')    || q.get('kw')  || '';
 
-      // Собираем строку start
-      let parts = ['lead'];
+      const parts = ['lead'];
       if (s) parts.push('s=' + encodeURIComponent(s));
       if (m) parts.push('m=' + encodeURIComponent(m));
       if (c) parts.push('c=' + encodeURIComponent(c));
@@ -27,18 +45,16 @@
       if (t) parts.push('t=' + encodeURIComponent(t));
       const payload = parts.join('__');
 
-      // 3) редирект в бота (замени на своего — он уже указан)
-      const bot = 'DoAfterBot'; // @DoAfterBot
-      const url = 'https://t.me/' + bot + '?start=' + payload;
+      const bot = 'DoAfterBot';
+      const url  = 'https://t.me/' + bot + '?start=' + payload;
 
-      // Мягкий редирект + fallback
-      location.replace(url);
-      setTimeout(() => (location.href = url), 400);
+      // Кнопка «Открыть @DoAfterBot»
+      document.getElementById('tg').href = url;
+
+      // Автопереход + фолбэк
+      const go = () => { try { location.replace(url); } catch(e) { location.href = url; } };
+      setTimeout(go, 120); // небольшая пауза, чтобы увидеть подсказки
     })();
   </script>
-</head>
-<body>
-  Переходим в Telegram…
 </body>
 </html>
-
