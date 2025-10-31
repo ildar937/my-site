@@ -19,17 +19,18 @@
 <body>
   <div class="card">
     <h1>Открываем чат в Telegram…</h1>
-    <p>Если бот не ответил в течение 1–2 минут, используйте запасные контакты ниже.</p>
+    <p>Если бот не ответил в течение 1–2 минут, воспользуйтесь запасными контактами ниже.</p>
     <div class="row">
       <a id="tg" class="btn primary" href="#" rel="noopener">Открыть @DoAfterBot</a>
       <a class="btn" href="https://t.me/foodfox_eldar_gainutdinov" rel="noopener">@foodfox_eldar_gainutdinov</a>
       <a class="btn" href="https://forms.gle/sdYtLmTePpkc5g516" rel="noopener">Короткий бриф</a>
     </div>
-    <p><small>Мы передадим параметры кампании вместе со стартом в бота (UTM).</small></p>
+    <p><small>UTM-метки передадутся вместе со стартом.</small></p>
   </div>
 
   <script>
     (function () {
+      // ==== 1) Собираем UTM (принимаем и короткие алиасы) ====
       const q = new URLSearchParams(location.search);
       const s = q.get('utm_source')  || q.get('src') || '';
       const m = q.get('utm_medium')  || q.get('med') || '';
@@ -45,15 +46,27 @@
       if (t) parts.push('t=' + encodeURIComponent(t));
       const payload = parts.join('__');
 
+      // ==== 2) Адрес бота ====
       const bot = 'DoAfterBot';
       const url  = 'https://t.me/' + bot + '?start=' + payload;
-
-      // Кнопка «Открыть @DoAfterBot»
       document.getElementById('tg').href = url;
 
-      // Автопереход + фолбэк
+      // ==== 3) (Опционально) Трекинг клика в Google Apps Script ====
+      // Если у тебя будет URL веб-приложения GAS — вставь его сюда (иначе оставь пусто).
+      const TRACK_URL = ''; // например: 'https://script.google.com/macros/s/АКТУАЛЬНЫЙ_ID/exec'
+      if (TRACK_URL) {
+        const beacon = TRACK_URL
+          + '?s=' + encodeURIComponent(s)
+          + '&m=' + encodeURIComponent(m)
+          + '&c=' + encodeURIComponent(c)
+          + '&o=' + encodeURIComponent(o)
+          + '&t=' + encodeURIComponent(t);
+        (new Image()).src = beacon; // не блокирует редирект
+      }
+
+      // ==== 4) Автопереход с мини-паузы, чтобы пользователь увидел кнопки ====
       const go = () => { try { location.replace(url); } catch(e) { location.href = url; } };
-      setTimeout(go, 120); // небольшая пауза, чтобы увидеть подсказки
+      setTimeout(go, 120);
     })();
   </script>
 </body>
