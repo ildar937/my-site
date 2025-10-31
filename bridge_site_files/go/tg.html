@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Открываю Telegram…</title>
+  <meta name="referrer" content="no-referrer"/>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:#0B0F2A;color:#fff;
+         display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+    .card{max-width:640px;width:100%;background:rgba(255,255,255,.06);border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .btn{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:12px;background:#F6D365;color:#0B0F2A;
+         text-decoration:none;font-weight:700}
+    code{background:rgba(255,255,255,.12);padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Открываю Telegram…</h1>
+    <p>Если не перекинуло автоматически — нажми кнопку ниже.</p>
+    <p><a id="btn" class="btn" href="#" rel="noopener">Открыть бота</a></p>
+    <p style="opacity:.8">Альтернатива: вбей в поиск Telegram юзернейм <code>@DoAfterBot</code> и нажми <b>Start</b>.</p>
+  </div>
+  <script>
+    const map = {
+      site_cta:    "lead__s=site__m=btn__c=cta",
+      vk_post:     "lead__s=vk__m=post__c=promo__o=cta",
+      tg_post:     "lead__s=tg__m=post__c=promo__o=cta",
+      boosty_bio:  "lead__s=boosty__m=profile__c=link__o=bio",
+      avito_cards: "lead__s=avito__m=listing__c=cards",
+      avito_bot:   "lead__s=avito__m=listing__c=bot",
+      yula_cards:  "lead__s=yula__m=listing__c=cards",
+      yula_bot:    "lead__s=yula__m=listing__c=bot",
+      kwork_gig:   "lead__s=kwork__m=gig__c=main",
+      kwork_bid:   "lead__s=kwork__m=bid__c=fast",
+      youd_bid:    "lead__s=youd__m=bid__c=brief"
+    };
+    const q = new URLSearchParams(location.search);
+    const ref = q.get("ref") || "site_cta";
+    const start = map[ref] || "lead";
+    const url = "https://t.me/DoAfterBot?start=" + encodeURIComponent(start);
+    document.getElementById("btn").href = url;
+    setTimeout(()=>location.replace(url), 120);
+  </script>
+</body>
+</html>

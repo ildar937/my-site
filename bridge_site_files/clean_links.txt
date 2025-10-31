@@ -1,0 +1,17 @@
+Ставь ЭТИ ссылки вместо t.me — площадки их не режут. Всё ведёт в бота @DoAfterBot.
+
+Сайт (кнопки):        https://ildar937.github.io/my-site/go/tg.html?ref=site_cta
+VK пост:              https://ildar937.github.io/my-site/go/tg.html?ref=vk_post
+TG пост/закреп:       https://ildar937.github.io/my-site/go/tg.html?ref=tg_post
+Boosty (шапка):       https://ildar937.github.io/my-site/go/tg.html?ref=boosty_bio
+Авито — карточки:     https://ildar937.github.io/my-site/go/tg.html?ref=avito_cards
+Авито — бот:          https://ildar937.github.io/my-site/go/tg.html?ref=avito_bot
+Юла — карточки:       https://ildar937.github.io/my-site/go/tg.html?ref=yula_cards
+Юла — бот:            https://ildar937.github.io/my-site/go/tg.html?ref=yula_bot
+Kwork (лучше без ссылок, если надо): https://ildar937.github.io/my-site/go/tg.html?ref=kwork_gig
+YouDo (в откликах):   https://ildar937.github.io/my-site/go/tg.html?ref=youd_bid
+
+Как проверить:
+1) Открой любую ссылку в инкогнито.
+2) Должно перекинуть на t.me/DoAfterBot?start=... (с твоими UTM).
+3) Нажми Start — прилетит «🆕 Лид» в админ-чат.
