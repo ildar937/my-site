@@ -1,1 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Переход в Telegram…</title>
+  <script>
+    (function () {
+      // 1) читаем query (?ref=...&utm_source=... и т.д.)
+      const q = new URLSearchParams(location.search);
+
+      // 2) готовим payload под твой парсер: lead__s=...__m=...__c=...__o=...__t=...
+      //    s=utm_source, m=utm_medium, c=utm_campaign, o=utm_content, t=utm_term
+      const s = q.get('utm_source')  || q.get('src') || '';
+      const m = q.get('utm_medium')  || q.get('med') || '';
+      const c = q.get('utm_campaign')|| q.get('cmp') || '';
+      // ref маппим в o (utm_content)
+      const o = q.get('utm_content') || q.get('ref') || '';
+      const t = q.get('utm_term')    || q.get('kw')  || '';
+
+      // Собираем строку start
+      let parts = ['lead'];
+      if (s) parts.push('s=' + encodeURIComponent(s));
+      if (m) parts.push('m=' + encodeURIComponent(m));
+      if (c) parts.push('c=' + encodeURIComponent(c));
+      if (o) parts.push('o=' + encodeURIComponent(o));
+      if (t) parts.push('t=' + encodeURIComponent(t));
+      const payload = parts.join('__');
+
+      // 3) редирект в бота (замени на своего — он уже указан)
+      const bot = 'DoAfterBot'; // @DoAfterBot
+      const url = 'https://t.me/' + bot + '?start=' + payload;
+
+      // Мягкий редирект + fallback
+      location.replace(url);
+      setTimeout(() => (location.href = url), 400);
+    })();
+  </script>
+</head>
+<body>
+  Переходим в Telegram…
+</body>
+</html>
 
