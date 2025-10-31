@@ -1,15 +1,8 @@
-# Быстрый деплой (GitHub Pages)
-1. Зайди в репозиторий `my-site` → **Add file → Upload files**.
-2. Перетащи ВСЕ файлы из этой папки (index.html, style.css, script.js, price.pdf, sitemap.xml, robots.txt, 404.html и папку assets/).
-3. Нажми **Commit changes**. Через 10–30 сек сайт обновится.
+NoirCard — Универсальный сайт 2.0 (связан с Google Формой)
+ENTRY IDS из твоей формы:
+- name → entry.1300507113
+- contact (tg/phone) → entry.1171902312
+- comment → entry.693728113
+- deadline → entry.1285234917
 
-## Что внутри
-- index.html — лендинг (шапка, «до/после», услуги, контакты)
-- style.css — стили
-- script.js — мини-аналитика кликов (локально в браузере)
-- price.pdf — прайс (можно заменить своим)
-- sitemap.xml / robots.txt — SEO‑минимум
-- 404.html — обработка несуществующих страниц
-- assets/ — обложка, фавикон, 3 пары «до/после» (SVG)
-
-Дата сборки: 2025-08-07
+Как работает контакт: сайт берёт Telegram, если он заполнен, иначе Телефон.
