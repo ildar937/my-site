@@ -1,1 +1,64 @@
+<script>
+  /* === ТВОИ ССЫЛКИ (проверь) === */
+  const REPL_HEALTH = "https://280b14e3-c379-4154-8789-7bb7183564fd-00-14ggk3txcbni.riker.replit.dev/health"; // будилка Replit
+  const BOT_LINK    = "https://t.me/DoAfterBot";                                                               // основной бот
+  const FORM_LINK   = "https://docs.google.com/forms/d/e/1FAIpQLSdR3IK6FcsfUMcjAgzAxcq3jNAsIjtIWzLm8fd8fwVXm-Ay5Q/viewform"; // твоя форма
+  /* ================================= */
 
+  // Метка источника (?src=alias => lead_alias)
+  const src   = new URLSearchParams(location.search).get("src") || "direct";
+  const start = "lead_" + src;
+
+  // Ссылки
+  const tgUrl   = BOT_LINK  + "?start=" + encodeURIComponent(start);
+  const formUrl = FORM_LINK + (FORM_LINK.includes("?") ? "&" : "?") + "src=" + encodeURIComponent(start);
+
+  // Обновим кнопки на странице (если они у тебя есть)
+  const tgEl   = document.getElementById("tg");
+  const formEl = document.getElementById("form");
+  const noteEl = document.getElementById("note");
+  if (tgEl)   tgEl.href   = tgUrl;
+  if (formEl) formEl.href = formUrl;
+  if (noteEl) noteEl.textContent = "Источник: " + start;
+
+  // Универсальная пауза 3000–3500 мс
+  const MIN_DELAY = 3000;
+  const MAX_DELAY = 3500;
+  const DELAY_MS  = Math.floor(MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY));
+
+  // Надёжный «будильник»: отправляем несколько типов запросов, чтобы Replit точно проснулся
+  async function wake() {
+    const url = REPL_HEALTH + (REPL_HEALTH.includes("?") ? "&" : "?") + "ts=" + Date.now();
+
+    // 1) sendBeacon — уходит даже если вкладка сразу покинется
+    try { if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([])); } catch(e){}
+
+    // 2) fetch(keepalive) — продолжает запрос после навигации
+    try { await fetch(url, { method: "GET", mode: "no-cors", keepalive: true }); } catch(e){}
+
+    // 3) img-пинг — запасной канал без CORS
+    try { const i = new Image(); i.src = url; } catch(e){}
+  }
+
+  (async () => {
+    // Преподключение к домену Replit (ускоряет первый запрос TLS)
+    try {
+      const pre = document.createElement("link");
+      pre.rel = "preconnect";
+      pre.href = REPL_HEALTH.split("/").slice(0,3).join("/");
+      document.head.appendChild(pre);
+    } catch(e){}
+
+    // Запускаем будильник
+    wake();
+
+    // Сразу планируем резерв-форму: откроется в новой вкладке через DELAY_MS + 300 мс
+    setTimeout(() => { window.open(formUrl, "_blank", "noopener"); }, DELAY_MS + 300);
+
+    // Ждём 3.0–3.5 c, чтобы Replit гарантированно проснулся
+    await new Promise(r => setTimeout(r, DELAY_MS));
+
+    // Переходим в Telegram-бота (текущая вкладка)
+    location.href = tgUrl;
+  })();
+</script>
