@@ -1,0 +1,13 @@
+site_cta: https://t.me/DoAfterBot?start=lead__s=site__m=btn__c=cta
+vk_post: https://t.me/DoAfterBot?start=lead__s=vk__m=post__c=promo__o=cta
+tg_post: https://t.me/DoAfterBot?start=lead__s=tg__m=post__c=promo__o=cta
+boosty_bio: https://t.me/DoAfterBot?start=lead__s=boosty__m=profile__c=link__o=bio
+kwork_gig: https://t.me/DoAfterBot?start=lead__s=kwork__m=gig__c=main
+kwork_bid: https://t.me/DoAfterBot?start=lead__s=kwork__m=bid__c=fast
+youd_bid: https://t.me/DoAfterBot?start=lead__s=youd__m=bid__c=brief
+yula_listing_cards: https://t.me/DoAfterBot?start=lead__s=yula__m=listing__c=cards
+yula_listing_bot: https://t.me/DoAfterBot?start=lead__s=yula__m=listing__c=bot
+avito_listing_cards: https://t.me/DoAfterBot?start=lead__s=avito__m=listing__c=cards
+avito_listing_bot: https://t.me/DoAfterBot?start=lead__s=avito__m=listing__c=bot
+tg_channel_pin: https://t.me/DoAfterBot?start=lead__s=tg__m=channel__c=pin
+vk_cpc_ads1: https://t.me/DoAfterBot?start=lead__s=vk__m=cpc__c=ads1
