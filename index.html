@@ -1,1 +1,378 @@
+<!-- NoirCard — Универсальный сайт 2.2 (Package B + start + sticky, fixed) -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoirCard — Универсальный сайт 2.0</title>
 
+  <meta name="description" content="NoirCard — аккуратное AI-оформление без цирка: до/после и карточки для WB/Ozon, обложки, баннеры, PDF-прайсы и видео-аватар." />
+  <meta property="og:title" content="NoirCard — аккуратное AI-оформление без цирка" />
+  <meta property="og:description" content="До/после и карточки для WB/Ozon + другие форматы в едином стиле. Галерея, прайс в PDF, заявка в один клик." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ildar937.github.io/my-site/" />
+  <meta property="og:image" content="https://ildar937.github.io/my-site/images/after1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0B0F2A" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root { --bg1:#0B0F2A; --bg2:#1A1A40; --gold:#F6D365; --violet:#A18CFD; }
+    html,body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:0; padding:0; }
+    .gradient-bg {
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(161,140,253,.25), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(246,211,101,.2), transparent 60%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .gold { color: var(--gold); }
+
+    .ba { position: relative; overflow: hidden; border-radius: 1rem; }
+    .ba img {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+    }
+    .ba .ba-before { clip-path: inset(0 50% 0 0); transition: clip-path .08s linear; }
+    .ba .ba-range {
+      position:absolute;
+      left:0; right:0; bottom:.75rem;
+      width:95%; margin:0 auto;
+    }
+
+    .table th, .table td {
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:.6rem .8rem;
+    }
+
+    /* ===== Theme: light overrides ===== */
+    body.theme-light { color:#0B0F2A; }
+    body.theme-light .gradient-bg{
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(26,26,64,.12), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(11,15,42,.08), transparent 60%),
+        linear-gradient(135deg,#F6F7FB,#EDEFF6);
+    }
+    body.theme-light .glass{
+      background:rgba(0,0,0,.04);
+      border:1px solid rgba(0,0,0,.08);
+    }
+    body.theme-light .text-white{ color:#0B0F2A !important; }
+    body.theme-light .opacity-80{ opacity:1 !important; color:rgba(0,0,0,.65) !important; }
+    body.theme-light .border-white\/10{ border-color:rgba(0,0,0,.08) !important; }
+    body.theme-light .bg-white\/10{ background:rgba(0,0,0,.06) !important; }
+    body.theme-light .hover\:bg-white\/20:hover{ background:rgba(0,0,0,.08) !important; }
+    body.theme-light .text-black{ color:#0B0F2A !important; }
+
+    /* ===== Cases / Testimonials / FAQ ===== */
+    .stat{display:flex;gap:.6rem;align-items:center}
+    .stat .num{font-weight:800;font-size:1.6rem;line-height:1}
+    .stat .tag{font-size:.8rem;opacity:.75}
+    .testi{display:flex;gap:1rem}
+    .testi img{width:48px;height:48px;border-radius:9999px;object-fit:cover}
+    details.faq{border:1px solid rgba(255,255,255,.12);border-radius:1rem;padding:1rem}
+    body.theme-light details.faq{border-color:rgba(0,0,0,.12)}
+    details.faq summary{cursor:pointer;font-weight:700}
+  </style>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="gradient-bg text-white">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-[#0B0F2A]/70 backdrop-blur border-b border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#F6D365] to-[#A18CFD]"></div>
+        <span class="font-extrabold tracking-tight text-lg">NoirCard — Универсальный сайт 2.0</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#gallery" class="opacity-80 hover:opacity-100">До/после</a>
+        <a href="#services" class="opacity-80 hover:opacity-100">Услуги</a>
+        <a href="#price" class="opacity-80 hover:opacity-100">Прайс</a>
+        <a href="#cases" class="opacity-80 hover:opacity-100">Кейсы</a>
+        <a href="#faq" class="opacity-80 hover:opacity-100">FAQ</a>
+        <a href="#lead" class="opacity-80 hover:opacity-100">Заявка</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="btn-theme" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-sm">Светлая</button>
+        <button id="btn-download-pdf" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-sm">Скачать прайс (PDF)</button>
+
+        <!-- КНОПКА В ШАПКЕ — ЧЕРЕЗ МОСТ -->
+        <a href="https://ildar937.github.io/my-site/go/tg.html?utm_source=site&utm_medium=header&utm_campaign=main&utm_content=telegram"
+           target="_blank" rel="noopener"
+           class="px-3 py-2 rounded-xl bg-gradient-to-tr from-[#F6D365] to-[#A18CFD] text-black font-semibold">
+          Telegram
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (обновлённый) -->
+  <section class="mx-auto max-w-7xl px-4 pt-12 pb-6">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+          NoirCard — аккуратное AI-оформление без цирка
+        </h1>
+        <p class="mt-2 text-2xl md:text-3xl font-extrabold gold">
+          До/после и карточки для WB/Ozon
+        </p>
+        <p class="mt-2 text-white/80">
+          Плюс обложки, баннеры, PDF-прайсы и видео-аватар — всё в одном стиле.
+        </p>
+
+        <p class="mt-4 text-white/80">
+          Можно начать с одного тестового товара или одного ключевого формата. Если заходит — масштабируем линейку.
+        </p>
+        <p class="mt-1 text-white/60 text-sm">
+          Без кислотных градиентов и визуального шума — только чистый, читаемый продающий визуал.
+        </p>
+
+        <div class="mt-6 flex gap-3">
+          <!-- ГЛАВНЫЙ CTA — ЧЕРЕЗ МОСТ -->
+          <a href="https://ildar937.github.io/my-site/go/tg.html?utm_source=site&utm_medium=cta&utm_campaign=main&utm_content=hero"
+             target="_blank" rel="noopener"
+             class="px-4 py-2 rounded-xl glass hover:bg-white/10">
+            Telegram
+          </a>
+          <a href="#price"
+             class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15">
+            Прайс
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-3">
+        <div id="hero-ba" class="ba aspect-square"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Галерея «до/после»</h2>
+    <div id="ba-grid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Услуги</h2>
+    <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass rounded-2xl p-5">
+        <h3 class="font-bold">Карточки для маркетплейсов</h3>
+        <p class="text-white/75 mt-2 text-sm">WB, Ozon, Я.Маркет.</p>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <h3 class="font-bold">AI-обложки и баннеры</h3>
+        <p class="text-white/75 mt-2 text-sm">Обложки для курсов, соцсетей.</p>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <h3 class="font-bold">Рерайт + промт-инжиниринг</h3>
+        <p class="text-white/75 mt-2 text-sm">Улучшаем тексты и промты под задачи.</p>
+      </div>
+      <div class="glass rounded-2xl p-5">
+        <h3 class="font-bold">Видео с цифровым аватаром</h3>
+        <p class="text-white/75 mt-2 text-sm">Пакеты Lite / Pro / Max.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section id="price" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Прайс</h2>
+    <div id="price-card" class="mt-6 glass rounded-2xl p-4">
+      <table class="w-full table">
+        <thead>
+          <tr>
+            <th class="text-left">Пакет</th>
+            <th>Состав</th>
+            <th>Срок</th>
+            <th>Цена</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-bold">Lite</td>
+            <td>1 карточка/обложка + 1 раунд правок</td>
+            <td>≤ 24 ч</td>
+            <td class="font-bold">4 990 ₽</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Pro</td>
+            <td>5 карточек/обложек + текст + исходники</td>
+            <td>2–3 дня</td>
+            <td class="font-bold">14 900 ₽</td>
+          </tr>
+          <tr>
+            <td class="font-bold">Max</td>
+            <td>10 карточек/обложек + тексты + шаблоны</td>
+            <td>3–5 дней</td>
+            <td class="font-bold">29 900 ₽</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-4">
+        <button id="btn-download-pdf-2"
+                class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-sm">
+          Скачать этот блок (PDF)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Кейсы с цифрами</h2>
+    <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass rounded-2xl p-5 stat">
+        <div class="num gold">+1.8×</div>
+        <div>
+          <div class="font-bold">CTR карточек</div>
+          <div class="tag">по результатам A/B-тестов</div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5 stat">
+        <div class="num gold">+27%</div>
+        <div>
+          <div class="font-bold">Конверсия</div>
+          <div class="tag">после унификации стиля</div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5 stat">
+        <div class="num gold">≤24ч</div>
+        <div>
+          <div class="font-bold">Срок демо</div>
+          <div class="tag">первый результат</div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5 stat">
+        <div class="num gold">40%</div>
+        <div>
+          <div class="font-bold">Повторные заказы</div>
+          <div class="tag">по итогам месяца</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Отзывы</h2>
+    <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-5 testi">
+        <img src="images/after3.jpg" alt="">
+        <div>
+          <div class="font-bold">Маркетплейс (аксессуары)</div>
+          <div class="text-sm opacity-80 mt-1">«Карточки стали живыми, CTR вырос, новая серия победила в A/B-тесте»</div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5 testi">
+        <img src="images/after6.jpg" alt="">
+        <div>
+          <div class="font-bold">Инфопродукт</div>
+          <div class="text-sm opacity-80 mt-1">«Обновили обложки и PDF — заявки пошли сразу, удобно показывать клиентам»</div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-5 testi">
+        <img src="images/after1.jpg" alt="">
+        <div>
+          <div class="font-bold">Гаджеты</div>
+          <div class="text-sm opacity-80 mt-1">«Единый стиль без шума. Вернулись с новой партией товаров»</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">FAQ</h2>
+    <div class="mt-6 grid md:grid-cols-2 gap-6">
+      <details class="faq">
+        <summary>Какие форматы отдаёте?</summary>
+        <div class="mt-2 opacity-80 text-sm">JPG/PNG для площадок, исходники по пакету (Canva/PSD), PDF-прайс.</div>
+      </details>
+      <details class="faq">
+        <summary>Дедлайн и правки?</summary>
+        <div class="mt-2 opacity-80 text-sm">Демо ≤24 ч. Правки — 1/2/3 раунда для Lite/Pro/Max.</div>
+      </details>
+      <details class="faq">
+        <summary>Можно ли добавить тексты/скрипты?</summary>
+        <div class="mt-2 opacity-80 text-sm">Да. Рерайт, промт-пакеты, сценарии Reels, UI-шаблоны.</div>
+      </details>
+      <details class="faq">
+        <summary>Как считаете результат?</summary>
+        <div class="mt-2 opacity-80 text-sm">Смотрим CTR, конверсию, повторные заявки. Помогаем с A/B-тестом.</div>
+      </details>
+      <details class="faq">
+        <summary>Работаете с видео-аватаром?</summary>
+        <div class="mt-2 opacity-80 text-sm">Да. Пакеты Lite/Pro/Max, вертикаль 9:16 и квадрат 1:1.</div>
+      </details>
+      <details class="faq">
+        <summary>Оплата и гарантии?</summary>
+        <div class="mt-2 opacity-80 text-sm">Поэтапно: бриф → превью → оплата → финал. Без сюрпризов.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- LEAD -->
+  <section id="lead" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold">Заявка (prefill из URL)</h2>
+    <form id="lead-form" class="mt-6 grid md:grid-cols-2 gap-4 glass rounded-2xl p-4">
+      <div>
+        <label class="block text-sm opacity-80 mb-1">Имя</label>
+        <input name="name" class="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/15" placeholder="Ваше имя" required>
+      </div>
+      <div>
+        <label class="block text-sm opacity-80 mb-1">Телефон</label>
+        <input name="phone" class="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/15" placeholder="7903…">
+      </div>
+      <div>
+        <label class="block text-sm opacity-80 mb-1">Telegram</label>
+        <input name="tg" class="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/15" placeholder="@username">
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm opacity-80 mb-1">Комментарий</label>
+        <textarea name="comment" rows="4" class="w-full px-3 py-2 rounded-xl bg-white/10 border border-white/15" placeholder="Кратко о задаче…"></textarea>
+      </div>
+      <div class="md:col-span-2 flex gap-3">
+        <button type="submit"
+                class="px-4 py-2 rounded-xl bg-gradient-to-tr from-[#F6D365] to-[#A18CFD] text-black font-semibold">
+          Отправить
+        </button>
+        <a id="btn-google-prefill"
+           class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15"
+           target="_blank" rel="noopener noreferrer">
+          Открыть Google-форму (prefill)
+        </a>
+      </div>
+    </form>
+  </section>
+
+  <!-- Sticky CTA (мобилка) -->
+  <a id="noircard-sticky"
+     href="https://ildar937.github.io/my-site/go/tg.html?utm_source=site&utm_medium=sticky&utm_campaign=main&utm_content=mobile"
+     target="_blank" rel="noopener"
+     class="md:hidden fixed bottom-4 left-4 right-4 z-50
+            px-4 py-3 rounded-2xl text-center font-semibold
+            bg-gradient-to-tr from-[#F6D365] to-[#A18CFD] text-black
+            shadow-lg shadow-black/30">
+    Оставить заявку в Telegram
+  </a>
+
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-8 text-sm text-white/70">
+      © NoirCard Studio.
+    </div>
+  </footer>
+
+<script>
+// ======
