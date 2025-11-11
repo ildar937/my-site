@@ -1,1 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoirCard — визуал «до/после» под ключ</title>
+  <meta name="description" content="NoirCard Studio — аккуратный продающий визуал «до/после» для маркетплейсов, экспертов и офлайн-бизнеса. Карточки WB/OZON, обложки, меню, баннеры. Заявка за 20 секунд." />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="NoirCard — визуал «до/после» под ключ" />
+  <meta property="og:description" content="Карточки, обложки, меню и баннеры в одном стиле. Галерея кейсов и быстрая заявка через форму." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ildar937.github.io/my-site/" />
+  <meta property="og:image" content="https://ildar937.github.io/my-site/images/after1.jpg" />
+  <meta name="theme-color" content="#0B0F2A" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg1:#0B0F2A;
+      --bg2:#151735;
+      --gold:#F6D365;
+      --violet:#A18CFD;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Inter, system-ui, -apple-system, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body.gradient-bg {
+      background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(161,140,253,0.22), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(246,211,101,0.16), transparent 60%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fff;
+    }
+    .glass {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(14px);
+    }
+    .ba {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.25rem;
+    }
+    .ba img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ba .ba-before {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path .08s linear;
+    }
+    .ba input[type="range"] {
+      position: absolute;
+      left: 50%;
+      bottom: 0.9rem;
+      transform: translateX(-50%);
+      width: 92%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+    }
+    .ba input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: #F6D365;
+      border: 2px solid #111827;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.35);
+    }
+    .stat {
+      display:flex;
+      gap:.6rem;
+      align-items:flex-start;
+    }
+    .stat .num {
+      font-weight:800;
+      font-size:1.6rem;
+      line-height:1;
+      color: var(--gold);
+    }
+    .stat .tag {
+      font-size:.8rem;
+      opacity:.78;
+    }
+    details.faq {
+      border-radius: 1.25rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.14);
+    }
+    details.faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+    }
+    details.faq summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="gradient-bg">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-[#050816]/80 backdrop-blur">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[var(--gold)] to-[var(--violet)]"></div>
+        <div class="flex flex-col leading-tight">
+          <span class="font-extrabold text-sm md:text-base">NoirCard Studio</span>
+          <span class="text-[10px] md:text-[11px] text-white/60">визуал «до/после» под ключ</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-5 text-sm text-white/70">
+        <a href="#gallery" class="hover:text-white">До/после</a>
+        <a href="#services" class="hover:text-white">Услуги</a>
+        <a href="#price" class="hover:text-white">Прайс</a>
+        <a href="#cases" class="hover:text-white">Кейсы</a>
+        <a href="#faq" class="hover:text-white">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="https://forms.gle/sdYtLmTePpkc5g516"
+           class="hidden sm:inline-block px-4 py-2 rounded-2xl bg-white text-black text-xs md:text-sm font-semibold hover:bg-[var(--gold)] transition">
+          📝 Заявка (20 сек)
+        </a>
+        <a href="https://t.me/DoAfterBot"
+           class="px-3 py-2 rounded-2xl glass text-[10px] md:text-xs text-white/80 hover:bg-white/10">
+          @DoAfterBot
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="max-w-6xl mx-auto px-4">
+
+    <!-- HERO -->
+    <section class="pt-10 md:pt-14 pb-10 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+          Визуал «до/после», который не стыдно показывать.
+        </h1>
+        <p class="mt-3 text-lg md:text-2xl font-semibold text-[var(--gold)]">
+          Маркетплейсы, эксперты, офлайн-бизнес.
+        </p>
+        <p class="mt-3 text-sm md:text-base text-white/80">
+          Собираю аккуратные карточки WB/OZON/Я.Маркет, обложки каналов и курсов, меню, прайсы и баннеры —
+          в одном стиле, с понятной структурой и сроками от 12–24 часов.
+        </p>
+        <p class="mt-2 text-xs md:text-sm text-white/60">
+          Без кислотных градиентов и генераторов ради генераторов. Только читаемый, чистый, продающий визуал.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href="https://forms.gle/sdYtLmTePpkc5g516"
+             class="px-5 py-2.5 rounded-2xl bg-white text-black font-semibold text-sm hover:bg-[var(--gold)] transition">
+            📝 Оставить заявку (20 сек)
+          </a>
+          <a href="https://t.me/NoirCard"
+             class="text-xs md:text-sm text-white/70 hover:text-white">
+            Смотреть кейсы в Telegram-канале →
+          </a>
+        </div>
+      </div>
+
+      <div class="glass rounded-3xl p-3">
+        <div id="hero-ba" class="ba aspect-square bg-black/40 rounded-2xl overflow-hidden"></div>
+        <p class="mt-2 text-[10px] text-white/60 text-center">
+          Сдвиньте ползунок: слева «до», справа «после».
+        </p>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-8">
+      <div class="flex items-baseline justify-between gap-4">
+        <h2 class="text-2xl md:text-3xl font-extrabold">Галерея «до/после»</h2>
+        <span class="text-[10px] md:text-xs text-white/60">
+          Ещё примеры — в @NoirCard
+        </span>
+      </div>
+      <div id="ba-grid" class="mt-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      <div class="mt-4 text-xs text-white/70">
+        Нужен такой же результат под ваш товар или проект? →
+        <a href="https://forms.gle/sdYtLmTePpkc5g516" class="underline underline-offset-2 hover:text-[var(--gold)]">
+          оставьте заявку
+        </a>.
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-5">Что могу закрыть</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 text-sm">
+        <div class="glass rounded-2xl p-4">
+          <h3 class="font-bold mb-1">Карточки для маркетплейсов</h3>
+          <p class="text-white/75">WB, Ozon, Я.Маркет. Галерея + инфографика, сет из 5–10 визуалов.</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <h3 class="font-bold mb-1">Обложки и баннеры</h3>
+          <p class="text-white/75">Каналы, курсы, лендинги, обложки видео. Единый читаемый стиль.</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <h3 class="font-bold mb-1">Меню, прайсы, офлайн-точки</h3>
+          <p class="text-white/75">Кофейни, салоны, студии. Понятные прайсы и вывески без визуального мусора.</p>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <h3 class="font-bold mb-1">Комплекты под ключ</h3>
+          <p class="text-white/75">Подбираю пакет под нишу: от тестового набора до полного брендинга.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICE -->
+    <section id="price" class="py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-5">Ориентиры по пакетам</h2>
+      <div class="glass rounded-2xl p-4 overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead class="text-white/70">
+          <tr class="border-b border-white/10">
+            <th class="text-left py-2 px-2 font-semibold">Пакет</th>
+            <th class="text-left py-2 px-2 font-semibold">Состав</th>
+            <th class="py-2 px-2 font-semibold">Срок</th>
+            <th class="py-2 px-2 font-semibold">Цена</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="border-b border-white/5">
+            <td class="py-2 px-2 font-semibold">Lite</td>
+            <td class="py-2 px-2">1 карточка/обложка + 1 раунд правок</td>
+            <td class="py-2 px-2 text-center">≤24 ч</td>
+            <td class="py-2 px-2 font-semibold">4 990 ₽</td>
+          </tr>
+          <tr class="border-b border-white/5">
+            <td class="py-2 px-2 font-semibold">Pro</td>
+            <td class="py-2 px-2">5 визуалов + текст/структура + исходники</td>
+            <td class="py-2 px-2 text-center">2–3 дня</td>
+            <td class="py-2 px-2 font-semibold">14 900 ₽</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-2 font-semibold">Max</td>
+            <td class="py-2 px-2">10 визуалов + тексты + шаблоны под линейку</td>
+            <td class="py-2 px-2 text-center">3–5 дней</td>
+            <td class="py-2 px-2 font-semibold">29 900 ₽</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-xs text-white/70">
+        Точные условия считаем под вашу задачу. Оставьте заявку —
+        пришлю конкретный пакет, состав и срок.
+      </p>
+      <a href="https://forms.gle/sdYtLmTePpkc5g516"
+         class="inline-block mt-4 px-5 py-2.5 rounded-2xl bg-white text-black text-sm font-semibold hover:bg-[var(--gold)] transition">
+        📝 Оставить заявку по пакетам
+      </a>
+    </section>
+
+    <!-- CASES / STATS -->
+    <section id="cases" class="py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-5">Коротко по результатам</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 text-sm">
+        <div class="glass rounded-2xl p-4 stat">
+          <div class="num">+1.8×</div>
+          <div>
+            <div class="font-semibold">CTR карточек</div>
+            <div class="tag">по сравнению «до/после» в тестах</div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-4 stat">
+          <div class="num">+27%</div>
+          <div>
+            <div class="font-semibold">Конверсия</div>
+            <div class="tag">после приведения визуала к одному стилю</div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-4 stat">
+          <div class="num">≤24ч</div>
+          <div>
+            <div class="font-semibold">Первый результат</div>
+            <div class="tag">по тестовому товару/формату</div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-4 stat">
+          <div class="num">40%</div>
+          <div>
+            <div class="font-semibold">Повторные заказы</div>
+            <div class="tag">по итогам работы с постоянными</div>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4 text-xs text-white/70">
+        Хотите проверить на своём товаре или проекте —
+        <a href="https://forms.gle/sdYtLmTePpkc5g516" class="underline underline-offset-2 hover:text-[var(--gold)]">оставьте заявку</a>.
+      </p>
+    </section>
+
+    <!-- TESTIMONIALS (упрощённые, как витрина доверия) -->
+    <section class="py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-5">Несколько отзывов</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 text-sm">
+        <div class="glass rounded-2xl p-4">
+          <div class="font-semibold mb-1">Маркетплейс · аксессуары</div>
+          <div class="text-white/75 text-xs">
+            «Карточки стали читаться с первого экрана, CTR по тесту вырос. Работаем дальше по линейке».
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <div class="font-semibold mb-1">Онлайн-курс</div>
+          <div class="text-white/75 text-xs">
+            «Обновили обложки и лендинговые блоки. Визуал стал собранным, проще вести трафик».
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <div class="font-semibold mb-1">Кофейня</div>
+          <div class="text-white/75 text-xs">
+            «Нормальный прайс и постеры вместо скриншотов из заметок. Люди реально читают меню».
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold mb-5">FAQ</h2>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <details class="faq">
+          <summary>Как проходит работа?</summary>
+          <div class="mt-2 text-white/75 text-xs">
+            Кратко фиксируем задачу, выбираем пакет, вы присылаете материалы — я собираю визуал и показываю превью.
+          </div>
+        </details>
+        <details class="faq">
+          <summary>Можно ли начать с одного товара/формата?</summary>
+          <div class="mt-2 text-white/75 text-xs">
+            Да. Lite — старт на одном товаре или одной обложке. Если результат заходит, масштабируем.
+          </div>
+        </details>
+        <details class="faq">
+          <summary>Что отдаёте на выходе?</summary>
+          <div class="mt-2 text-white/75 text-xs">
+            JPG/PNG под нужные площадки, по договорённости исходники/шаблоны.
+          </div>
+        </details>
+        <details class="faq">
+          <summary>Оплата и гарантии?</summary>
+          <div class="mt-2 text-white/75 text-xs">
+            Работаю поэтапно. Чёткие сроки и понятное ТЗ, без скрытых допов.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- LEAD: один CTA -->
+    <section id="lead" class="py-10">
+      <div class="glass rounded-3xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-xl md:text-2xl font-extrabold mb-1">Готовы обсудить задачу?</h2>
+          <p class="text-sm text-white/80">
+            Оставьте заявку в форме. 20 секунд: контакт, ссылка на товар/проект и кратко задача.
+            Отвечу лично, предложу конкретный пакет и срок.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-2">
+          <a href="https://forms.gle/sdYtLmTePpkc5g516"
+             class="px-5 py-2.5 rounded-2xl bg-white text-black text-sm font-semibold hover:bg-[var(--gold)] transition">
+            📝 Заявка (20 сек)
+          </a>
+          <a href="https://t.me/DoAfterBot" class="text-[10px] text-white/70 hover:text-[var(--gold)]">
+            или написать через бота @DoAfterBot
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE STICKY CTA -->
+  <a href="https://forms.gle/sdYtLmTePpkc5g516"
+     class="fixed bottom-4 left-4 right-4 z-40 md:hidden px-4 py-3 rounded-2xl bg-white text-black text-sm font-semibold text-center shadow-xl shadow-black/40">
+    📝 Оставить заявку (20 сек)
+  </a>
+
+  <footer class="mt-6 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-5 text-[10px] text-white/60 flex flex-wrap items-center justify-between gap-2">
+      <span>© NoirCard Studio.</span>
+      <span>Кейсы и разборы: <a href="https://t.me/NoirCard" class="underline underline-offset-2 hover:text-[var(--gold)]">@NoirCard</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Конфиг "до/после" — подставь свои реальные картинки
+    const FORM_URL = "https://forms.gle/sdYtLmTePpkc5g516";
+    const BEFORE_AFTER = [
+      ["images/before1.jpg","images/after1.jpg"],
+      ["images/before2.jpg","images/after2.jpg"],
+      ["images/before3.jpg","images/after3.jpg"],
+      ["images/before4.jpg","images/after4.jpg"],
+      ["images/before5.jpg","images/after5.jpg"],
+      ["images/before6.jpg","images/after6.jpg"],
+    ];
+
+    function setClip(wrapper, value) {
+      const before = wrapper.querySelector(".ba-before");
+      const pct = Math.max(0, Math.min(100, value));
+      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Hero before/after
+      const hero = document.getElementById("hero-ba");
+      if (hero && BEFORE_AFTER[0]) {
+        const [b,a] = BEFORE_AFTER[0];
+        hero.innerHTML = `
+          <img src="${a}" class="ba-after" loading="lazy" alt="После">
+          <img src="${b}" class="ba-before" loading="lazy" alt="До">
+          <input type="range" min="0" max="100" value="50" />
+        `;
+        const range = hero.querySelector("input[type=range]");
+        range.addEventListener("input", e => setClip(hero, e.target.value));
+        setClip(hero, 50);
+      }
+
+      // Grid before/after
+      const grid = document.getElementById("ba-grid");
+      if (grid) {
+        BEFORE_AFTER.slice(1).forEach(pair => {
+          const [b,a] = pair;
+          const wrap = document.createElement("div");
+          wrap.className = "ba aspect-square glass";
+          wrap.innerHTML = `
+            <img src="${a}" class="ba-after" loading="lazy" alt="После">
+            <img src="${b}" class="ba-before" loading="lazy" alt="До">
+            <input type="range" min="0" max="100" value="50" />
+          `;
+          const r = wrap.querySelector("input[type=range]");
+          r.addEventListener("input", e => setClip(wrap, e.target.value));
+          setClip(wrap, 50);
+          grid.appendChild(wrap);
+        });
+      }
+
+      // На всякий: если FORM_URL поменяешь — одна точка правки выше
+      document.querySelectorAll("a[href='" + FORM_URL + "']").forEach(a => {
+        a.setAttribute("rel","noopener");
+        a.setAttribute("target","_blank");
+      });
+    });
+  </script>
+</body>
+</html>
